@@ -1,14 +1,13 @@
-﻿using ARS_ProjectSystem.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ARS_ProjectSystem.Controllers
+﻿namespace ARS_ProjectSystem.Controllers
 {
+    using ARS_ProjectSystem.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Threading.Tasks;
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

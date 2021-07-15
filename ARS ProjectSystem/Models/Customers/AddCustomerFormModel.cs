@@ -12,9 +12,12 @@
         [Required]
         public string VAT { get; init; }
         public string OwnerName { get; init; }
+        [Phone]
         public string PhoneNumber { get; init; }
         [Required]
+        [EmailAddress]
         public string Email { get; init; }
+        [Url]
         public string Url { get; set; }
         [Required]
         public string Address { get; init; }

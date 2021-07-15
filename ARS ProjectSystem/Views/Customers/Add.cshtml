@@ -2,90 +2,62 @@
 @{ 
     ViewData["Title"] = "Add Custommer";
 }
-<div class="container">
-    <div class="row">
-        <div class="col-6 offset-2">
-            <h2 class="heading-margin text-center">Add new Customer</h2>
-            <form method="post">
-                <div class="form-group">
-                    <label asp-for="Name">Name</label>
-                    <input asp-for="Name" class="form-control" placeholder="The Firm name">
-                    <span asp-validation-for="Name" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="RegistrationNumber">Registration Number</label>
-                    <input asp-for="RegistrationNumber" class="form-control" placeholder="The Firm registration date ">
-                    <span asp-validation-for="RegistrationNumber" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="VAT">VAT</label>
-                    <input asp-for="VAT" class="form-control" placeholder="The Firm VAT">
-                    <span asp-validation-for="VAT" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="OwnerName">Owner</label>
-                    <input asp-for="OwnerName" class="form-control" placeholder="The Firm Owner Name">
-                    <span asp-validation-for="OwnerName" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PhoneNumber">Phone Number</label>
-                    <input asp-for="PhoneNumber" class="form-control" placeholder="The PhoneNumber of the firm/owner">
-                    <span asp-validation-for="PhoneNumber" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Email">Email</label>
-                    <input asp-for="Email" class="form-control" placeholder="The Email for the correcpondency">
-                    <span asp-validation-for="Email" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Url">Url</label>
-                    <input asp-for="Url" class="form-control" placeholder="The Firm Web">
-                    <span asp-validation-for="Url" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Address">Address</label>
-                    <input asp-for="Address" class="form-control" placeholder="The Firm Address">
-                    <span asp-validation-for="Address" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Town">Town</label>
-                    <input asp-for="Town" class="form-control" placeholder="Town">
-                    <span asp-validation-for="Town" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Country">Country</label>
-                    <input asp-for="Country" class="form-control" placeholder="Country">
-                    <span asp-validation-for="Country" class="small text-danger"></span>
-                </div>
 
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Example select</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlSelect2">Example multiple select</label>
-                    <select multiple class="form-control" id="exampleFormControlSelect2">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Example textarea</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-                <input class="btn btn-primary" type="submit" value="Save" />
-            </form>
-            
+<div class="col-6 offset-3">
+    <h2 class="heading-margin text-center">Add new Customer</h2>
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Name">Name</label>
+            <input asp-for="Name" class="form-control" placeholder="The Firm name">
+            <span asp-validation-for="Name" class="small text-danger"></span>
         </div>
-    </div>
+        <div class="form-group">
+            <label asp-for="RegistrationNumber">Registration Number</label>
+            <input asp-for="RegistrationNumber" class="form-control" placeholder="The Firm registration date ">
+            <span asp-validation-for="RegistrationNumber" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="VAT">VAT</label>
+            <input asp-for="VAT" class="form-control" placeholder="The Firm VAT">
+            <span asp-validation-for="VAT" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="OwnerName">Owner</label>
+            <input asp-for="OwnerName" class="form-control" placeholder="The Firm Owner Name">
+            <span asp-validation-for="OwnerName" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PhoneNumber">Phone Number</label>
+            <input asp-for="PhoneNumber" class="form-control" placeholder="The PhoneNumber of the firm/owner">
+            <span asp-validation-for="PhoneNumber" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email">Email</label>
+            <input asp-for="Email" class="form-control" placeholder="The Email for the correcpondency">
+            <span asp-validation-for="Email" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Url">Url</label>
+            <input asp-for="Url" class="form-control" placeholder="The Firm Web">
+            <span asp-validation-for="Url" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Address">Address</label>
+            <input asp-for="Address" class="form-control" placeholder="The Firm Address">
+            <span asp-validation-for="Address" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Town">Town</label>
+            <input asp-for="Town" class="form-control" placeholder="Town">
+            <span asp-validation-for="Town" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Country">Country</label>
+            <input asp-for="Country" class="form-control" placeholder="Country">
+            <span asp-validation-for="Country" class="small text-danger"></span>
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="Save" />
+    </form>
 </div>
 

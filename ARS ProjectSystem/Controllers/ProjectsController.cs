@@ -38,7 +38,11 @@
                 ProjectSorting.Status=>projectQuery.OrderByDescending(p=>p.Status),
                 _=>projectQuery.OrderBy(p=>p.Name)
             };
+            var totalProjects = projectQuery.Count();
+
             var projects = projectQuery
+                .Skip((query.CurrentPage-1)*AllProjectsQueryModel.ProjectsPerPage)
+                .Take(AllProjectsQueryModel.ProjectsPerPage)
                 .Select(p => new ProjectsListingViewModel
                 {
                     Id = p.Id,
@@ -58,8 +62,11 @@
                 .Distinct()
                 .OrderBy(p => p)
                 .ToList();
+
+            query.TotalProjects = totalProjects;
             query.Projects = projects;
             query.Programms = projectProgramms;
+
             return View(query);
         }
         [HttpPost]

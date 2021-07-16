@@ -4,7 +4,7 @@
 }
 
 <form method="get">
-    <div class="row">
+    <div class="row mb-5">
         <div class="form-group col-md-3">
             <div class="form-group">
                 <label asp-for="Programm"></label>
@@ -35,9 +35,6 @@
      </div>
 </form>
 
-<div>    
-    <h2 class="heading-margin text-center">All Projects</h2>
-</div>
 <div class="row">
     @foreach (var project in Model.Projects)
     {
@@ -54,7 +51,36 @@
         </div>
     }
 </div>
-<a asp-controller="Projects" asp-action="Add" class="btn btn-primary btn-sm">Add new Project</a>
+@{ 
+    var previousPage = Model.CurrentPage - 1;
+    if(previousPage<1)
+    {
+        previousPage = 1;
+    }
+    var maxPage = Math.Ceiling((double)Model.TotalProjects / AllProjectsQueryModel.ProjectsPerPage);
+
+}
+<div class="row mb-5">
+    <div class="col-md-6" >
+        <a class="btn btn-primary @(Model.CurrentPage==1?"disabled": string.Empty)"
+           asp-controller="Projects" 
+           asp-action="All" 
+           asp-route-currentPage="@(Model.CurrentPage-1)"
+           asp-route-programm="@Model.Programm"
+           asp-route-searchTerm="@Model.SearchTerm"
+           asp-route-sorting="@((int)Model.Sorting)"><<</a>
+    </div>
+    <div class="col-md-6">
+        <a class="btn btn-primary float-right @(Model.CurrentPage==maxPage?"disabled":string.Empty)"
+           asp-controller="Projects" 
+           asp-action="All" 
+           asp-route-currentPage="@(Model.CurrentPage+1)"
+           asp-route-programm="@Model.Programm"
+           asp-route-searchTerm="@Model.SearchTerm"
+           asp-route-sorting="@((int)Model.Sorting)">>></a>
+    </div>
+</div>
+<a asp-controller="Projects" asp-action="Add" class="btn btn-primary">Add new Project</a>
 
 
 

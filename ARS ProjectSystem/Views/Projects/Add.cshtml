@@ -1,0 +1,65 @@
+﻿@model AddProjectFormModel
+@{
+    ViewData["Title"] = "Add Project";
+}
+
+<div class="col-6 offset-3">
+    <h2 class="heading-margin text-center">Add new Project</h2>
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Name">Name</label>
+            <input asp-for="Name" class="form-control" placeholder="Project Name">
+            <span asp-validation-for="Name" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProjectPhoto">Project Photo</label>
+            <input asp-for="ProjectPhoto" class="form-control" placeholder="Photo link">
+            <span asp-validation-for="ProjectPhoto" class="small text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="ProgrammId">Programm</label>
+            <select asp-for="ProgrammId" class="form-control">
+                @foreach (var programm in Model.Programms)
+                {
+                    <option value="@programm.Id">@programm.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProposalId">ProposalId</label>
+            <select asp-for="ProposalId" class="form-control">
+                @foreach (var proposal in Model.Proposals)
+                {
+                    <option value="@proposal.Id">@proposal.Name</option>
+                }
+            </select>
+        </div>
+        
+
+        <div class="form-group">
+            <label asp-for="Status">Status</label>
+            <input asp-for="Status" class="form-control" placeholder="Status">
+            <span asp-validation-for="Status" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="StartDate">StartDate</label>
+            <input asp-for="StartDate" class="form-control" placeholder="dd/MM/yyyy">
+            <span asp-validation-for="StartDate" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="EndDate">EndDate</label>
+            <input asp-for="EndDate" class="form-control" placeholder="dd/MM/yyyy">
+            <span asp-validation-for="EndDate" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProjectRate">ProjectRate</label>
+            <input asp-for="ProjectRate" class="form-control" placeholder="Win fee">
+            <span asp-validation-for="ProjectRate" class="small text-danger"></span>
+        </div>
+
+
+        <input class="btn btn-primary" type="submit" value="Save" />
+    </form>
+</div>
+

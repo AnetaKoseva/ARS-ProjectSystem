@@ -1,0 +1,57 @@
+﻿@model ARS_ProjectSystem.Models.Projects.AllProjectsQueryModel
+@{
+    ViewData["Title"] = "All Projects";
+}
+
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-3">
+            <label asp-for="SearchTerm">SearchBy</label>
+            <input asp-for="SearchTerm" class="form-control" placeholder="Please select">
+        </div>
+        <div class="form-group col-md-3">
+            <input type="submit" class="btn btn-primary btn-sm" value="Search">
+        </div>
+        <div class="form-group col-md-3">
+            <div class="form-droup">
+                <label asp-for="Sorting"></label>
+                <select asp-for="Sorting" class="form-control">
+                    <option value="0" selected>Name</option>
+                    <option value="1">Programm</option>
+                    <option value="2">Status</option>
+                </select>
+            </div>
+
+        </div>
+
+        </div>
+        <div class="form-group col-md-3">
+
+        </div>
+
+    </div>
+</form>
+
+<div>    
+    <h2 class="heading-margin text-center">All Projects</h2>
+</div>
+<div class="row">
+    @foreach (var project in Model.Projects)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img class="card-img-top" src="@project.ProjectPhoto" alt="@project.Name">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-center">@project.Name</h5>
+                    <h6 class="card-subtitle text-center"> @project.ProgrammName </h6>
+                    <br/>
+                    <a asp-controller="Projects" asp-action="Details" asp-route-id="@project.Id" class="btn btn-primary">View More</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<a asp-controller="Projects" asp-action="Add" class="btn btn-primary btn-sm">Add new Project</a>
+
+
+

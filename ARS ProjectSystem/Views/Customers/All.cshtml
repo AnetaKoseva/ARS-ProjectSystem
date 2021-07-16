@@ -1,0 +1,53 @@
+﻿@model AllCustomersQueryModel
+@{
+    ViewData["Title"] = "All Customers";
+}
+
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-3">
+            <label asp-for="SearchTerm">SearchBy</label>
+            <input asp-for="SearchTerm" class="form-control" placeholder="Please select">
+        </div>
+        <div class="form-group col-md-3">
+
+        </div>
+        <div class="form-group col-md-3">
+
+        </div>
+        <div class="form-group col-md-3">
+            <input type="submit" class="btn btn-primary" value="Search">
+        </div>
+    </div>
+</form>
+
+<div class=" table">
+    <h2 class="heading-margin text-center">All Customers</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Registration Number</th>
+                <th scope="col">VAT</th>
+                <th scope="col">Owner</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model.Customers)
+            {
+                <tr>
+                    <td>@customer.Name</td>
+                    <td>@customer.RegistrationNumber</td>
+                    <td>@customer.VAT</td>
+                    <td>@customer.OwnerName</td>
+                    <td>
+                        <a asp-controller="Customers" asp-action="Edit" class="btn btn-primary btn-sm">Edit</a>
+                        <button id="buttonDelete"type="button" class="btn btn-primary btn-sm">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-controller="Customers" asp-action="Add" class="btn btn-primary btn-sm">Add new Customer</a>
+</div>

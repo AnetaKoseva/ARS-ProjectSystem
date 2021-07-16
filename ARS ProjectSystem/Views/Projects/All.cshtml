@@ -6,11 +6,19 @@
 <form method="get">
     <div class="row">
         <div class="form-group col-md-3">
-            <label asp-for="SearchTerm">SearchBy</label>
-            <input asp-for="SearchTerm" class="form-control" placeholder="Please select">
+            <div class="form-group">
+                <label asp-for="Programm"></label>
+                <select asp-for="Programm" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var programm in Model.Programms)
+                    {
+        <option value="@programm">@programm</option>}
+                </select>
+            </div>
         </div>
         <div class="form-group col-md-3">
-            <input type="submit" class="btn btn-primary btn-sm" value="Search">
+            <label asp-for="SearchTerm">SearchBy</label>
+            <input asp-for="SearchTerm" class="form-control" placeholder="Please select">
         </div>
         <div class="form-group col-md-3">
             <div class="form-droup">
@@ -21,15 +29,10 @@
                     <option value="2">Status</option>
                 </select>
             </div>
-
         </div>
-
-        </div>
-        <div class="form-group col-md-3">
-
-        </div>
-
     </div>
+        <div class="form-group col-md-3">
+     </div>
 </form>
 
 <div>    

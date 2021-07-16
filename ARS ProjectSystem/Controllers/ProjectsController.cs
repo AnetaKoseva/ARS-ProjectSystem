@@ -18,22 +18,27 @@
             Programms = this.GetProjectProgramms(),
             Proposals = this.GetProjectProposals()
         });
-        public IActionResult All(string searchTerm,ProjectSorting sorting)
+        public IActionResult All([FromQuery]AllProjectsQueryModel query)
         {
             var projectQuery = this.data.Projects.AsQueryable();
-            if (!string.IsNullOrWhiteSpace(searchTerm))
+            if (!string.IsNullOrWhiteSpace(query.Programm))
+            {
+                projectQuery = projectQuery.Where(p => p.Programm.ProgrammName == query.Programm);
+            }
+            if (!string.IsNullOrWhiteSpace(query.SearchTerm))
             {
                 projectQuery = projectQuery.Where(c =>
-                    c.Name.ToLower().Contains(searchTerm.ToLower())
-                    || c.Programm.ProgrammName.ToLower().Contains(searchTerm.ToLower()));
+                    c.Name.ToLower().Contains(query.SearchTerm.ToLower())
+                    || c.Programm.ProgrammName.ToLower().Contains(query.SearchTerm.ToLower()));
             }
 
-            //projectQuery = sorting switch
-            //{
-            //    ProjectSorting.Programm=>projectQuery.OrderByDescending(p=>p.Programm.ProgrammName)
-            //};
+            projectQuery = query.Sorting switch
+            {
+                ProjectSorting.Programm=>projectQuery.OrderByDescending(p=>p.Programm.ProgrammName),
+                ProjectSorting.Status=>projectQuery.OrderByDescending(p=>p.Status),
+                _=>projectQuery.OrderBy(p=>p.Name)
+            };
             var projects = projectQuery
-                .OrderBy(p => p.Name)
                 .Select(p => new ProjectsListingViewModel
                 {
                     Id = p.Id,
@@ -47,11 +52,15 @@
                     ProjectRate=p.ProjectRate
                 })
                 .ToList();
-            return View(new AllProjectsQueryModel
-            {
-                Projects = projects,
-                SearchTerm = searchTerm
-            });
+            var projectProgramms = this.data
+                .Projects
+                .Select(p => p.Programm.ProgrammName)
+                .Distinct()
+                .OrderBy(p => p)
+                .ToList();
+            query.Projects = projects;
+            query.Programms = projectProgramms;
+            return View(query);
         }
         [HttpPost]
         public IActionResult Add(AddProjectFormModel project)

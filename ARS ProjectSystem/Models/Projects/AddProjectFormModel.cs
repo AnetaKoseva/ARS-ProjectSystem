@@ -2,12 +2,12 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using static Data.DataConstants;
+    using static Data.DataConstants.Project;
     public class AddProjectFormModel
     {
         public int Id { get; init; }
         [Required]
-        [StringLength(ProjectNameMaxLength, MinimumLength = ProjectNameMinLength)]
+        [StringLength(MaxLength, MinimumLength = MinLength)]
         public string Name { get; init; }
         public string ProjectPhoto { get; set; }
         public int ProgrammId { get; init; }

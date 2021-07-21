@@ -4,7 +4,7 @@
 }
 
 <form method="get">
-    <div class="row mb-5">
+    <div class="row mb-3">
         <div class="form-group col-md-3">
             <div class="form-group">
                 <label asp-for="Programm"></label>
@@ -40,7 +40,7 @@
     {
         <div class="col-md-4">
             <div class="card mb-3">
-                <img class="card-img-top" src="@project.ProjectPhoto" alt="@project.Name">
+                <img class="card-img-top" height="210" width="500"src="@project.ProjectPhoto" alt="@project.Name">
                 <div class="card-body text-center">
                     <h5 class="card-title text-center">@project.Name</h5>
                     <h6 class="card-subtitle text-center"> @project.ProgrammName </h6>
@@ -60,7 +60,7 @@
     var maxPage = Math.Ceiling((double)Model.TotalProjects / AllProjectsQueryModel.ProjectsPerPage);
 
 }
-<div class="row mb-5">
+<div class="row mb-3">
     <div class="col-md-6" >
         <a class="btn btn-primary @(Model.CurrentPage==1?"disabled": string.Empty)"
            asp-controller="Projects" 

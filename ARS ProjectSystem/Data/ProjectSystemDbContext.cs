@@ -1,6 +1,7 @@
 ﻿namespace ARS_ProjectSystem.Data
 {
     using ARS_ProjectSystem.Data.Models;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     public class ProjectSystemDbContext : IdentityDbContext
@@ -17,6 +18,14 @@
         public DbSet<Project> Projects { get; set; }
         public DbSet<Proposal> Proposals { get; set; }
         public DbSet<ProjectSystemUser> ProjectSystemUsers { get; set; }
-        
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder
+                .Entity<ProjectSystemUser>()
+                .HasOne<IdentityUser>()
+                .WithOne()
+                .HasForeignKey<ProjectSystemUser>(psu => psu.UserId);
+            base.OnModelCreating(builder);
+        }
     }
 }

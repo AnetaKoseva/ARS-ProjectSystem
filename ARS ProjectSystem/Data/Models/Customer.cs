@@ -18,6 +18,7 @@
         [Required]
         public string VAT { get; set; }
         public string OwnerName { get; set; }
+
         public string PhoneNumber { get; set; }
         [Required]
         public string Email { get; set; }

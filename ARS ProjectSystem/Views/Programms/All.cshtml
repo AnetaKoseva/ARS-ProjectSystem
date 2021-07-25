@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th scope="col">Programm Name</th>
-                <th scope="col">Url</th>
+                <th scope="col">Description</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -17,17 +17,24 @@
             @foreach (var programm in Model)
             {
                 <tr>
-                    <td>@programm.ProgrammName</td>
                     <td>
                         <a href=@programm.Url>
                             <div style="height:100%;width:100%">
-                                @programm.Url
+                                @programm.ProgrammName
                             </div>
                         </a>
                     </td>
-
                     <td>
-                        <a asp-controller="Customers" asp-action="Edit" class="btn btn-primary btn-sm">Edit</a>
+                        @if (programm.Description != null)
+                        {
+                            @programm.Description;
+                            <a href="/Programms/Details?programmId=@programm.Id" class="btn btn-primary btn-sm">More</a>
+
+
+                        }
+                    </td>
+                    <td>
+                        <a asp-controller="Programms" asp-action="Edit" class="btn btn-primary btn-sm">Edit</a>
                         <button id="buttonDelete" type="button" class="btn btn-primary btn-sm">Delete</button>
                     </td>
                 </tr>

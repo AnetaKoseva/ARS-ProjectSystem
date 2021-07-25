@@ -2,7 +2,9 @@
 {
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
+    using ARS_ProjectSystem.Infrastructure;
     using ARS_ProjectSystem.Models.Customers;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Linq;
 
@@ -11,7 +13,17 @@
         private readonly ProjectSystemDbContext data;
         public CustomersController(ProjectSystemDbContext data)
             => this.data = data;
-        public IActionResult Add() => View();
+        [Authorize]
+        public IActionResult Add() 
+        {
+           if(!this.UserIsProjectSystemUser())
+            {
+                //this.TempData
+                return RedirectToAction(nameof(ProjectSystemUserController.Create), "ProjectSystemUser");
+            }
+
+            return View();
+        } 
         public IActionResult All(string searchTerm)
         {
             var customerQuery = this.data.Customers.AsQueryable();
@@ -41,9 +53,17 @@
                 });
         }
         [HttpPost]
+        [Authorize]
         public IActionResult Add(AddCustomerFormModel customer)
         {
-            if(!ModelState.IsValid)
+            if (!this.UserIsProjectSystemUser())
+            {
+                //this.TempData
+                return RedirectToAction(nameof(ProjectSystemUserController.Create), "ProjectSystemUser");
+            }
+
+            return View();
+            if (!ModelState.IsValid)
             {
                 return View();
             }
@@ -65,5 +85,11 @@
 
             return RedirectToAction(nameof(All));
         }
+        private bool UserIsProjectSystemUser()
+        =>
+            !this.data
+                .ProjectSystemUsers
+                .Any(psu => psu.UserId == this.User.GetId());
+        
     }
 }

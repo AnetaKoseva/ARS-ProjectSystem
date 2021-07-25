@@ -84,6 +84,7 @@
             }
             var projectData = new Project
             {
+                Id=project.Id,
                 Name = project.Name,
                 ProgrammId=project.ProposalId,
                 ProposalId=project.ProposalId,
@@ -116,5 +117,12 @@
                     Name = c.Name
                 })
                 .ToList();
+        public IActionResult Details(string projectId)
+        {
+            var project = this.data.Projects
+                .First(t => t.Id == int.Parse(projectId));
+
+            return this.View(project);
+        }
     }
 }

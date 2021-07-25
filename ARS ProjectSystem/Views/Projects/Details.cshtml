@@ -1,0 +1,28 @@
+﻿<div class=" table">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Project Name</th>
+                <th sope="col">StartDate</th>
+                <th sope="col">EndDate</th>
+                <th sope="col">Status</th>
+                <th sope="col">ProjectRate</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Model.Name
+                </td>
+
+                <td>@Model.StartDate</td>
+                <td>@Model.EndDate</td>
+                <td>@Model.Status</td>
+                <td>@Model.ProjectRate</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="button mb-3">
+    <a href="/Projects/All" class="btn btn-primary btn-sm mb-3">Back</a>
+    </div>

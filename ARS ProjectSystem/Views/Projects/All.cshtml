@@ -1,6 +1,6 @@
 ﻿@model ARS_ProjectSystem.Models.Projects.AllProjectsQueryModel
 @{
-    ViewData["Title"] = "All Projects";
+    ViewBag.Title = "All Projects";
 }
 
 <form method="get">
@@ -52,6 +52,10 @@
         </div>
     }
 </div>
+@if(!Model.Projects.Any())
+            {
+                <h2 class="text-center">No projects found by the given criteria!</h2>
+            }
 @{ 
     var previousPage = Model.CurrentPage - 1;
     if(previousPage<1)

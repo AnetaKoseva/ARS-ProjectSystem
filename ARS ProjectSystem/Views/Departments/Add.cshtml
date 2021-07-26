@@ -1,10 +1,10 @@
 ﻿@model ARS_ProjectSystem.Models.Departments.AddDepartmentFormModel
 @{
-    ViewData["Title"] = "Add Department";
+    ViewBag.Title = "Add new Department";
 }
 
 <div class="col-6 offset-2">
-    <h2 class="heading-margin text-center">Add new Department</h2>
+    <h2 class="heading-margin text-center">@ViewBag.Title</h2>
     <form method="post">
         <div class="form-group">
             <label asp-for="DepartmentName">DepartmentName</label>

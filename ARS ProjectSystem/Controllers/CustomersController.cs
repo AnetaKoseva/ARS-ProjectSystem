@@ -18,8 +18,7 @@
         {
            if(!this.UserIsProjectSystemUser())
             {
-                //this.TempData
-                return RedirectToAction(nameof(ProjectSystemUserController.Create), "ProjectSystemUser");
+                return RedirectToAction(nameof(ProjectSystemUsersController.Become), "ProjectSystemUsers");
             }
 
             return View();
@@ -56,13 +55,15 @@
         [Authorize]
         public IActionResult Add(AddCustomerFormModel customer)
         {
-            if (!this.UserIsProjectSystemUser())
+            var customerId = this.data
+                .ProjectSystemUsers
+                .Where(psu => psu.UserId == this.User.GetId())
+                .Select(psu=>psu.Id)
+                .FirstOrDefault();
+            if (customerId==0)
             {
-                //this.TempData
-                return RedirectToAction(nameof(ProjectSystemUserController.Create), "ProjectSystemUser");
+                return RedirectToAction(nameof(ProjectSystemUsersController.Become), "ProjectSystemUsers");
             }
-
-            return View();
             if (!ModelState.IsValid)
             {
                 return View();
@@ -79,6 +80,7 @@
                   Address =customer.Address,
                   Town=customer.Town,
                   Country=customer.Country,
+                  ProjectSystemCustomerId=customerId
             };
             this.data.Customers.Add(customerData);
             this.data.SaveChanges();
@@ -87,7 +89,7 @@
         }
         private bool UserIsProjectSystemUser()
         =>
-            !this.data
+            this.data
                 .ProjectSystemUsers
                 .Any(psu => psu.UserId == this.User.GetId());
         

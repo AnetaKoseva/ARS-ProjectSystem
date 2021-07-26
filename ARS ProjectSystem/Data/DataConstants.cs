@@ -23,5 +23,10 @@
             public const int NameMinLength = 2;
             public const string ValidatePhoneNumber = @"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$";
         }
+        public class Proposal
+        {
+            public const int NameMaxLength = 50;
+            public const int NameMinLength = 2;
+        }
     }
 }

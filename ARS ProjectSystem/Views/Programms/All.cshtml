@@ -1,10 +1,10 @@
 ﻿@model List<ProgrammListingViewModel>
 @{
-    ViewData["Title"] = "All Programms";
+    ViewBag.Title = "All Programms";
 }
 
-<div class=" table">
-    <h2 class="heading-margin text-center">All Programms</h2>
+<div class=" table" .table-bordered >
+    <h2 class="heading-margin text-center">@ViewBag.Title</h2>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -29,7 +29,6 @@
                         {
                             @programm.Description;
                             <a href="/Programms/Details?programmId=@programm.Id" class="btn btn-primary btn-sm">More</a>
-
 
                         }
                     </td>

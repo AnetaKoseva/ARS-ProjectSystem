@@ -1,0 +1,33 @@
+﻿@model AddProposalFormModel
+@{
+    ViewBag.Title = "Add new Programm";
+}
+
+<div class="col-6 offset-2">
+    <h2 class="heading-margin text-center">@ViewBag.Title</h2>
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Name">Proposal Name</label>
+            <input asp-for="Name" class="form-control" placeholder="The Proposal name">
+            <span asp-validation-for="Name" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreatedOn">Created On</label>
+            <input asp-for="CreatedOn" class="form-control" placeholder="dd/MM/year">
+            <span asp-validation-for="CreatedOn" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="UrlPhoto">Photo Url</label>
+            <input asp-for="UrlPhoto" class="form-control" >
+            <span asp-validation-for="UrlPhoto" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Budget"></label>
+            <input asp-for="Budget" class="form-control" >
+            <span asp-validation-for="Budget" class="small text-danger"></span>
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="Save" />
+    </form>
+</div>
+

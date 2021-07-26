@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ARS_ProjectSystem.Data.Migrations
 {
     [DbContext(typeof(ProjectSystemDbContext))]
-    [Migration("20210716073713_Programms")]
-    partial class Programms
+    [Migration("20210725151806_ProjectSystemData")]
+    partial class ProjectSystemData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,6 +51,12 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectSystemCustomerId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ProjectSystemUserId")
                         .HasColumnType("int");
 
@@ -69,6 +75,8 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
 
                     b.HasIndex("ProjectSystemUserId");
 
@@ -146,10 +154,16 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IBAN")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Item")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Number")
+                        .HasMaxLength(10)
+                        .HasColumnType("int");
 
                     b.Property<string>("PaymentMethod")
                         .HasColumnType("nvarchar(max)");
@@ -178,6 +192,7 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -199,7 +214,9 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("ProgrammId")
                         .HasColumnType("int");
@@ -238,13 +255,36 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("ProjectSystemUsers");
                 });
@@ -263,6 +303,9 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlPhoto")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -472,9 +515,15 @@ namespace ARS_ProjectSystem.Data.Migrations
 
             modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Customer", b =>
                 {
-                    b.HasOne("ARS_ProjectSystem.Data.Models.ProjectSystemUser", null)
+                    b.HasOne("ARS_ProjectSystem.Data.Models.Project", null)
+                        .WithMany("Customers")
+                        .HasForeignKey("ProjectId");
+
+                    b.HasOne("ARS_ProjectSystem.Data.Models.ProjectSystemUser", "ProjectSystemUser")
                         .WithMany("Customers")
                         .HasForeignKey("ProjectSystemUserId");
+
+                    b.Navigation("ProjectSystemUser");
                 });
 
             modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Department", b =>
@@ -523,6 +572,21 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.Navigation("Programm");
 
                     b.Navigation("Proposal");
+                });
+
+            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.ProjectSystemUser", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithOne()
+                        .HasForeignKey("ARS_ProjectSystem.Data.Models.ProjectSystemUser", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -588,6 +652,11 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.Navigation("Departments");
 
                     b.Navigation("Projects");
+                });
+
+            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Project", b =>
+                {
+                    b.Navigation("Customers");
                 });
 
             modelBuilder.Entity("ARS_ProjectSystem.Data.Models.ProjectSystemUser", b =>

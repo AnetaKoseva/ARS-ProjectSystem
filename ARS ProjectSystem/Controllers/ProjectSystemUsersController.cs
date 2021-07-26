@@ -8,17 +8,17 @@
     using Microsoft.AspNetCore.Mvc;
     using System.Linq;
 
-    public class ProjectSystemUserController:Controller
+    public class ProjectSystemUsersController:Controller
     {
         private readonly ProjectSystemDbContext data;
-        public ProjectSystemUserController(ProjectSystemDbContext data)
+        public ProjectSystemUsersController(ProjectSystemDbContext data)
             => this.data = data;
 
         [Authorize]
-        public IActionResult Create() => View();
+        public IActionResult Become() => View();
         [HttpPost]
         [Authorize]
-        public IActionResult Create(BecomeProjectSystemUserFormModel user)
+        public IActionResult Become(BecomeProjectSystemUserFormModel user)
         {
             var userId = this.User.GetId();
             var userIsAlredyProjectSytemUser = this.data

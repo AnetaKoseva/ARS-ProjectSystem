@@ -9,7 +9,6 @@
         [Required]
         [Url]
         public string Url { get; init; }
-        [Required]
         public string Description { get; init; }
 
     }

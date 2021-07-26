@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ARS_ProjectSystem</title>
+    <title>@ViewBag.Title - ARS_ProjectSystem</title>
     
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
@@ -19,29 +19,36 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Add">Add Customer</a>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                All
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="All">All Customers</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="All">All Projects</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Programms" asp-action="All">All Programm</a>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="All">All Customers</a>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Add
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Add">Add Customers</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Programms" asp-action="Add">Add Programm</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Proposals" asp-action="Add">Add Proposal</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Add">Add Projects</a>
+                                
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Add">Add Project</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="All">All Projects</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Programms" asp-action="Add">Add Programm</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Programms" asp-action="All">All Programm</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+
+                        
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

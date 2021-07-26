@@ -12,6 +12,7 @@
         private readonly ProjectSystemDbContext data;
         public ProgrammsController(ProjectSystemDbContext data)
             => this.data = data;
+        [Authorize]
         public IActionResult Add() => View();
         public IActionResult All()
         {
@@ -31,6 +32,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add(AddProgrammFormModel programm)
         {
             if (!ModelState.IsValid)

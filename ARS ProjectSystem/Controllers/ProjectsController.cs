@@ -3,6 +3,7 @@
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Models.Projects;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
     using System.Linq;
@@ -13,7 +14,8 @@
         public ProjectsController(ProjectSystemDbContext data) 
             => this.data = data;
         //public IActionResult Add() => View();
-        public IActionResult Add() => View(new AddProjectFormModel
+        [Authorize]
+        public IActionResult Add() => View(new AddProjectFormModel 
         {
             Programms = this.GetProjectProgramms(),
             Proposals = this.GetProjectProposals()
@@ -70,6 +72,7 @@
             return View(query);
         }
         [HttpPost]
+        [Authorize]
         public IActionResult Add(AddProjectFormModel project)
         {
             if (!this.data.Proposals.Any(c => c.Id == project.ProposalId))
@@ -124,5 +127,6 @@
 
             return this.View(project);
         }
+        
     }
 }

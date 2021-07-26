@@ -5,10 +5,6 @@
     using Microsoft.AspNetCore.Mvc;
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
-    using ARS_ProjectSystem.Models.Programms;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-    using System.Linq;
 
     public class ProposalsController:Controller
     {

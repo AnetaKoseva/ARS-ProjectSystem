@@ -18,6 +18,30 @@
    </div>
 </header>
 
+<div class="row ">
+    <div class="col-12 text-center">
+        <button class="btn btn-primary" id="statistics-button">Show statistics</button>
+    </div>
+</div>
+<div class="text-body d-none" id="statistics">
+    <h2 id="total-customers"></h2>
+    <h2 id="total-proposals"></h2>
+    <h2 id="total-projects"></h2>
+</div>
+@section Scripts{ 
+    <script>
+        $('#statistics-button').on('click', ev => {
+            $.get('/api/statistics', (data) => {
+                $('#total-customers').text(data.totalCustomers+"Customers");
+                $('#total-projects').text(data.totalProjects+"Projects");
+                $('#total-proposals').text(data.totalProposals+"Proposals");
+
+                $('#statistics').removeClass('d-none');
+            });
+        });
+    </script>
+}
+
     <!-- Portfolio-->
     <div id="portfolio mb-3" >
         <div class="container-fluid p-0">

@@ -3,6 +3,7 @@
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Models.Api.Customers;
+    using ARS_ProjectSystem.Services.Customers;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
     using System.Linq;
@@ -11,56 +12,26 @@
     [Route("api/customers")]
     public class CustomersApiController:ControllerBase
     {
-        ///*private readonly*/ ICustomerService customers;
-        //public CustomersApi(ICustomerService customers)
-        //    => this.customers = customers;
-        private readonly ProjectSystemDbContext data;
-        public CustomersApiController(ProjectSystemDbContext data)
-            => this.data = data;
-        
-        [HttpGet]
-        public ActionResult<AllCustomersApiResponseModel> All([FromQuery] AllCustomersApiRequestModel query)
-        {
-            var customerQuery = this.data.Customers.AsQueryable();
-            if (!string.IsNullOrWhiteSpace(query.SearchTerm))
-            {
-                customerQuery = customerQuery.Where(c =>
-                    c.Name.ToLower().Contains(query.SearchTerm.ToLower())
-                    || c.RegistrationNumber.ToLower().Contains(query.SearchTerm.ToLower())
-                    || c.OwnerName.ToLower().Contains(query.SearchTerm.ToLower())
-                    || c.VAT.ToLower().Contains(query.SearchTerm.ToLower()));
-            }
-            var customers = customerQuery
-                .OrderBy(c => c.Name)
-                .Select(c => new CustomerResponseModel
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    RegistrationNumber = c.RegistrationNumber,
-                    VAT = c.VAT,
-                    OwnerName = c.OwnerName
-                })
-                .ToList();
-            return new AllCustomersApiResponseModel
-            {
-                Customers=customers,
-                SearchTerm=query.SearchTerm
-            };
-            
-        }
+        private readonly ICustomerService customers;
+        public CustomersApiController(ICustomerService customers)
+            => this.customers = customers;
 
         [HttpGet]
-        [Route("{id}")]
-        public IActionResult GetDetails(int id)
-        {
-            var customer= this.data.Customers.Find(id);
+        public ActionResult<CustomerQueryServiceModel> All([FromQuery] AllCustomersApiRequestModel query)
+            =>this.customers.All(query.SearchTerm);
+
+        //[HttpGet]
+        //[Route("{id}")]
+        //public IActionResult GetDetails(int id)
+        //{
+        //    var customer= this.data.Customers.Find(id);
             
-            if(customer==null)
-            {
-                return NotFound();
-            }
-            return Ok(id);
-        }
+        //    if(customer==null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(id);
+        //}
         
         //update
         [HttpPut("{id}")]

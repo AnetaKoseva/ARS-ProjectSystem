@@ -1,9 +1,9 @@
-﻿namespace ARS_ProjectSystem.Models.Api.Projects
+﻿namespace ARS_ProjectSystem.Services.Projects
 {
     using System.ComponentModel.DataAnnotations;
     using static Data.DataConstants.Project;
 
-    public class ProjectResponseModel
+    public class ProjectServiceModel
     {
         public int Id { get; init; }
         [Required]
@@ -16,6 +16,5 @@
         public string EndDate { get; init; }
         public string Status { get; init; }
         public double ProjectRate { get; init; }
-
     }
 }

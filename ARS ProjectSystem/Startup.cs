@@ -2,6 +2,8 @@ namespace ARS_ProjectSystem
 {
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Infrastructure;
+    using ARS_ProjectSystem.Services.Customers;
+    using ARS_ProjectSystem.Services.Statistics;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -36,6 +38,10 @@ namespace ARS_ProjectSystem
 
             services
                 .AddControllersWithViews();
+            services
+                .AddTransient<ICustomerService, CustomerService>();
+            services
+                .AddTransient<IStatisticsService, StatisticsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

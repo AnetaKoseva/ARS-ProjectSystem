@@ -1,6 +1,11 @@
-﻿namespace ARS_ProjectSystem.Models.Api.Statistics
+﻿namespace ARS_ProjectSystem.Services.Statistics
 {
-    public class StatisticsResponseModel
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    public class StatisticsServiceModel
     {
         public int TotalProjects { get; init; }
         public int TotalCustomers { get; init; }

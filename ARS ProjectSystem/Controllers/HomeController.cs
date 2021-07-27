@@ -3,6 +3,7 @@
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Models;
     using ARS_ProjectSystem.Models.Home;
+    using ARS_ProjectSystem.Services.Statistics;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using System;
@@ -13,26 +14,19 @@
     public class HomeController : Controller
     {
         private readonly ProjectSystemDbContext data;
-        private readonly ILogger<HomeController> _logger;
+        private readonly IStatisticsService statistics;
 
-        public HomeController(ILogger<HomeController> logger,
+
+        public HomeController(IStatisticsService statistics,
             ProjectSystemDbContext data)
         {
-            _logger = logger;
+            this.statistics = statistics;
             this.data = data;
         }
 
         public IActionResult Index()
         {
-            var totalProjects = this.data
-                .Projects
-                .Count();
-            var totalCustomers = this.data
-                .Customers
-                .Count();
-            var totalProposals = this.data
-                .Proposals
-                .Count();
+            var totalStatistics = this.statistics.Total();
 
             var projects = this.data
                 .Projects
@@ -48,9 +42,9 @@
 
             return View(new IndexViewModel
             {
-                  TotalCustomers=totalCustomers,
-                  TotalProjects=totalProjects,
-                  TotalProposals=totalProposals,
+                  TotalCustomers=totalStatistics.TotalCustomers,
+                  TotalProjects=totalStatistics.TotalProjects,
+                  TotalProposals= totalStatistics.TotalProposals,
                   Projects=projects
             });
         }

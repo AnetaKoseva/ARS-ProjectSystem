@@ -2,82 +2,110 @@
     ViewBag.Title = "Home Page";
 }
 
-    <!-- Masthead-->
+<!-- Masthead-->
 <header class="masthead">
-   <div class="header text-center">
-       <h1 class=" font-weight-bold">Success through Excellence!</h1>
-   </div>
-   <div class="header text-center">
-       <p class="text-white-75 mb-3">
-           ARS Applied Research Solutions provides high-quality professional advice and tailored support to innovative businesses, research centres and academic institutions to obtain national and EU funding for promising R&D projects. We help researchers and innovators to achieve success by transforming complex funding environments into a sustainable business growth strategy.
-           Just share your idea and we will work together to make it happen!
-           <br />
-           Our portfolio @Model.TotalCustomers customers, @Model.TotalProposals proposals and @Model.TotalProjects projects<br />
-       </p>
-       <a class="btn btn-primary btn-xl mb-3" href="/ArsPlatform/PlatformPage">Get Started!</a>
-   </div>
+    <div class="header text-center">
+        <h1 class=" font-weight-bold">Success through Excellence!</h1>
+    </div>
+    <div class="header text-center">
+        <p class="text-white-75 mb-3">
+            ARS Applied Research Solutions provides high-quality professional advice and tailored support to innovative businesses, research centres and academic institutions to obtain national and EU funding for promising R&D projects. We help researchers and innovators to achieve success by transforming complex funding environments into a sustainable business growth strategy.
+            Just share your idea and we will work together to make it happen!
+            <br />
+            Our portfolio:
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button class="btn btn-primary" id="statistics-button">Show Statistics</button>
+                </div>
+            </div>
+            <div id="statistics">
+                <div class="row">
+                    <h5 class="col-md-4 text-center" id="total-customers"></h5>
+                    <h5 class="col-md-4 text-center" id="total-projects"></h5>
+                    <h5 class="col-md-4 text-center" id="total-proposals"></h5>
+                </div>
+            </div>
+        </p>
+        <a class="btn btn-primary btn-xl mb-3" href="/ArsPlatform/PlatformPage">Get Started!</a>
+    </div>
 </header>
 
-    <!-- Portfolio-->
-    <div id="portfolio mb-3" >
-        <div class="container-fluid p-0">
-            <div class="row g-0">
-                <div class="col-lg-4 col-sm-6">
-                    
-                        <a class="portfolio-box" href="~/pics/portfolio/fullsize/1.jpg" title="Project Name">
-                            <img class="img-fluid" src="~/pics/portfolio/thumbnails/1.jpg" alt="..." />
-                            <div class="portfolio-box-caption">
-                                <div class="project-category">ProgrammName</div>
-                                <div class="project-name">ProjectName</div>
-                            </div>
-                        </a>
+@section Scripts {
+    <script>$('#statistics-button').on('click', ev => {
+            $.get('/api/statistics', (data) => {
+                $('#total-customers').text(data.totalCustomers + " Customers");
+                $('#total-projects').text(data.totalProjects + " Projects");
+                $('#total-proposals').text(data.totalProposals + " Proposals");
 
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="~/pics/portfolio/fullsize/2.jpg" title="Project Name">
-                        <img class="img-fluid" src="~/pics/portfolio/thumbnails/2.jpg" alt="..." />
-                        <div class="portfolio-box-caption">
-                            <div class="project-category ">Category</div>
-                            <div class="project-name">Project Name</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="~/pics/portfolio/fullsize/3.jpg" title="Project Name">
-                        <img class="img-fluid" src="~/pics/portfolio/thumbnails/3.jpg" alt="..." />
-                        <div class="portfolio-box-caption">
-                            <div class="project-category ">Category</div>
-                            <div class="project-name">Project Name</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="~/pics/portfolio/fullsize/4.jpg" title="Project Name">
-                        <img class="img-fluid" src="~/pics/portfolio/thumbnails/4.jpg" alt="..." />
-                        <div class="portfolio-box-caption">
-                            <div class="project-category ">Category</div>
-                            <div class="project-name">Project Name</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="~/pics/portfolio/fullsize/5.jpg" title="Project Name">
-                        <img class="img-fluid" src="~/pics/portfolio/thumbnails/5.jpg" alt="..." />
-                        <div class="portfolio-box-caption">
-                            <div class="project-category ">Category</div>
-                            <div class="project-name">Project Name</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="~/pics/portfolio/fullsize/6.jpg" title="Project Name">
-                        <img class="img-fluid" src="~/pics/portfolio/thumbnails/6.jpg" alt="..." />
-                        <div class="portfolio-box-caption p-3">
-                            <div class="project-category ">Category</div>
-                            <div class="project-name">Project Name</div>
-                        </div>
-                    </a>
-                </div>
+                $('#statistics').removeClass('d-none');
+                $('#statistics-button').hide();
+            });
+        });</script>
+}
+
+
+
+
+<!-- Portfolio-->
+<div id="portfolio mb-3">
+    <div class="container-fluid p-0">
+        <div class="row g-0">
+            <div class="col-lg-4 col-sm-6">
+
+                <a class="portfolio-box" href="~/pics/portfolio/fullsize/1.jpg" title="Project Name">
+                    <img class="img-fluid" src="~/pics/portfolio/thumbnails/1.jpg" alt="..." />
+                    <div class="portfolio-box-caption">
+                        <div class="project-category">ProgrammName</div>
+                        <div class="project-name">ProjectName</div>
+                    </div>
+                </a>
+
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <a class="portfolio-box" href="~/pics/portfolio/fullsize/2.jpg" title="Project Name">
+                    <img class="img-fluid" src="~/pics/portfolio/thumbnails/2.jpg" alt="..." />
+                    <div class="portfolio-box-caption">
+                        <div class="project-category ">Category</div>
+                        <div class="project-name">Project Name</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <a class="portfolio-box" href="~/pics/portfolio/fullsize/3.jpg" title="Project Name">
+                    <img class="img-fluid" src="~/pics/portfolio/thumbnails/3.jpg" alt="..." />
+                    <div class="portfolio-box-caption">
+                        <div class="project-category ">Category</div>
+                        <div class="project-name">Project Name</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <a class="portfolio-box" href="~/pics/portfolio/fullsize/4.jpg" title="Project Name">
+                    <img class="img-fluid" src="~/pics/portfolio/thumbnails/4.jpg" alt="..." />
+                    <div class="portfolio-box-caption">
+                        <div class="project-category ">Category</div>
+                        <div class="project-name">Project Name</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <a class="portfolio-box" href="~/pics/portfolio/fullsize/5.jpg" title="Project Name">
+                    <img class="img-fluid" src="~/pics/portfolio/thumbnails/5.jpg" alt="..." />
+                    <div class="portfolio-box-caption">
+                        <div class="project-category ">Category</div>
+                        <div class="project-name">Project Name</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <a class="portfolio-box" href="~/pics/portfolio/fullsize/6.jpg" title="Project Name">
+                    <img class="img-fluid" src="~/pics/portfolio/thumbnails/6.jpg" alt="..." />
+                    <div class="portfolio-box-caption p-3">
+                        <div class="project-category ">Category</div>
+                        <div class="project-name">Project Name</div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
+</div>

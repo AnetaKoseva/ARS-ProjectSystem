@@ -1,4 +1,4 @@
-﻿namespace ARS_ProjectSystem.Models.Projects
+﻿namespace ARS_ProjectSystem.Models
 {
     public enum ProjectSorting
     {

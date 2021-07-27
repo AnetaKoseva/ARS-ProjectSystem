@@ -23,16 +23,16 @@
 
             return View();
         } 
-        public IActionResult All(string searchTerm)
+        public IActionResult All([FromQuery] AllCustomersQueryModel query)
         {
             var customerQuery = this.data.Customers.AsQueryable();
-            if(!string.IsNullOrWhiteSpace(searchTerm))
+            if(!string.IsNullOrWhiteSpace(query.SearchTerm))
             {
                 customerQuery = customerQuery.Where(c =>
-                    c.Name.ToLower().Contains(searchTerm.ToLower())
-                    ||c.RegistrationNumber.ToLower().Contains(searchTerm.ToLower())
-                    ||c.OwnerName.ToLower().Contains(searchTerm.ToLower())
-                    ||c.VAT.ToLower().Contains(searchTerm.ToLower()));
+                    c.Name.ToLower().Contains(query.SearchTerm.ToLower())
+                    ||c.RegistrationNumber.ToLower().Contains(query.SearchTerm.ToLower())
+                    ||c.OwnerName.ToLower().Contains(query.SearchTerm.ToLower())
+                    ||c.VAT.ToLower().Contains(query.SearchTerm.ToLower()));
             }
             var customers = customerQuery
                 .OrderBy(c=>c.Name)
@@ -48,7 +48,7 @@
                 return View(new AllCustomersQueryModel
                 {
                       Customers=customers,
-                      SearchTerm=searchTerm
+                      SearchTerm= query.SearchTerm
                 });
         }
         [HttpPost]

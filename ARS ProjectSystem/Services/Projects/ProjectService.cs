@@ -68,5 +68,13 @@
                 ProjectsPerPage = projectsPerPage
             };
         }
+
+        public IEnumerable<string> AllProjectProgramms()
+            => this.data
+                .Projects
+                .Select(p => p.Programm.ProgrammName)
+                .Distinct()
+                .OrderBy(p => p)
+                .ToList();
     }
 }

@@ -2,8 +2,8 @@
 {
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
-    using ARS_ProjectSystem.Models;
     using ARS_ProjectSystem.Models.Projects;
+    using ARS_ProjectSystem.Services.Projects;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
@@ -11,9 +11,13 @@
 
     public class ProjectsController:Controller
     {
+        private readonly IProjectService projects;
         private readonly ProjectSystemDbContext data;
-        public ProjectsController(ProjectSystemDbContext data) 
-            => this.data = data;
+        public ProjectsController(ProjectSystemDbContext data, IProjectService projects)
+        {
+            this.data = data;
+            this.projects = projects;
+        }
         //public IActionResult Add() => View();
         [Authorize]
         public IActionResult Add() => View(new AddProjectFormModel 
@@ -23,52 +27,18 @@
         });
         public IActionResult All([FromQuery]AllProjectsQueryModel query)
         {
-            var projectQuery = this.data.Projects.AsQueryable();
-            if (!string.IsNullOrWhiteSpace(query.Programm))
-            {
-                projectQuery = projectQuery.Where(p => p.Programm.ProgrammName == query.Programm);
-            }
-            if (!string.IsNullOrWhiteSpace(query.SearchTerm))
-            {
-                projectQuery = projectQuery.Where(c =>
-                    c.Name.ToLower().Contains(query.SearchTerm.ToLower())
-                    || c.Programm.ProgrammName.ToLower().Contains(query.SearchTerm.ToLower()));
-            }
+            var queryResult = this.projects.All(
+                query.Programm,
+                query.SearchTerm,
+                query.Sorting,
+                query.CurrentPage,
+                AllProjectsQueryModel.ProjectsPerPage);
 
-            projectQuery = query.Sorting switch
-            {
-                ProjectSorting.Programm=>projectQuery.OrderByDescending(p=>p.Programm.ProgrammName),
-                ProjectSorting.Status=>projectQuery.OrderByDescending(p=>p.Status),
-                _=>projectQuery.OrderBy(p=>p.Name)
-            };
-            var totalProjects = projectQuery.Count();
+            var projectProgramms = this.projects.AllProjectProgramms();
 
-            var projects = projectQuery
-                .Skip((query.CurrentPage-1)*AllProjectsQueryModel.ProjectsPerPage)
-                .Take(AllProjectsQueryModel.ProjectsPerPage)
-                .Select(p => new ProjectsListingViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    ProgrammName=p.Programm.ProgrammName,
-                    ProposalName=p.Proposal.Name,
-                    ProjectPhoto=p.ProjectPhoto,
-                    Status=p.Status,
-                    StartDate=p.StartDate,
-                    EndDate=p.EndDate,
-                    ProjectRate=p.ProjectRate
-                })
-                .ToList();
-            var projectProgramms = this.data
-                .Projects
-                .Select(p => p.Programm.ProgrammName)
-                .Distinct()
-                .OrderBy(p => p)
-                .ToList();
-
-            query.TotalProjects = totalProjects;
-            query.Projects = projects;
-            query.Programms = projectProgramms;
+            query.TotalProjects = queryResult.TotalProjects;
+            query.Projects = queryResult.Projects;
+            query.Programms =projectProgramms;
 
             return View(query);
         }

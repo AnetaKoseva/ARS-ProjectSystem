@@ -1,6 +1,6 @@
 ﻿namespace ARS_ProjectSystem.Models.Projects
 {
-
+    using ARS_ProjectSystem.Services.Projects;
     using System.Collections.Generic;
     public class AllProjectsQueryModel
     {
@@ -11,7 +11,7 @@
         public int CurrentPage { get; init; } = 1;
         public int TotalProjects { get; set; }
         public IEnumerable<string> Programms { get; set; }
-        public IEnumerable<ProjectsListingViewModel> Projects{get;set;}
+        public IEnumerable<ProjectServiceModel> Projects{get;set;}
 
     }
 }

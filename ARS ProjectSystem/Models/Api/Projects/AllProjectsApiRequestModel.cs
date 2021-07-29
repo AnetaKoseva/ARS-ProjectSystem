@@ -1,11 +1,5 @@
 ﻿namespace ARS_ProjectSystem.Models.Api.Projects
 {
-    using ARS_ProjectSystem.Models.Projects;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
     public class AllProjectsApiRequestModel
     {
         public  int ProjectsPerPage { get; init; } = 3;

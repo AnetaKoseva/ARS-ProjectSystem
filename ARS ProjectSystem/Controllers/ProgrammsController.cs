@@ -20,7 +20,7 @@
             {
                 Id=p.Id,
                 ProgrammName = p.ProgrammName,
-                Description = p.Description.Substring(0, 90),
+                Description = p.Description.Substring(0, 80),
                 FullDescription = p.Description,
                 Url = p.Url
             }).ToList();

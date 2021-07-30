@@ -50,8 +50,6 @@ namespace ARS_ProjectSystem
             services
                 .AddTransient<IProjectService, ProjectService>();
 
-            
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

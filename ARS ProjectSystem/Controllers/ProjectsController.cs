@@ -18,7 +18,7 @@
             this.data = data;
             this.projects = projects;
         }
-        //public IActionResult Add() => View();
+        
         [Authorize]
         public IActionResult Add() => View(new AddProjectFormModel 
         {

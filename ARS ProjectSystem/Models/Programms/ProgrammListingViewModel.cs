@@ -6,6 +6,6 @@
         public string ProgrammName { get; init; }
         public string Url { get; init; }
         public string Description { get; set; }
-        public string FullDescription { get; init; }
+        public string FullDescription { get; set; }
     }
 }

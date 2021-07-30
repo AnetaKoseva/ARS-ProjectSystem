@@ -54,12 +54,7 @@
                     ProjectRate = p.ProjectRate
                 })
                 .ToList();
-            var projectProgramms = this.data
-                .Projects
-                .Select(p => p.Programm.ProgrammName)
-                .Distinct()
-                .OrderBy(p => p)
-                .ToList();
+            
             return new ProjectQueryServiceModel
             {
                 CurrentPage = currentPage,

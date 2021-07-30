@@ -3,15 +3,17 @@
     using ARS_ProjectSystem.Data;
     using System.Linq;
 
-
     public class CustomerService:ICustomerService
     {
         private readonly ProjectSystemDbContext data;
         public CustomerService(ProjectSystemDbContext data)
-            => this.data = data;
+        {   
+            this.data = data;
+        }
 
         public CustomerQueryServiceModel All(string searchTerm)
         {
+
             var customerQuery = this.data.Customers.AsQueryable();
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
@@ -34,7 +36,7 @@
                 .ToList();
             return new CustomerQueryServiceModel
             {
-                Customers =customers,
+                Customers = customers,
                 SearchTerm = searchTerm
             };
         }

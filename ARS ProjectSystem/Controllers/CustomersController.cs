@@ -4,6 +4,7 @@
     using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Infrastructure;
     using ARS_ProjectSystem.Models.Customers;
+    using ARS_ProjectSystem.Services.Customers;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Linq;
@@ -22,7 +23,8 @@
             }
 
             return View();
-        } 
+        }
+
         public IActionResult All([FromQuery] AllCustomersQueryModel query)
         {
             var customerQuery = this.data.Customers.AsQueryable();
@@ -36,7 +38,7 @@
             }
             var customers = customerQuery
                 .OrderBy(c=>c.Name)
-                .Select(c => new CustomerListingViewModel
+                .Select(c => new CustomerServiceModel
             {
                 Id = c.Id,
                 Name=c.Name,

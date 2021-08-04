@@ -1,0 +1,24 @@
+﻿@model IEnumerable<AllProposalsListingViewModel>
+@{
+    ViewBag.Title = "All Proposals"; 
+}
+@if (!Model.Any())
+{
+<h2 class="text-center">No proposals found by the given criteria!</h2>            
+}
+<div class="row">
+    @foreach (var proposal in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img class="card-img-top" height="210" width="500" src="@proposal.UrlPhoto" alt="@proposal.Name">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-center">@proposal.Name</h5>
+                    <h6 class="card-subtitle text-center"> @proposal.CustomerRegistrationNumber </h6>
+                    <br />
+                    <a href="/Proposals/Details?proposalId=@proposal.Id" class="btn btn-primary btn-sm">More</a>
+                </div>
+            </div>
+        </div>
+        }
+</div>

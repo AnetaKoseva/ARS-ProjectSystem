@@ -1,6 +1,6 @@
-﻿namespace ARS_ProjectSystem.Models.Projects
+﻿namespace ARS_ProjectSystem.Services.Projects
 {
-    public class ProjectProposalsViewModel
+    public class ProjectProgrammsServiceModel
     {
         public int Id { get; init; }
 

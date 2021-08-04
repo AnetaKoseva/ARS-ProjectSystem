@@ -6,8 +6,9 @@
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
     using System.Linq;
-    using ARS_ProjectSystem.Infrastructure;
+
     using System.Collections.Generic;
+    using ARS_ProjectSystem.Services.Proposals;
 
     public class ProposalsController:Controller
     {
@@ -64,11 +65,17 @@
 
             return RedirectToAction("Index", "Home");
         }
-        
-        private IEnumerable<ProposalCustomersViewModel> GetProposalCustomers()
+        public IActionResult Details(string proposalId)
+        {
+            var proposal = this.data.Proposals
+                .First(t => t.Id == int.Parse(proposalId));
+
+            return this.View(proposal);
+        }
+        private IEnumerable<ProposalCustomersServiceModel> GetProposalCustomers()
             => this.data
                 .Customers
-                .Select(c => new ProposalCustomersViewModel
+                .Select(c => new ProposalCustomersServiceModel
                 {
                     RegistrationNumber = c.RegistrationNumber,
                     Name = c.Name

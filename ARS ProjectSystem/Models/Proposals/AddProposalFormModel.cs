@@ -1,5 +1,6 @@
 ﻿namespace ARS_ProjectSystem.Models.Proposals
 {
+    using ARS_ProjectSystem.Services.Proposals;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using static Data.DataConstants.Proposal;
@@ -16,7 +17,7 @@
         public double Budget { get; set; }
         public string CustomerRegistrationNumber { get; set; }
         public int? ProjectId { get; set; }
-        public IEnumerable<ProposalCustomersViewModel> Customers { get; set; }
+        public IEnumerable<ProposalCustomersServiceModel> Customers { get; set; }
         public IEnumerable<ProposalProjectsViewModel> Projects { get; set; }
     }
 }

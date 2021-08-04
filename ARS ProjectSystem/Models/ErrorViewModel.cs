@@ -1,5 +1,3 @@
-using System;
-
 namespace ARS_ProjectSystem.Models
 {
     public class ErrorViewModel

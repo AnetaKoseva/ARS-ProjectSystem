@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ARS_ProjectSystem.Models.Home
+﻿namespace ARS_ProjectSystem.Models.Home
 {
+    using System.ComponentModel.DataAnnotations;
     public class ProjectIndexViewModel
     {
         public int Id { get; init; }

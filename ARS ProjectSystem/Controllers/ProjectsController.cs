@@ -10,7 +10,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class ProjectsController:Controller
+    public class ProjectsController : Controller
     {
         private readonly IProjectService projects;
         private readonly ProjectSystemDbContext data;
@@ -24,14 +24,14 @@
         public IActionResult Add()
         {
 
-            return View(new AddProjectFormModel
+            return View(new ProjectFormModel
             {
-                Programms = this.GetProjectProgramms(),
-                Proposals = this.GetProjectProposals(),
-                Customers = this.GetProjectCustomers()
+                Programms = this.projects.GetProjectProgramms(),
+                Proposals = this.projects.GetProjectProposals(),
+                Customers = this.projects.GetProjectCustomers()
             });
         }
-        public IActionResult All([FromQuery]AllProjectsQueryModel query)
+        public IActionResult All([FromQuery] AllProjectsQueryModel query)
         {
             var queryResult = this.projects.All(
                 query.Programm,
@@ -44,69 +44,39 @@
 
             query.TotalProjects = queryResult.TotalProjects;
             query.Projects = queryResult.Projects;
-            query.Programms =projectProgramms;
+            query.Programms = projectProgramms;
 
             return View(query);
         }
         [HttpPost]
         [Authorize]
-        public IActionResult Add(AddProjectFormModel project)
+        public IActionResult Add(ProjectFormModel project)
         {
-            if (!this.data.Proposals.Any(c => c.Id == project.ProposalId))
+            //is it true.Check
+            if (!this.projects.ProposalExists(project.ProposalId.GetValueOrDefault()))
             {
                 this.ModelState.AddModelError(nameof(project.ProposalId), "Proposal does not exist.");
             }
             if (!ModelState.IsValid)
             {
-                project.Programms = this.GetProjectProgramms();
-                project.Proposals = this.GetProjectProposals();
-                project.Customers = this.GetProjectCustomers();
+                project.Programms = this.projects.GetProjectProgramms();
+                project.Proposals = this.projects.GetProjectProposals();
+                project.Customers = this.projects.GetProjectCustomers();
                 return View();
             }
-            var projectData = new Project
-            {
-                Id=project.Id,
-                Name = project.Name,
-                ProgrammId=project.ProgrammId,
-                ProjectPhoto=project.ProjectPhoto,
-                Status=project.Status,
-                StartDate=project.StartDate,
-                EndDate=project.EndDate,
-                ProjectRate=project.ProjectRate,
-                CustomerRegistrationNumber = project.CustomerRegistrationNumber
-            };
-            this.data.Projects.Add(projectData);
-            this.data.SaveChanges();
+            this.projects.Create(project.Id,
+                project.Name,
+                project.ProgrammId,
+                project.ProjectPhoto,
+                project.Status,
+                project.StartDate,
+                project.EndDate,
+                project.ProjectRate,
+                project.CustomerRegistrationNumber);
 
             return RedirectToAction(nameof(All));
         }
-        private IEnumerable<ProjectProgrammsViewModel> GetProjectProgramms()
-            => this.data
-                .Programms
-                .Select(c => new ProjectProgrammsViewModel
-                {
-                    Id = c.Id,
-                    Name = c.ProgrammName
-                })
-                .ToList();
-        private IEnumerable<ProjectProposalsViewModel> GetProjectProposals()
-            => this.data
-                .Proposals
-                .Select(c => new ProjectProposalsViewModel
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                })
-                .ToList();
-        private IEnumerable<ProjectCustomersViewModel> GetProjectCustomers()
-            => this.data
-                .Customers
-                .Select(c => new ProjectCustomersViewModel
-                {
-                    RegistrationNumber=c.RegistrationNumber,
-                    Name = c.Name
-                })
-            .ToList();
+
         public IActionResult Details(string projectId)
         {
             var project = this.data.Projects
@@ -119,6 +89,46 @@
             var myProjects = this.projects.ByUser(this.User.GetId());
             return View(myProjects);
         }
-        
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var project = this.projects.Details(id);
+            //check if you can edit project return UnAuthorized
+            return View(new ProjectFormModel
+            {
+                Id = project.Id,
+                Name = project.Name,
+                ProgrammId = project.ProgrammId,
+                ProjectPhoto = project.ProjectPhoto,
+                Status = project.Status,
+                StartDate = project.StartDate,
+                EndDate = project.EndDate,
+                ProjectRate = project.ProjectRate,
+                CustomerRegistrationNumber = project.CustomerRegistrationNumber,
+                Programms = this.projects.GetProjectProgramms(),
+                Proposals = this.projects.GetProjectProposals(),
+                Customers = this.projects.GetProjectCustomers()
+            });
+        }
+        [Authorize]
+        [HttpPost]
+        public IActionResult Edit(int id,ProjectFormModel project)
+        {
+           var projectIsEdited=this.projects.Edit(
+                project.Id,
+                project.Name,
+                project.ProgrammId,
+                project.ProjectPhoto,
+                project.Status,
+                project.StartDate,
+                project.EndDate,
+                project.ProjectRate,
+                project.CustomerRegistrationNumber);
+            if(!projectIsEdited)
+            {
+                return BadRequest();
+            }
+            return RedirectToAction(nameof(All));
+        }
     }
 }

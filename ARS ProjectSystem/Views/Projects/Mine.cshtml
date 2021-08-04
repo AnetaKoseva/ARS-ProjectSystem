@@ -1,0 +1,15 @@
+﻿@model IEnumerable<ProjectServiceModel>
+@{ 
+    ViewBag.Title = "My Projects"; 
+}
+@if (!Model.Any())
+{
+<h2 class="text-center">You do not have any projects yet!</h2>
+}
+<partial name="_ProjectsPartial" model="Model"/>
+
+@if (User.Identity.IsAuthenticated)
+{
+<a asp-controller="Projects" asp-action="Add" class="btn btn-primary">Add new Project</a>
+}
+

@@ -13,10 +13,9 @@
     public class ProjectsController : Controller
     {
         private readonly IProjectService projects;
-        private readonly ProjectSystemDbContext data;
-        public ProjectsController(ProjectSystemDbContext data, IProjectService projects)
+        
+        public ProjectsController( IProjectService projects)
         {
-            this.data = data;
             this.projects = projects;
         }
 
@@ -77,12 +76,13 @@
             return RedirectToAction(nameof(All));
         }
 
-        public IActionResult Details(string projectId)
+        public IActionResult Details(int projectId)
         {
-            var project = this.data.Projects
-                .First(t => t.Id == int.Parse(projectId));
-
+            //var project = this.data.Projects
+            //    .First(t => t.Id == int.Parse(projectId));
+            var project = this.projects.Details(projectId);
             return this.View(project);
+
         }
         public IActionResult Mine()
         {

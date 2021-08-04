@@ -38,5 +38,6 @@
         IEnumerable<ProjectCustomersServiceModel> GetProjectCustomers();
         bool ProposalExists(int proposalId);
         //bool IsByUser(int projectId, int userId);
+       
     }
 }

@@ -32,9 +32,9 @@
         
         //update
         [HttpPut("{id}")]
-        public IActionResult PutCustomer(int id,Customer customer)
+        public IActionResult PutCustomer(string id,Customer customer)
         {
-            if(id!=customer.Id)
+            if(id!=customer.RegistrationNumber)
             {
                 return BadRequest();
             }

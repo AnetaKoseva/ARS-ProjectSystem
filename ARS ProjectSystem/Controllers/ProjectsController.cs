@@ -2,6 +2,7 @@
 {
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
+    using ARS_ProjectSystem.Infrastructure;
     using ARS_ProjectSystem.Models.Projects;
     using ARS_ProjectSystem.Services.Projects;
     using Microsoft.AspNetCore.Authorization;
@@ -18,13 +19,18 @@
             this.data = data;
             this.projects = projects;
         }
-        
+
         [Authorize]
-        public IActionResult Add() => View(new AddProjectFormModel 
+        public IActionResult Add()
         {
-            Programms = this.GetProjectProgramms(),
-            Proposals = this.GetProjectProposals()
-        });
+
+            return View(new AddProjectFormModel
+            {
+                Programms = this.GetProjectProgramms(),
+                Proposals = this.GetProjectProposals(),
+                Customers = this.GetProjectCustomers()
+            });
+        }
         public IActionResult All([FromQuery]AllProjectsQueryModel query)
         {
             var queryResult = this.projects.All(
@@ -54,19 +60,20 @@
             {
                 project.Programms = this.GetProjectProgramms();
                 project.Proposals = this.GetProjectProposals();
+                project.Customers = this.GetProjectCustomers();
                 return View();
             }
             var projectData = new Project
             {
                 Id=project.Id,
                 Name = project.Name,
-                ProgrammId=project.ProposalId,
-                ProposalId=project.ProposalId,
+                ProgrammId=project.ProgrammId,
                 ProjectPhoto=project.ProjectPhoto,
                 Status=project.Status,
                 StartDate=project.StartDate,
                 EndDate=project.EndDate,
                 ProjectRate=project.ProjectRate,
+                CustomerRegistrationNumber = project.CustomerRegistrationNumber
             };
             this.data.Projects.Add(projectData);
             this.data.SaveChanges();
@@ -91,12 +98,26 @@
                     Name = c.Name
                 })
                 .ToList();
+        private IEnumerable<ProjectCustomersViewModel> GetProjectCustomers()
+            => this.data
+                .Customers
+                .Select(c => new ProjectCustomersViewModel
+                {
+                    RegistrationNumber=c.RegistrationNumber,
+                    Name = c.Name
+                })
+            .ToList();
         public IActionResult Details(string projectId)
         {
             var project = this.data.Projects
                 .First(t => t.Id == int.Parse(projectId));
 
             return this.View(project);
+        }
+        public IActionResult Mine()
+        {
+            var myProjects = this.projects.ByUser(this.User.GetId());
+            return View(myProjects);
         }
         
     }

@@ -16,5 +16,6 @@
         public string EndDate { get; init; }
         public string Status { get; init; }
         public double ProjectRate { get; init; }
+        public string CustomerName { get; init; }
     }
 }

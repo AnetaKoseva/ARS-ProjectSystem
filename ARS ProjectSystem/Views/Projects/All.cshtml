@@ -1,4 +1,4 @@
-﻿@model ARS_ProjectSystem.Models.Projects.AllProjectsQueryModel
+﻿@model AllProjectsQueryModel
 @{
     ViewBag.Title = "All Projects";
 }
@@ -35,23 +35,7 @@
      </div>
 </form>
 
-<div class="row">
-    @foreach (var project in Model.Projects)
-    {
-        <div class="col-md-4">
-            <div class="card mb-3">
-                <img class="card-img-top" height="210" width="500"src="@project.ProjectPhoto" alt="@project.Name">
-                <div class="card-body text-center">
-                    <h5 class="card-title text-center">@project.Name</h5>
-                    <h6 class="card-subtitle text-center"> @project.ProgrammName </h6>
-                    <br/>
-                    
-                    <a href="/Projects/Details?projectId=@project.Id" class="btn btn-primary btn-sm">More</a>
-                </div>
-            </div>
-        </div>
-    }
-</div>
+<partial name="_ProjectsPartial" model="@Model.Projects" />
 @if(!Model.Projects.Any())
             {
                 <h2 class="text-center">No projects found by the given criteria!</h2>

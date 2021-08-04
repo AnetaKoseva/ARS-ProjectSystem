@@ -17,14 +17,48 @@
         public DbSet<Programm> Programms { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Proposal> Proposals { get; set; }
-        public DbSet<ProjectSystemUser> ProjectSystemUsers { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
-                .Entity<ProjectSystemUser>()
-                .HasOne<IdentityUser>()
-                .WithOne()
-                .HasForeignKey<ProjectSystemUser>(psu => psu.UserId);
+                .Entity<Employee>()
+                .HasOne(c => c.Customer)
+                .WithMany(c => c.Employees)
+                .HasForeignKey(c => c.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder
+                .Entity<Employee>()
+                .HasOne(c => c.Department)
+                .WithMany(c => c.Employees)
+                .HasForeignKey(c => c.DepartmentId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder
+               .Entity<Invoice>()
+               .HasOne(c => c.Customer)
+               .WithMany(c => c.Invoices)
+               .HasForeignKey(c => c.CustomerRegistrationNumber)
+               .OnDelete(DeleteBehavior.Restrict);
+            builder
+               .Entity<Project>()
+               .HasOne(c => c.Customer)
+               .WithMany(c => c.Projects)
+               .HasForeignKey(c => c.CustomerRegistrationNumber)
+               .OnDelete(DeleteBehavior.Restrict);
+            //builder
+            //   .Entity<Project>()
+            //   .HasOne(c => c.Programm)
+            //   .WithMany(c => c.Projects)
+            //   .HasForeignKey(c => c.ProgrammId)
+            //   .OnDelete(DeleteBehavior.Restrict);
+            
+            //builder
+            //    .Entity<Proposal>()
+            //    .HasOne<Customer>()
+            //    .WithOne()
+            //    .HasForeignKey<Proposal>(p => p.CustomerId)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+
+
             base.OnModelCreating(builder);
         }
     }

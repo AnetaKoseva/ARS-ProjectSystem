@@ -4,7 +4,6 @@
     using static DataConstants.Invoice;
     public class Invoice
     {
-        
         public int Id { get; init; }
         [Required]
         [MaxLength(InvoiceLength)]
@@ -17,5 +16,7 @@
         public string IBAN { get; set; }
         public string Item { get; set; }
         public double Price { get; set; }
+        public string CustomerRegistrationNumber { get; set; }
+        public Customer Customer { get; set; }
     }
 }

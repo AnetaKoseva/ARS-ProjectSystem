@@ -2,6 +2,7 @@
 {
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
+    using ARS_ProjectSystem.Infrastructure;
     using ARS_ProjectSystem.Models.Programms;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,8 @@
         public ProgrammsController(ProjectSystemDbContext data)
             => this.data = data;
         [Authorize]
-        public IActionResult Add() => View();
+        public IActionResult Add()=>View();
+        
         public IActionResult All()
         {
             var programms = this.data.Programms.Select(p => new ProgrammListingViewModel
@@ -58,5 +60,6 @@
 
             return this.View(programm);
         }
+        
     }
 }

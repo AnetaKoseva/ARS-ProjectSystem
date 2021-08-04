@@ -27,7 +27,6 @@
                 .OrderBy(c => c.Name)
                 .Select(c => new CustomerServiceModel
                 {
-                    Id = c.Id,
                     Name = c.Name,
                     RegistrationNumber = c.RegistrationNumber,
                     VAT = c.VAT,

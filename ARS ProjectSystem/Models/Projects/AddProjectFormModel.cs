@@ -8,14 +8,16 @@
         public int Id { get; init; }
         [Required]
         [StringLength(MaxLength, MinimumLength = MinLength)]
-        public string Name { get; init; }
-        public string ProjectPhoto { get; set; }
+        public string Name { get; set; }
+        public string ProjectPhoto { get; init; }
         public int ProgrammId { get; init; }
-        public int ProposalId { get; init; }
+        public int? ProposalId { get; init; }
+        public string CustomerRegistrationNumber { get; set; }
         public string StartDate { get; init; }
         public string EndDate { get; init; }
         public string Status { get; set; }
         public double ProjectRate { get; set; }
+        public IEnumerable<ProjectCustomersViewModel> Customers { get; set; }
         public IEnumerable<ProjectProposalsViewModel> Proposals { get; set; }
         public IEnumerable<ProjectProgrammsViewModel> Programms { get; set; }
     }

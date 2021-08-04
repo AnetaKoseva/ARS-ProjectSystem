@@ -1,5 +1,6 @@
 ﻿namespace ARS_ProjectSystem.Data.Models
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     public class Programm
     {
@@ -9,6 +10,7 @@
         [Url]
         public string Url { get; set; }
         public string Description { get; set; }
+        public IEnumerable<Project> Projects { get; set; } = new List<Project>();
 
     }
 }

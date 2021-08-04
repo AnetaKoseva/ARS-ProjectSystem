@@ -4,7 +4,7 @@
     using static Data.DataConstants.Customer;
     public class AddCustomerFormModel
     {
-        public int Id { get; init; }
+        public string Id { get; init; }
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string Name { get; init; }

@@ -15,15 +15,7 @@
         public CustomersController(ProjectSystemDbContext data)
             => this.data = data;
         [Authorize]
-        public IActionResult Add() 
-        {
-           if(!this.UserIsProjectSystemUser())
-            {
-                return RedirectToAction(nameof(ProjectSystemUsersController.Become), "ProjectSystemUsers");
-            }
-
-            return View();
-        }
+        public IActionResult Add()=>View();
 
         public IActionResult All([FromQuery] AllCustomersQueryModel query)
         {
@@ -40,11 +32,11 @@
                 .OrderBy(c=>c.Name)
                 .Select(c => new CustomerServiceModel
             {
-                Id = c.Id,
                 Name=c.Name,
                 RegistrationNumber=c.RegistrationNumber,
                 VAT=c.VAT,
                 OwnerName=c.OwnerName
+                
               })
                 .ToList();
                 return View(new AllCustomersQueryModel
@@ -57,43 +49,32 @@
         [Authorize]
         public IActionResult Add(AddCustomerFormModel customer)
         {
-            var customerId = this.data
-                .ProjectSystemUsers
-                .Where(psu => psu.UserId == this.User.GetId())
-                .Select(psu=>psu.Id)
-                .FirstOrDefault();
-            if (customerId==0)
-            {
-                return RedirectToAction(nameof(ProjectSystemUsersController.Become), "ProjectSystemUsers");
-            }
+            
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            var customerData = new Customer
+            if(!this.data.Customers.Any(c=>c.RegistrationNumber == customer.RegistrationNumber))
             {
-                  Name=customer.Name,
-                  RegistrationNumber=customer.RegistrationNumber,
-                  VAT=customer.VAT,
-                  OwnerName=customer.OwnerName,
-                  PhoneNumber=customer.PhoneNumber,
-                  Email = customer.Email,
-                  Url=customer.Url,
-                  Address =customer.Address,
-                  Town=customer.Town,
-                  Country=customer.Country,
-                  ProjectSystemCustomerId=customerId
-            };
-            this.data.Customers.Add(customerData);
-            this.data.SaveChanges();
+                var customerData = new Customer
+                {
+                    Name = customer.Name,
+                    RegistrationNumber = customer.RegistrationNumber,
+                    VAT = customer.VAT,
+                    OwnerName = customer.OwnerName,
+                    PhoneNumber = customer.PhoneNumber,
+                    Email = customer.Email,
+                    Url = customer.Url,
+                    Address = customer.Address,
+                    Town = customer.Town,
+                    Country = customer.Country,
+                };
+                this.data.Customers.Add(customerData);
+                this.data.SaveChanges();
+            }
+            
 
             return RedirectToAction(nameof(All));
         }
-        private bool UserIsProjectSystemUser()
-        =>
-            this.data
-                .ProjectSystemUsers
-                .Any(psu => psu.UserId == this.User.GetId());
-        
     }
 }

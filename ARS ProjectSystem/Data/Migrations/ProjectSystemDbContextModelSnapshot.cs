@@ -21,10 +21,8 @@ namespace ARS_ProjectSystem.Data.Migrations
 
             modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Customer", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("RegistrationNumber")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -49,18 +47,6 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProjectSystemCustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProjectSystemUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RegistrationNumber")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Town")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -72,11 +58,7 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.HasIndex("ProjectSystemUserId");
+                    b.HasKey("RegistrationNumber");
 
                     b.ToTable("Customers");
                 });
@@ -92,12 +74,7 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Departments");
                 });
@@ -109,7 +86,10 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -123,14 +103,11 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProposalId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("ProposalId");
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Employees");
                 });
@@ -145,8 +122,8 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.Property<string>("CreatedOn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("int");
+                    b.Property<string>("CustomerRegistrationNumber")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("DueDate")
                         .HasColumnType("nvarchar(max)");
@@ -171,7 +148,7 @@ namespace ARS_ProjectSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerRegistrationNumber");
 
                     b.ToTable("Invoices");
                 });
@@ -205,8 +182,8 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<string>("CustomerRegistrationNumber")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("EndDate")
                         .HasColumnType("nvarchar(max)");
@@ -226,7 +203,7 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.Property<double>("ProjectRate")
                         .HasColumnType("float");
 
-                    b.Property<int>("ProposalId")
+                    b.Property<int?>("ProposalId")
                         .HasColumnType("int");
 
                     b.Property<string>("StartDate")
@@ -237,54 +214,15 @@ namespace ARS_ProjectSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("CustomerRegistrationNumber");
 
                     b.HasIndex("ProgrammId");
 
-                    b.HasIndex("ProposalId");
+                    b.HasIndex("ProposalId")
+                        .IsUnique()
+                        .HasFilter("[ProposalId] IS NOT NULL");
 
                     b.ToTable("Projects");
-                });
-
-            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.ProjectSystemUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("ProjectSystemUsers");
                 });
 
             modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Proposal", b =>
@@ -300,15 +238,53 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.Property<string>("CreatedOn")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CustomerRegistrationNumber")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UrlPhoto")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CustomerRegistrationNumber");
+
                     b.ToTable("Proposals");
+                });
+
+            modelBuilder.Entity("EmployeeProject", b =>
+                {
+                    b.Property<int>("EmployeesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmployeesId", "ProjectsId");
+
+                    b.HasIndex("ProjectsId");
+
+                    b.ToTable("EmployeeProject");
+                });
+
+            modelBuilder.Entity("EmployeeProposal", b =>
+                {
+                    b.Property<int>("EmployeesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProposalsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmployeesId", "ProposalsId");
+
+                    b.HasIndex("ProposalsId");
+
+                    b.ToTable("EmployeeProposal");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -374,6 +350,10 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -425,6 +405,8 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -511,80 +493,110 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Customer", b =>
+            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.User", b =>
                 {
-                    b.HasOne("ARS_ProjectSystem.Data.Models.Project", null)
-                        .WithMany("Customers")
-                        .HasForeignKey("ProjectId");
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.HasOne("ARS_ProjectSystem.Data.Models.ProjectSystemUser", "ProjectSystemUser")
-                        .WithMany("Customers")
-                        .HasForeignKey("ProjectSystemUserId");
+                    b.Property<string>("CustomerRegistrationNumber")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Navigation("ProjectSystemUser");
-                });
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
 
-            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Department", b =>
-                {
-                    b.HasOne("ARS_ProjectSystem.Data.Models.Employee", null)
-                        .WithMany("Departments")
-                        .HasForeignKey("EmployeeId");
+                    b.HasIndex("CustomerRegistrationNumber");
+
+                    b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Employee", b =>
                 {
-                    b.HasOne("ARS_ProjectSystem.Data.Models.Customer", null)
+                    b.HasOne("ARS_ProjectSystem.Data.Models.Customer", "Customer")
                         .WithMany("Employees")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("ARS_ProjectSystem.Data.Models.Proposal", null)
+                    b.HasOne("ARS_ProjectSystem.Data.Models.Department", "Department")
                         .WithMany("Employees")
-                        .HasForeignKey("ProposalId");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Invoice", b =>
                 {
-                    b.HasOne("ARS_ProjectSystem.Data.Models.Customer", null)
+                    b.HasOne("ARS_ProjectSystem.Data.Models.Customer", "Customer")
                         .WithMany("Invoices")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerRegistrationNumber")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Project", b =>
                 {
-                    b.HasOne("ARS_ProjectSystem.Data.Models.Employee", null)
+                    b.HasOne("ARS_ProjectSystem.Data.Models.Customer", "Customer")
                         .WithMany("Projects")
-                        .HasForeignKey("EmployeeId");
+                        .HasForeignKey("CustomerRegistrationNumber")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("ARS_ProjectSystem.Data.Models.Programm", "Programm")
-                        .WithMany()
+                        .WithMany("Projects")
                         .HasForeignKey("ProgrammId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ARS_ProjectSystem.Data.Models.Proposal", "Proposal")
-                        .WithMany()
-                        .HasForeignKey("ProposalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithOne("Project")
+                        .HasForeignKey("ARS_ProjectSystem.Data.Models.Project", "ProposalId");
+
+                    b.Navigation("Customer");
 
                     b.Navigation("Programm");
 
                     b.Navigation("Proposal");
                 });
 
-            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.ProjectSystemUser", b =>
+            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Proposal", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithOne()
-                        .HasForeignKey("ARS_ProjectSystem.Data.Models.ProjectSystemUser", "UserId")
+                    b.HasOne("ARS_ProjectSystem.Data.Models.Customer", "Customer")
+                        .WithMany("Proposals")
+                        .HasForeignKey("CustomerRegistrationNumber");
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("EmployeeProject", b =>
+                {
+                    b.HasOne("ARS_ProjectSystem.Data.Models.Employee", null)
+                        .WithMany()
+                        .HasForeignKey("EmployeesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("ARS_ProjectSystem.Data.Models.Project", null)
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("ProjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Navigation("User");
+            modelBuilder.Entity("EmployeeProposal", b =>
+                {
+                    b.HasOne("ARS_ProjectSystem.Data.Models.Employee", null)
+                        .WithMany()
+                        .HasForeignKey("EmployeesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ARS_ProjectSystem.Data.Models.Proposal", null)
+                        .WithMany()
+                        .HasForeignKey("ProposalsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -638,33 +650,39 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.User", b =>
+                {
+                    b.HasOne("ARS_ProjectSystem.Data.Models.Customer", null)
+                        .WithMany("Users")
+                        .HasForeignKey("CustomerRegistrationNumber");
+                });
+
             modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Customer", b =>
                 {
                     b.Navigation("Employees");
 
                     b.Navigation("Invoices");
-                });
-
-            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Employee", b =>
-                {
-                    b.Navigation("Departments");
 
                     b.Navigation("Projects");
+
+                    b.Navigation("Proposals");
+
+                    b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Project", b =>
+            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Department", b =>
                 {
-                    b.Navigation("Customers");
+                    b.Navigation("Employees");
                 });
 
-            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.ProjectSystemUser", b =>
+            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Programm", b =>
                 {
-                    b.Navigation("Customers");
+                    b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Proposal", b =>
                 {
-                    b.Navigation("Employees");
+                    b.Navigation("Project");
                 });
 #pragma warning restore 612, 618
         }

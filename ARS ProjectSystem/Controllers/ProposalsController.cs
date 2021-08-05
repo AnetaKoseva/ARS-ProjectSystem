@@ -3,18 +3,14 @@
     using ARS_ProjectSystem.Models.Proposals;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using ARS_ProjectSystem.Data;
-    using ARS_ProjectSystem.Data.Models;
-    using System.Linq;
-
     using System.Collections.Generic;
     using ARS_ProjectSystem.Services.Proposals;
+    using ARS_ProjectSystem.Infrastructure;
 
-    public class ProposalsController:Controller
+    public class ProposalsController : Controller
     {
-        
         private readonly IProposalService proposals;
-        public ProposalsController( IProposalService proposals)
+        public ProposalsController(IProposalService proposals)
         {
             this.proposals = proposals;
         }
@@ -30,17 +26,17 @@
         }
 
         [Authorize]
-        public IActionResult Add() 
+        public IActionResult Add()
         {
 
-            return View(new AddProposalFormModel
+            return View(new ProposalFormModel
             {
                 Customers = this.GetProposalCustomers()
-            }) ;
+            });
         }
         [HttpPost]
         [Authorize]
-        public IActionResult Add(AddProposalFormModel proposal)
+        public IActionResult Add(ProposalFormModel proposal)
         {
             if (!ModelState.IsValid)
             {
@@ -65,7 +61,43 @@
         }
         private IEnumerable<ProposalCustomersServiceModel> GetProposalCustomers()
             => this.proposals.GetProposalCustomers();
-        
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var proposal = this.proposals.Details(id);
+
+            return View(new ProposalFormModel
+            {
+                Id = proposal.Id,
+                Name = proposal.Name,
+                CreatedOn = proposal.CreatedOn,
+                UrlPhoto = proposal.UrlPhoto,
+                Budget = proposal.Budget,
+                Customers = this.GetProposalCustomers(),
+                CustomerRegistrationNumber = proposal.CustomerRegistrationNumber,
+                ProjectId = proposal.ProjectId
+            });
+
+        }
+        [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        public IActionResult Edit(int id, ProposalFormModel proposal)
+        {
+            var proposalIsEdited = this.proposals.Edit(
+                proposal.Id,
+                proposal.Name,
+                proposal.CreatedOn,
+                proposal.UrlPhoto,
+                proposal.Budget,
+                proposal.CustomerRegistrationNumber,
+                proposal.ProjectId.GetValueOrDefault()
+                );
+            if (!proposalIsEdited || !User.IsAdmin())
+            {
+                return BadRequest();
+            }
+            return RedirectToAction(nameof(All));
+
+        }
     }
-    
 }

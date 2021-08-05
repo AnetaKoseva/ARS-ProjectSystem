@@ -15,5 +15,13 @@
                 double budget,
                 string customerRegistrationNumber,
                 int? projectId);
+        bool Edit(
+            int id,
+                string name,
+                string createdOn,
+                string urlPhoto,
+                double budget,
+                string customerRegistrationNumber,
+                int projectId);
     }
 }

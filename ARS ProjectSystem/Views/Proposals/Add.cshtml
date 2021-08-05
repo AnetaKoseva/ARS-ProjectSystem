@@ -1,52 +1,9 @@
-﻿@model AddProposalFormModel
+﻿@model ProposalFormModel
 @{
     ViewBag.Title = "Add new Proposal";
 }
 
-<div class="col-6 offset-3">
-    <h2 class="heading-margin text-center">@ViewBag.Title</h2>
-    <form method="post">
-        <div class="form-group">
-            <label asp-for="Name">Proposal Name</label>
-            <input asp-for="Name" class="form-control" placeholder="The Proposal name">
-            <span asp-validation-for="Name" class="small text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="CustomerRegistrationNumber">Customer</label>
-            <select asp-for="CustomerRegistrationNumber" class="form-control">
-                @foreach (var customer in Model.Customers)
-                {
-                    <option value="@customer.RegistrationNumber">@customer.Name</option>
-                }
-            </select>
-        </div>
-        <div class="form-group">
-            <label asp-for="CreatedOn">Created On</label>
-            <input asp-for="CreatedOn" class="form-control" placeholder="dd/MM/year">
-            <span asp-validation-for="CreatedOn" class="small text-danger"></span>
-        </div>
-        @if (Model.ProjectId != null)
-        {
-            <div class="form-group">
-                <label asp-for="ProjectId"></label>
-                <input asp-for="ProjectId" class="form-control">
-                <span asp-validation-for="ProjectId" class="small text-danger"></span>
-            </div>
-        }
-        <div class="form-group">
-            <label asp-for="UrlPhoto">Photo Url</label>
-            <input asp-for="UrlPhoto" class="form-control">
-            <span asp-validation-for="UrlPhoto" class="small text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Budget"></label>
-            <input asp-for="Budget" class="form-control">
-            <span asp-validation-for="Budget" class="small text-danger"></span>
-        </div>
-
-        <input class="btn btn-primary" type="submit" value="Save" />
-    </form>
-</div>
+<partial name="_ProposalFormPartial" model="@Model" />
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
 }

@@ -17,6 +17,11 @@
                     <h6 class="card-subtitle text-center"> @proposal.CustomerName</h6>
                     <br />
                     <a href="/Proposals/Details?proposalId=@proposal.Id" class="btn btn-primary btn-sm">More</a>
+                    @if (User.Identity.IsAuthenticated && User.IsAdmin())
+                    {
+                        <a asp-controller="Proposals" asp-action="Edit" asp-route-id="@proposal.Id" class="btn btn-info btn-sm">Edit</a>
+                        <a asp-controller="Proposals" asp-action="Delete" asp-route-id="@proposal.Id" class="btn btn-light btn-sm">Delete</a>
+                    }
                 </div>
             </div>
         </div>

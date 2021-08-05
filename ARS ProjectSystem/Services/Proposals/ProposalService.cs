@@ -69,5 +69,24 @@
 
             return proposalData.Id;
         }
+
+        public bool Edit(int id, string name, string createdOn, string urlPhoto, double budget, string customerRegistrationNumber, int projectId)
+        {
+            var proposalData = this.data.Proposals.Find(id);
+            //if you can edit the proposal
+            //if()
+            //{
+            //    return false;
+            //}
+            proposalData.Name = name;
+            proposalData.CreatedOn = createdOn;
+            proposalData.UrlPhoto = urlPhoto;
+            proposalData.Budget = budget;
+            proposalData.CustomerRegistrationNumber = customerRegistrationNumber;
+            proposalData.ProjectId = projectId;
+
+            this.data.SaveChanges();
+            return true;
+        }
     }
 }

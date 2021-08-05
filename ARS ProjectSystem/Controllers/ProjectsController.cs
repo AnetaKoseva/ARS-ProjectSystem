@@ -1,19 +1,14 @@
 ﻿namespace ARS_ProjectSystem.Controllers
 {
-    using ARS_ProjectSystem.Data;
-    using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Infrastructure;
     using ARS_ProjectSystem.Models.Projects;
     using ARS_ProjectSystem.Services.Projects;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class ProjectsController : Controller
     {
         private readonly IProjectService projects;
-        
         public ProjectsController( IProjectService projects)
         {
             this.projects = projects;
@@ -22,7 +17,6 @@
         [Authorize]
         public IActionResult Add()
         {
-
             return View(new ProjectFormModel
             {
                 Programms = this.projects.GetProjectProgramms(),
@@ -78,11 +72,8 @@
 
         public IActionResult Details(int projectId)
         {
-            //var project = this.data.Projects
-            //    .First(t => t.Id == int.Parse(projectId));
             var project = this.projects.Details(projectId);
             return this.View(project);
-
         }
         public IActionResult Mine()
         {
@@ -110,7 +101,7 @@
                 Customers = this.projects.GetProjectCustomers()
             });
         }
-        [Authorize]
+        [Authorize(Roles ="Administrator")]
         [HttpPost]
         public IActionResult Edit(int id,ProjectFormModel project)
         {
@@ -124,7 +115,7 @@
                 project.EndDate,
                 project.ProjectRate,
                 project.CustomerRegistrationNumber);
-            if(!projectIsEdited)
+            if(!projectIsEdited||!User.IsAdmin())
             {
                 return BadRequest();
             }

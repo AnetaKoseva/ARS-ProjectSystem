@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    public class ProjectSystemDbContext : IdentityDbContext
+    public class ProjectSystemDbContext : IdentityDbContext<User>
     {
         public ProjectSystemDbContext(DbContextOptions<ProjectSystemDbContext> options)
             : base(options)

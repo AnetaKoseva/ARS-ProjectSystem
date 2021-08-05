@@ -10,40 +10,44 @@
             <tr>
                 <th scope="col">Programm Name</th>
                 <th scope="col">Description</th>
-                <th scope="col">Action</th>
-            </tr>
+                @if (User.IsAdmin())
+                {
+                    <th scope="col">Action</th>
+                }
+                </tr>
         </thead>
         <tbody>
             @foreach (var programm in Model)
             {
-                <tr>
-                    <td>
-                        <a href=@programm.Url>
-                            <div style="height:100%;width:100%">
-                                @programm.ProgrammName
-                            </div>
-                        </a>
+            <tr>
+                <td>
+                    <a href=@programm.Url>
+                        <div style="height:100%;width:100%">
+                            @programm.ProgrammName
+                        </div>
+                    </a>
+                </td>
+                <td>
+                    @if (programm.Description != null)
+                    {
+                        @programm.Description;
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="/Programms/Details?programmId=@programm.Id" class="btn btn-light btn-sm me-md-1">More</a>
+                        </div>
+                    }
                     </td>
+                @if (User.Identity.IsAuthenticated && User.IsAdmin())
+                {
                     <td>
-                        @if (programm.Description != null)
-                        {
-                            @programm.Description;
-                            <a href="/Programms/Details?programmId=@programm.Id" class="btn btn-light bs-tooltip-left btn-sm">More</a>
-
-                        }
+                        <a asp-controller="Programms" asp-action="Edit" class="btn btn-primary btn-sm">Edit</a>
+                        <button id="buttonDelete" type="button" class="btn btn-primary btn-sm">Delete</button>
                     </td>
-                    <td>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <a asp-controller="Programms" asp-action="Edit" class="btn btn-primary btn-sm">Edit</a>
-                            <button id="buttonDelete" type="button" class="btn btn-primary btn-sm">Delete</button>
-                        }
-                        </td>
-                </tr>
+                }
+            </tr>
             }
         </tbody>
     </table>
-    @if (User.Identity.IsAuthenticated)
+    @if (User.Identity.IsAuthenticated && User.IsAdmin())
     {
         <a asp-controller="Programms" asp-action="Add" class="btn btn-primary btn-sm">Add new Programm</a>
     }

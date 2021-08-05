@@ -1,5 +1,8 @@
 ﻿@model ProjectFormModel
 @{ ViewBag.Title = "Edit Project";
-    }
+}
 
 <partial name="_ProjectFormPartial" model="@Model" />
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

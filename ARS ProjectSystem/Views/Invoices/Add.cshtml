@@ -1,6 +1,6 @@
 ﻿@model AddInvoiceFormModel
 @{
-    ViewBag.Title = "Add Invoice"; 
+    ViewBag.Title = "Add Invoice";
 }
 <body>
     <div class="invoice-box">
@@ -76,3 +76,6 @@
 <a href="#" class="btn btn-primary text-light">Submit</a>
 <a href="#" class="btn btn-danger text-light">Cancel</a>
 <a href="" class="btn  btn-success">Create PDF</a>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

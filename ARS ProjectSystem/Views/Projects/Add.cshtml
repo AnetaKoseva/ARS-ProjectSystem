@@ -1,6 +1,7 @@
 ﻿@model ProjectFormModel
-@{
-    ViewBag.Title = "Add new Project";
-}
+@{ ViewBag.Title = "Add new Project"; }
 
-<partial name="_ProjectFormPartial" model="@Model"/>
+<partial name="_ProjectFormPartial" model="@Model" />
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

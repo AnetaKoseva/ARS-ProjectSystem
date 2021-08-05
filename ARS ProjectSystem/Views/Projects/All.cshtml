@@ -69,7 +69,7 @@
            asp-route-sorting="@((int)Model.Sorting)">>></a>
     </div>
 </div>
-@if (User.Identity.IsAuthenticated)
+@if (User.IsAdmin())
 {
     <a asp-controller="Projects" asp-action="Add" class="btn btn-primary">Add new Project</a>
 }

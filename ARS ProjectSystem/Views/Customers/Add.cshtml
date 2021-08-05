@@ -1,5 +1,5 @@
 ﻿@model AddCustomerFormModel
-@{ 
+@{
     ViewBag.Title = "Add new Custommer";
 }
 
@@ -60,4 +60,6 @@
         <input class="btn btn-primary" type="submit" value="Save" />
     </form>
 </div>
-
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

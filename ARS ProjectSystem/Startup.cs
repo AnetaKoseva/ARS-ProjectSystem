@@ -1,6 +1,7 @@
 namespace ARS_ProjectSystem
 {
     using ARS_ProjectSystem.Data;
+    using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Infrastructure;
     using ARS_ProjectSystem.Services.Customers;
     using ARS_ProjectSystem.Services.Projects;
@@ -29,13 +30,14 @@ namespace ARS_ProjectSystem
                 .AddDatabaseDeveloperPageExceptionFilter();
 
             services
-                .AddDefaultIdentity<IdentityUser>(options => 
+                .AddDefaultIdentity<User>(options => 
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                 })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ProjectSystemDbContext>();
 
             services

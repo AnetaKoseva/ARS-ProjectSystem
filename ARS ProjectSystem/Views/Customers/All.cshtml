@@ -45,14 +45,17 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <a asp-controller="Customers" asp-action="Edit" class="btn btn-primary btn-sm">Edit</a>
-                            <button id="buttonDelete" type="button" class="btn btn-primary btn-sm">Delete</button>
+                            @if (User.IsAdmin())
+                            {
+                                <button id="buttonDelete" type="button" class="btn btn-primary btn-sm">Delete</button>
+                            }
                         }
                         </td>
                 </tr>
             }
         </tbody>
     </table>
-    @if (User.Identity.IsAuthenticated)
+    @if (User.Identity.IsAuthenticated&& User.IsAdmin())
     {
         <a asp-controller="Customers" asp-action="Add" class="btn btn-primary btn-sm">Add new Customer</a>
     }

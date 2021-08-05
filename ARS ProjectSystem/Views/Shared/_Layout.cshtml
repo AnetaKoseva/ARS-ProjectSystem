@@ -34,23 +34,23 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Proposals" asp-action="All">All Proposals</a>
                             </div>
                         </li>
+                        @if (User.IsAdmin())
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Add
+                                </a>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Add
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Add">Add Customers</a>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Programms" asp-action="Add">Add Programm</a>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Proposals" asp-action="Add">Add Proposal</a>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Add">Add Projects</a>
-                                
-                            </div>
-                        </li>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Add">Add Customers</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Programms" asp-action="Add">Add Programm</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Proposals" asp-action="Add">Add Proposal</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Add">Add Projects</a>
+                                </div>
+                            </li>
+                        }
 
-                        
-
-                    </ul>
+                        </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>

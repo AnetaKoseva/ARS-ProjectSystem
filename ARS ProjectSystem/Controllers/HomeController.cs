@@ -4,37 +4,45 @@
     using ARS_ProjectSystem.Models;
     using ARS_ProjectSystem.Models.Home;
     using ARS_ProjectSystem.Services.Statistics;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using Microsoft.AspNetCore.Mvc;
     using System.Diagnostics;
     using System.Linq;
     public class HomeController : Controller
     {
         private readonly ProjectSystemDbContext data;
+        private readonly IMapper mapper;
         private readonly IStatisticsService statistics;
 
-
         public HomeController(IStatisticsService statistics,
-            ProjectSystemDbContext data)
+            IMapper mapper, ProjectSystemDbContext data)
         {
             this.statistics = statistics;
+            this.mapper = mapper;
             this.data = data;
         }
 
         public IActionResult Index()
         {
             var totalStatistics = this.statistics.Total();
-
-            var projects = this.data
+            //automapper in select and register in mappingProfile
+            var projects=this.data
                 .Projects
-                .OrderByDescending(p => p.Id)
-                .Select(p => new ProjectIndexViewModel
-                {
-                    Id = p.Id,
-                    Name=p.Name,
-                    ProjectPhoto=p.ProjectPhoto,
-                    ProgrammName=p.Programm.ProgrammName
-                })
+                .OrderByDescending(p=>p.Id)
+                .ProjectTo<ProjectIndexViewModel>(this.mapper.ConfigurationProvider)
                 .ToList();
+            //var projects = this.data
+            //    .Projects
+            //    .OrderByDescending(p => p.Id)
+            //    .Select(p => new ProjectIndexViewModel
+            //    {
+            //        Id = p.Id,
+            //        Name=p.Name,
+            //        ProjectPhoto=p.ProjectPhoto,
+            //        ProgrammName=p.Programm.ProgrammName
+            //    })
+            //    .ToList();
 
             return View(new IndexViewModel
             {

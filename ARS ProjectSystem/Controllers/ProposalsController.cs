@@ -23,6 +23,7 @@
                 Id = p.Id,
                 Name=p.Name,
                 CustomerRegistrationNumber=p.CustomerRegistrationNumber,
+                CustomerName=p.Customer.Name,
                 Budget=p.Budget,
                 CreatedOn=p.CreatedOn,
             }).ToList();

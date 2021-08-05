@@ -3,14 +3,17 @@
     using ARS_ProjectSystem.Infrastructure;
     using ARS_ProjectSystem.Models.Projects;
     using ARS_ProjectSystem.Services.Projects;
+    using AutoMapper;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class ProjectsController : Controller
     {
         private readonly IProjectService projects;
-        public ProjectsController( IProjectService projects)
+        private readonly IMapper mapper;
+        public ProjectsController( IProjectService projects, IMapper mapper)
         {
+            this.mapper = mapper;
             this.projects = projects;
         }
 
@@ -85,21 +88,30 @@
         {
             var project = this.projects.Details(id);
             //check if you can edit project return UnAuthorized
-            return View(new ProjectFormModel
-            {
-                Id = project.Id,
-                Name = project.Name,
-                ProgrammId = project.ProgrammId,
-                ProjectPhoto = project.ProjectPhoto,
-                Status = project.Status,
-                StartDate = project.StartDate,
-                EndDate = project.EndDate,
-                ProjectRate = project.ProjectRate,
-                CustomerRegistrationNumber = project.CustomerRegistrationNumber,
-                Programms = this.projects.GetProjectProgramms(),
-                Proposals = this.projects.GetProjectProposals(),
-                Customers = this.projects.GetProjectCustomers()
-            });
+
+            //automapping registered in MappingProfile
+            var projectForm = this.mapper.Map<ProjectFormModel>(project);
+            projectForm.Programms = this.projects.GetProjectProgramms();
+            projectForm.Proposals = this.projects.GetProjectProposals();
+            projectForm.Customers = this.projects.GetProjectCustomers();
+
+            return View(projectForm);
+
+            //return View(new ProjectFormModel
+            //{
+            //    Id = project.Id,
+            //    Name = project.Name,
+            //    ProgrammId = project.ProgrammId,
+            //    ProjectPhoto = project.ProjectPhoto,
+            //    Status = project.Status,
+            //    StartDate = project.StartDate,
+            //    EndDate = project.EndDate,
+            //    ProjectRate = project.ProjectRate,
+            //    CustomerRegistrationNumber = project.CustomerRegistrationNumber,
+            //    Programms = this.projects.GetProjectProgramms(),
+            //    Proposals = this.projects.GetProjectProposals(),
+            //    Customers = this.projects.GetProjectCustomers()
+            //});
         }
         [Authorize(Roles ="Administrator")]
         [HttpPost]

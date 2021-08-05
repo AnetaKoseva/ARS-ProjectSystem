@@ -39,7 +39,9 @@ namespace ARS_ProjectSystem
                 })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ProjectSystemDbContext>();
-
+            
+            services
+                .AddAutoMapper(typeof(Startup));
             services
                 .AddControllersWithViews(options =>
                 {

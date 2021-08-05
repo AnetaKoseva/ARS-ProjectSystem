@@ -3,6 +3,8 @@
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Models;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -10,8 +12,13 @@
     public class ProjectService : IProjectService
     {
         private readonly ProjectSystemDbContext data;
-        public ProjectService(ProjectSystemDbContext data)
-            => this.data = data;
+        private readonly IMapper mapper;
+        public ProjectService(ProjectSystemDbContext data,
+            IMapper mapper)
+        {
+            this.data = data;
+            this.mapper = mapper;
+        }
         
         public ProjectQueryServiceModel All(string programm,
             string searchTerm,
@@ -114,18 +121,22 @@
         => this.data
             .Projects
             .Where(p => p.Id == id)
-            .Select(p => new ProjectServiceModel
-            {
-                Id = p.Id,
-                Name = p.Name,
-                ProgrammId = p.Programm.Id,
-                ProjectPhoto = p.ProjectPhoto,
-                Status = p.Status,
-                StartDate = p.StartDate,
-                EndDate = p.EndDate,
-                ProjectRate = p.ProjectRate,
-                CustomerRegistrationNumber = p.Customer.Name
-            }).FirstOrDefault();
+            .ProjectTo<ProjectServiceModel>(this.mapper.ConfigurationProvider)
+            .FirstOrDefault();
+        //mapping/
+        //.Select(p => new ProjectServiceModel
+        //{
+        //    Id = p.Id,
+        //    Name = p.Name,
+        //    ProgrammId = p.Programm.Id,
+        //    ProgrammName=p.Programm.ProgrammName,
+        //    ProjectPhoto = p.ProjectPhoto,
+        //    Status = p.Status,
+        //    StartDate = p.StartDate,
+        //    EndDate = p.EndDate,
+        //    ProjectRate = p.ProjectRate,
+        //    CustomerRegistrationNumber = p.Customer.Name
+        //}).FirstOrDefault();
 
         public bool ProposalExists(int proposalId)
             => this.data

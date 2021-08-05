@@ -8,6 +8,7 @@
         public string UrlPhoto { get; set; }
         public double Budget { get; set; }
         public string CustomerRegistrationNumber { get; set; }
+        public string CustomerName { get; set; }
         public int? ProjectId { get; set; }
     }
 }

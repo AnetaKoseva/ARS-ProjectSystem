@@ -12,21 +12,16 @@
 
     public class ProposalsController:Controller
     {
-        private readonly ProjectSystemDbContext data;
-        public ProposalsController(ProjectSystemDbContext data)
-            => this.data = data;
+        
+        private readonly IProposalService proposals;
+        public ProposalsController( IProposalService proposals)
+        {
+            this.proposals = proposals;
+        }
 
         public IActionResult All()
         {
-            var proposals = this.data.Proposals.Select(p => new AllProposalsListingViewModel
-            {
-                Id = p.Id,
-                Name=p.Name,
-                CustomerRegistrationNumber=p.CustomerRegistrationNumber,
-                CustomerName=p.Customer.Name,
-                Budget=p.Budget,
-                CreatedOn=p.CreatedOn,
-            }).ToList();
+            var proposals = this.proposals.All();
             if (proposals != null)
             {
                 return View(proposals);
@@ -51,37 +46,25 @@
             {
                 return View();
             }
-            var proposalData = new Proposal
-            {
-                Id=proposal.Id,
-                Name = proposal.Name,
-                CreatedOn = proposal.CreatedOn,
-                UrlPhoto = proposal.UrlPhoto,
-                Budget=proposal.Budget,
-                CustomerRegistrationNumber= proposal.CustomerRegistrationNumber,
-                ProjectId =proposal.ProjectId,
-            };
-            this.data.Proposals.Add(proposalData);
-            this.data.SaveChanges();
+            this.proposals.Create(
+                proposal.Id,
+                proposal.Name,
+                proposal.CreatedOn,
+                proposal.UrlPhoto,
+                proposal.Budget,
+                proposal.CustomerRegistrationNumber,
+                proposal.ProjectId);
 
             return RedirectToAction("Index", "Home");
         }
-        public IActionResult Details(string proposalId)
+        public IActionResult Details(int proposalId)
         {
-            var proposal = this.data.Proposals
-                .First(t => t.Id == int.Parse(proposalId));
+            var proposal = this.proposals.Details(proposalId);
 
             return this.View(proposal);
         }
         private IEnumerable<ProposalCustomersServiceModel> GetProposalCustomers()
-            => this.data
-                .Customers
-                .Select(c => new ProposalCustomersServiceModel
-                {
-                    RegistrationNumber = c.RegistrationNumber,
-                    Name = c.Name
-                })
-            .ToList();
+            => this.proposals.GetProposalCustomers();
         
     }
     

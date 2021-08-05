@@ -5,6 +5,7 @@ namespace ARS_ProjectSystem
     using ARS_ProjectSystem.Infrastructure;
     using ARS_ProjectSystem.Services.Customers;
     using ARS_ProjectSystem.Services.Projects;
+    using ARS_ProjectSystem.Services.Proposals;
     using ARS_ProjectSystem.Services.Statistics;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -53,6 +54,8 @@ namespace ARS_ProjectSystem
                 .AddTransient<IStatisticsService, StatisticsService>();
             services
                 .AddTransient<IProjectService, ProjectService>();
+            services
+                .AddTransient<IProposalService, ProposalService>();
 
         }
 

@@ -16,7 +16,7 @@ namespace ARS_ProjectSystem.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.4")
+                .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Customer", b =>
@@ -63,22 +63,6 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Department", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("DepartmentName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Departments");
-                });
-
             modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -86,11 +70,11 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("CustomerRegistrationNumber")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
+                    b.Property<string>("DepartmentName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -105,9 +89,7 @@ namespace ARS_ProjectSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("DepartmentId");
+                    b.HasIndex("CustomerRegistrationNumber");
 
                     b.ToTable("Employees");
                 });
@@ -279,10 +261,6 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FullName")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -296,6 +274,9 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -500,18 +481,9 @@ namespace ARS_ProjectSystem.Data.Migrations
                 {
                     b.HasOne("ARS_ProjectSystem.Data.Models.Customer", "Customer")
                         .WithMany("Employees")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("ARS_ProjectSystem.Data.Models.Department", "Department")
-                        .WithMany("Employees")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("CustomerRegistrationNumber");
 
                     b.Navigation("Customer");
-
-                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Invoice", b =>
@@ -656,11 +628,6 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.Navigation("Proposals");
 
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Department", b =>
-                {
-                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("ARS_ProjectSystem.Data.Models.Programm", b =>

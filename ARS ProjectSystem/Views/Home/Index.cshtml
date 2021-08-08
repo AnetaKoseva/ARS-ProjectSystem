@@ -3,7 +3,6 @@
     ViewBag.Title = "Home Page";
 }
 
-<!-- Masthead-->
 <header class="masthead">
     <div class="header text-center">
         <h1 class=" font-weight-bold">Success through Excellence!</h1>
@@ -48,20 +47,53 @@
     <div id="portfolio mb-3">
         <div class="container-fluid p-0">
             <div class="row flex match-to-row">
-                @for (int i = 0; i < 3; i++)
+                @if (Model.Projects.Count() > 0)
                 {
-                    var project = Model.Projects.ToList()[i];
+                    @for (int i = 0; i < 3; i++)
+                    {
+
+                        var project = Model.Projects.ToList()[i];
+                        <div class="col-lg-4 col-sm-6">
+                            <a class="portfolio-box" href="@project.ProjectPhoto" title="@project.Name">
+                                <img class="img-fluid " src="@project.ProjectPhoto"alt="..." />
+                                <div class="portfolio-box-caption">@project.Name</div>
+                                
+                            </a>
+                        </div>
+                    }
+                }
+                else
+                {
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="@project.ProjectPhoto" title="Project Name">
-                            <img class="img-fluid" src="@project.ProjectPhoto" alt="..." />
+                        <a class="portfolio-box" href="~/pics/portfolio/fullsize/1.jpg" title="Project Name">
+                            <img class="img-fluid" src="~/pics/portfolio/thumbnails/1.jpg" alt="..." />
                             <div class="portfolio-box-caption">
-                                <div class="project-category">@project.ProgrammName</div>
-                                <div class="project-name">@project.Name</div>
+                                <div class="project-category ">Category</div>
+                                <div class="project-name">Project Name</div>
                             </div>
                         </a>
                     </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="~/pics/portfolio/fullsize/2.jpg" title="Project Name">
+                            <img class="img-fluid" src="~/pics/portfolio/thumbnails/2.jpg" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category ">Category</div>
+                                <div class="project-name">Project Name</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="~/pics/portfolio/fullsize/3.jpg" title="Project Name">
+                            <img class="img-fluid" src="~/pics/portfolio/thumbnails/3.jpg" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category ">Category</div>
+                                <div class="project-name">Project Name</div>
+                            </div>
+                        </a>
+                    </div>
+                    
                 }
-                </div>
+            </div>
         </div>
     </div>
  

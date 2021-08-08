@@ -4,6 +4,7 @@ namespace ARS_ProjectSystem
     using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Infrastructure;
     using ARS_ProjectSystem.Services.Customers;
+    using ARS_ProjectSystem.Services.Employees;
     using ARS_ProjectSystem.Services.Platform;
     using ARS_ProjectSystem.Services.Projects;
     using ARS_ProjectSystem.Services.Proposals;
@@ -60,6 +61,8 @@ namespace ARS_ProjectSystem
                 .AddTransient<IProposalService, ProposalService>();
             services
                 .AddTransient<IPlatformService, PlatformService>();
+            services
+                .AddTransient<IEmployeeService, EmployeeService>();
 
         }
 

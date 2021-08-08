@@ -6,8 +6,7 @@
 
     public class User:IdentityUser
     {
-        [MaxLength(FullNameMaxLength)]
-        public string FullName { get; set; }
+        public string Number { get; set; }
 
     }
 }

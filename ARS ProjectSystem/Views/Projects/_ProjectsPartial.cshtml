@@ -3,8 +3,7 @@
 <div class="row">
     @foreach (var project in Model)
     {
-<div class="col-md-4">
-    <div class="card mb-3">
+     <div class="card mb-3">
         <img class="card-img-top" height="250" width="500" src="@project.ProjectPhoto" alt="@project.Name">
         <div class="card-body text-center">
             <h5 class="card-title text-center">@project.Name</h5>
@@ -18,6 +17,6 @@
                 <a asp-controller="Projects" asp-action="Delete" asp-route-id="@project.Id" class="btn btn-light btn-sm">Delete</a>
             }
         </div>
-    </div>
-</div>}
+     </div>
+     }
 </div>

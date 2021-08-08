@@ -164,4 +164,12 @@ body {
     .invoice-box.rtl table tr td:nth-child(2) {
         text-align: left;
     }
-
+.img-fluid {
+    width: 340px;
+    height: 340px;
+    
+}
+.portfolio-box {
+    width: 100px;
+    height: 100px;
+}

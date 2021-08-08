@@ -38,9 +38,8 @@
             [EmailAddress]
             public string Email { get; set; }
 
-            [Display(Name = "Full Name")]
-            [StringLength(FullNameMaxLength, MinimumLength = FullNameMinLength)]
-            public string FullName { get; set; }
+            [Display(Name = "Customer Registration Number")]
+            public string Number { get; set; }
 
             [Required]
             [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength)]
@@ -68,7 +67,7 @@
                 {
                     UserName = Input.Email,
                     Email = Input.Email,
-                    FullName = Input.FullName
+                    Number = Input.Number
                 };
 
                 var result = await this.userManager.CreateAsync(user, Input.Password);

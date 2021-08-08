@@ -76,14 +76,14 @@
 
                     await roleManager.CreateAsync(role);
 
-                    const string adminEmail = "admin@crs.com";
+                    const string adminEmail = "admin@ars.com";
                     const string adminPassword = "admin2020";
 
                     var user = new User
                     {
                         Email = adminEmail,
                         UserName = adminEmail,
-                        FullName = "Admin"
+                        Number = "203300624"
                     };
 
                     await userManager.CreateAsync(user, adminPassword);

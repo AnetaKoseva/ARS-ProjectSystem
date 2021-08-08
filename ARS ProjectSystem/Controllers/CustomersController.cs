@@ -75,5 +75,18 @@
 
             return RedirectToAction(nameof(All));
         }
+        [Authorize]
+        public IActionResult Delete(string id)
+        {
+            var customer = this.data.Customers.FirstOrDefault(c => c.RegistrationNumber == id);
+            var employees = this.data.Employees.Where(c => c.CustomerRegistrationNumber == id).ToList();
+            foreach (var employee in employees)
+            {
+                this.data.Employees.Remove(employee);
+            }
+            this.data.Customers.Remove(customer);
+            this.data.SaveChanges();
+            return RedirectToAction(nameof(All));
+        }
     }
 }

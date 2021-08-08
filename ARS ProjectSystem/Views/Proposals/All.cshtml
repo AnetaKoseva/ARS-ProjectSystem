@@ -15,8 +15,11 @@
                 <th scope="col">Name</th>
                 <th scope="col">Customer Name</th>
                 <th scope="col">Budget</th>
-                <th scope="col">Action</th>
-            </tr>
+                @if (User.IsAdmin())
+                {
+                    <th scope="col">Action</th>
+                }
+           </tr>
         </thead>
         <tbody>
             @foreach (var proposal in Model)

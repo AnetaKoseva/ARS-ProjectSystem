@@ -42,13 +42,9 @@
                     <td>@customer.VAT</td>
                     <td>@customer.OwnerName</td>
                     <td>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated&& User.IsAdmin())
                         {
-                            <a asp-controller="Customers" asp-action="Edit" class="btn btn-primary btn-sm">Edit</a>
-                            @if (User.IsAdmin())
-                            {
-                                <button id="buttonDelete" type="button" class="btn btn-primary btn-sm">Delete</button>
-                            }
+                             <a asp-controller="Customers" asp-action="Delete" asp-route-id="@customer.RegistrationNumber" class="btn btn-light btn-sm">Delete</a>
                         }
                         </td>
                 </tr>

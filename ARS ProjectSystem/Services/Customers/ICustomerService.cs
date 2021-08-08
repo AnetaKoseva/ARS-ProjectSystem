@@ -3,5 +3,6 @@
     public interface ICustomerService
     {
         CustomerQueryServiceModel All(string searchTerm);
+
     }
 }

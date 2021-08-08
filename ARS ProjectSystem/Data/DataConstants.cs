@@ -28,6 +28,10 @@
             public const int NameMaxLength = 50;
             public const int NameMinLength = 2;
         }
+        public class ShortApplication
+        {
+            public const int MaxAbstactLenght = 1000;
+        }
         public class User
         {
             public const int FullNameMinLength = 5;

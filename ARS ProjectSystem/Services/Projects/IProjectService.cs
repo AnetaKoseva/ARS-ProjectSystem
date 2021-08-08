@@ -20,6 +20,7 @@
             string endDate,
             double projectRate,
             string customerRegistrationNumber);
+        IEnumerable<ProjectTotalServiceModel> Total();
         bool Edit(
             int id,
             string name,

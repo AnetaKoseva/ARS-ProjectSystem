@@ -181,7 +181,14 @@
             return true;
         }
 
-        
+        public IEnumerable<ProjectTotalServiceModel> Total()
+            => this.data
+                .Projects
+                .OrderByDescending(p => p.Id)
+                .ProjectTo<ProjectTotalServiceModel>(this.mapper.ConfigurationProvider)
+                .ToList();
+
+
         //public bool IsByUser(int projectId, int userId)
         //=> this.data
         //        .Projects

@@ -26,7 +26,7 @@
             {
                 TotalCustomers = totalCustomers,
                 TotalInvoices = totalInvoices,
-                TotalProjects = totalInvoices,
+                TotalProjects = totalProjects,
                 TotalProposals = totalProposals
             };
         }

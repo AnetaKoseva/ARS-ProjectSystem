@@ -15,7 +15,7 @@
             => this.data = data;
         [Authorize]
         public IActionResult Add()=>View();
-
+        [Authorize]
         public IActionResult All([FromQuery] AllCustomersQueryModel query)
         {
             var customerQuery = this.data.Customers.AsQueryable();

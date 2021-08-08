@@ -14,6 +14,7 @@
             => this.data = data;
         [Authorize]
         public IActionResult Add() => View();
+        [Authorize]
         public IActionResult All()
         {
             var departments = this.data.Departments.ToList();

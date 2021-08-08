@@ -13,7 +13,7 @@
             this.CreateMap<Project, ProjectServiceModel>()
                 .ForMember(c=>c.ProgrammName,cfg=>cfg.MapFrom(c=>c.Programm.ProgrammName))
                 .ForMember(c=>c.CustomerRegistrationNumber, cfg=>cfg.MapFrom(c=>c.Customer.Name));
-            this.CreateMap<Project,ProjectIndexViewModel >();
+            this.CreateMap<Project,ProjectTotalServiceModel >();
             this.CreateMap<ProjectServiceModel, ProjectFormModel>();
             //Reverce mapping other side
         }

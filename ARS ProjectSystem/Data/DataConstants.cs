@@ -30,7 +30,10 @@
         }
         public class ShortApplication
         {
-            public const int MaxAbstactLenght = 1000;
+            public const int MaxCharacters = 1000;
+            public const int MaxAcronymLength = 50;
+            public const int MaxFeatureLength = 100;
+            public const int MaxFeatureKnowleadgeOrTechnologyLength = 500;
         }
         public class User
         {

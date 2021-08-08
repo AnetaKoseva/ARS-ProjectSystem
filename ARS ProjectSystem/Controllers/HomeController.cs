@@ -5,21 +5,25 @@
     using ARS_ProjectSystem.Services.Statistics;
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Memory;
 
     public class HomeController : Controller
     {
         private readonly IProjectService projects;
         private readonly IStatisticsService statistics;
+        //private readonly IMemoryCache cache;
 
         public HomeController(IStatisticsService statistics,
-            IProjectService projects)
+            IProjectService projects) //IMemoryCache cache)
         {
             this.statistics = statistics;
             this.projects = projects;
+            //this.cache = cache;
         }
 
         public IActionResult Index()
         {
+            
             var totalStatistics = this.statistics.Total();
             var totalProjects = this.projects.Total();
 

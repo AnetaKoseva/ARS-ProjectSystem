@@ -4,6 +4,7 @@ namespace ARS_ProjectSystem
     using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Infrastructure;
     using ARS_ProjectSystem.Services.Customers;
+    using ARS_ProjectSystem.Services.Platform;
     using ARS_ProjectSystem.Services.Projects;
     using ARS_ProjectSystem.Services.Proposals;
     using ARS_ProjectSystem.Services.Statistics;
@@ -43,6 +44,7 @@ namespace ARS_ProjectSystem
             
             services
                 .AddAutoMapper(typeof(Startup));
+            services.AddMemoryCache();
             services
                 .AddControllersWithViews(options =>
                 {
@@ -56,6 +58,8 @@ namespace ARS_ProjectSystem
                 .AddTransient<IProjectService, ProjectService>();
             services
                 .AddTransient<IProposalService, ProposalService>();
+            services
+                .AddTransient<IPlatformService, PlatformService>();
 
         }
 

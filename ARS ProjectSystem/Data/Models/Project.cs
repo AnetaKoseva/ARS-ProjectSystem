@@ -6,7 +6,6 @@
     using static DataConstants.Project;
     public class Project
     {
-
         public int Id { get; set; }
         [Required]
         [MaxLength(MaxLength)]
@@ -24,6 +23,6 @@
         [ForeignKey(nameof(Proposal))]
         public int? ProposalId { get; set; }
         public virtual Proposal Proposal { get; set; }
-        public IEnumerable<Employee> Employees { get; set; } = new List<Employee>();
+        public ICollection<Employee> Employees { get; set; } = new List<Employee>();
     }
 }

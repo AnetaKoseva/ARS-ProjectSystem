@@ -31,8 +31,9 @@
                     <td>
                         @if (User.Identity.IsAuthenticated && User.IsAdmin())
                         {
-                    <a asp-controller="Proposals" asp-action="Edit" asp-route-id="@proposal.Id"class="btn btn-primary btn-sm">Edit</a>
-                    <a asp-controller="Proposals" asp-action="Details"asp-route-id="@proposal.Id" class="btn btn-primary btn-sm">Details</a>
+                    <a asp-controller="Proposals" asp-action="Edit" asp-route-id="@proposal.Id" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="/Proposals/Details?proposalId=@proposal.Id" class="btn btn-primary btn-sm">More</a>
+                    
                     <a asp-controller="Proposals" asp-action="AddEmployeeToProposal" class="btn btn-primary btn-sm">Add employee</a>}
                     </td>
                 </tr>

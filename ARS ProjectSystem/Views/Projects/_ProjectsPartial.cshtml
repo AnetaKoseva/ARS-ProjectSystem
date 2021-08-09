@@ -14,7 +14,7 @@
                     @if (User.Identity.IsAuthenticated && User.IsAdmin())
                     {
                         <a asp-controller="Projects" asp-action="Edit" asp-route-id="@project.Id" class="btn btn-info btn-sm">Edit</a>
-                        <a asp-controller="Projects" asp-action="AddEmployeeToProposal" class="btn btn-primary btn-sm">Add employee</a>
+                        <a a href="/Projects/AddEmployee?projectId=@project.Id" class="btn btn-primary btn-sm">Add employee</a>
                     }
                 </div>
             </div>

@@ -24,11 +24,11 @@
         public string Town { get; set; }
         [Required]
         public string Country { get; set; }
-        public IEnumerable<User> Users { get; set; } = new List<User>();
-        public IEnumerable<Project> Projects { get; set; } = new List<Project>();
-        public IEnumerable<Proposal> Proposals { get; set; } = new List<Proposal>();
-        public IEnumerable<Invoice> Invoices { get; set; } = new List<Invoice>();
-        public IEnumerable<Employee> Employees { get; set; } = new List<Employee>();
+        public ICollection<User> Users { get; set; } = new List<User>();
+        public ICollection<Project> Projects { get; set; } = new List<Project>();
+        public ICollection<Proposal> Proposals { get; set; } = new List<Proposal>();
+        public ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
+        public ICollection<Employee> Employees { get; set; } = new List<Employee>();
         
     }
 }

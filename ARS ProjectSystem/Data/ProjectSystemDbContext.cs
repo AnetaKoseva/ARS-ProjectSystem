@@ -12,8 +12,10 @@
         }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
-        public DbSet<Employee> Employees { get; set; }
+        
         public DbSet<Programm> Programms { get; set; }
+
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Proposal> Proposals { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)

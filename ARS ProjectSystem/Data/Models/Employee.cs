@@ -14,7 +14,7 @@
         public string CustomerRegistrationNumber { get; set; }
         public Customer Customer { get; set; }
         public string DepartmentName { get;set; }
-        public IEnumerable<Project> Projects { get; set; } = new List<Project>();
-        public IEnumerable<Proposal> Proposals { get; set; } = new List<Proposal>();
+        public ICollection<Project> Projects { get; set; } = new List<Project>();
+        public ICollection<Proposal> Proposals { get; set; } = new List<Proposal>();
     }
 }

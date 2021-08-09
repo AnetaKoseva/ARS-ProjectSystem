@@ -10,7 +10,7 @@
         [Url]
         public string Url { get; set; }
         public string Description { get; set; }
-        public IEnumerable<Project> Projects { get; set; } = new List<Project>();
+        public ICollection<Project> Projects { get; set; } = new List<Project>();
 
     }
 }

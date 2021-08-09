@@ -73,7 +73,7 @@
 
             return RedirectToAction(nameof(All));
         }
-
+        [Authorize]
         public IActionResult Details(int projectId)
         {
             var project = this.projects.Details(projectId);

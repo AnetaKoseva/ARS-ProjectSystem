@@ -18,7 +18,6 @@
             this.data = data;
             this.mapper = mapper;
         }
-        
         public ProjectQueryServiceModel All(string programm,
             string searchTerm,
             ProjectSorting sorting,
@@ -88,7 +87,7 @@
 
         public IEnumerable<ProjectProposalsServiceModel> GetProjectProposals()
         => this.data
-                .Proposals
+                .Proposals.Where(p=>p.ProjectId==null ||p.ProjectId==0)
                 .Select(c => new ProjectProposalsServiceModel
                 {
                     Id = c.Id,

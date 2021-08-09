@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using static WebConstants;
     public class ProjectsController : Controller
     {
         private readonly IProjectService projects;
@@ -60,6 +61,7 @@
                 project.Customers = this.projects.GetProjectCustomers();
                 return View();
             }
+            
             this.projects.Create(project.Id,
                 project.Name,
                 project.ProgrammId,
@@ -71,6 +73,7 @@
                 project.ProjectRate,
                 project.CustomerRegistrationNumber);
 
+            TempData[GlobalMessageKey] = $"You project {project.Name} is added succesfully!";
             return RedirectToAction(nameof(All));
         }
         [Authorize]
@@ -80,7 +83,7 @@
             return this.View(project);
         }
         public IActionResult Mine()
-        {
+        { 
             var myProjects = this.projects.ByUser(this.User.GetId());
             return View(myProjects);
         }
@@ -132,6 +135,7 @@
             {
                 return BadRequest();
             }
+            TempData[GlobalMessageKey] = $"You project {project.Name} is edited!";
             return RedirectToAction(nameof(All));
         }
     }

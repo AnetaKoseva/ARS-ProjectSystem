@@ -8,6 +8,7 @@
     using ARS_ProjectSystem.Infrastructure;
     using AutoMapper;
 
+    using static WebConstants;
     public class ProposalsController : Controller
     {
         private readonly IProposalService proposals;
@@ -17,7 +18,6 @@
             this.proposals = proposals;
             this.mapper = mapper;
         }
-
         public IActionResult All()
         {
             var proposals = this.proposals.All();
@@ -27,11 +27,9 @@
             }
             return RedirectToAction("Index", "Home");
         }
-
         [Authorize]
         public IActionResult Add()
         {
-
             return View(new ProposalFormModel
             {
                 Customers = this.GetProposalCustomers()
@@ -53,7 +51,9 @@
                 proposal.Budget,
                 proposal.CustomerRegistrationNumber,
                 proposal.ProjectId.GetValueOrDefault());
-
+            
+            TempData[GlobalMessageKey] = $"You proposal {proposal.Name} is added succesfully!";
+            
             return RedirectToAction("Index", "Home");
         }
         [Authorize]
@@ -82,9 +82,7 @@
             //    CustomerRegistrationNumber = proposal.CustomerRegistrationNumber,
             //    ProjectId = proposal.ProjectId.GetValueOrDefault(),
             //    Customers = this.proposals.GetProposalCustomers(),
-
             //});
-
         }
         [Authorize(Roles = "Administrator")]
         [HttpPost]
@@ -104,8 +102,10 @@
             {
                 return BadRequest();
             }
-            return RedirectToAction(nameof(All));
+            
+            TempData[GlobalMessageKey] = $"You proposal {proposal.Name} is edited!";
 
+            return RedirectToAction(nameof(All));
         }
     }
 }

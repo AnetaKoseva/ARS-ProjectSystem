@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
     using System.Linq;
 
+    using static WebConstants;
     public class CustomersController:Controller
     {
         private readonly ProjectSystemDbContext data;
@@ -71,8 +72,8 @@
                 this.data.Customers.Add(customerData);
                 this.data.SaveChanges();
             }
-            
 
+            TempData[GlobalMessageKey] = $"Customer {customer.Name} is added succesfully!";
             return RedirectToAction(nameof(All));
         }
         [Authorize]

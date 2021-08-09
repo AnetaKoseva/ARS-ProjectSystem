@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using System.Linq;
 
+    using static WebConstants;
     public class ProgrammsController : Controller
     {
         private readonly ProjectSystemDbContext data;
@@ -21,7 +22,7 @@
             {
                 Id=p.Id,
                 ProgrammName = p.ProgrammName,
-                Description = p.Description.Substring(0, 80),
+                Description = p.Description.Substring(0, 110),
                 FullDescription = p.Description,
                 Url = p.Url
             }).ToList();
@@ -48,6 +49,8 @@
             };
             this.data.Programms.Add(programmData);
             this.data.SaveChanges();
+
+            TempData[GlobalMessageKey] = $"Programm {programm.ProgrammName} is added succesfully!";
 
             return RedirectToAction("Index", "Home");
         }

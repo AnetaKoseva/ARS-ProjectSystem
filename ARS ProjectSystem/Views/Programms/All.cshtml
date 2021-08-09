@@ -40,7 +40,7 @@
                 {
                     <td>
                         <a asp-controller="Programms" asp-action="Edit" class="btn btn-primary btn-sm">Edit</a>
-                        <button id="buttonDelete" type="button" class="btn btn-primary btn-sm">Delete</button>
+                        <a asp-controller="Programms" asp-action="Delete" asp-route-id="@programm.Id" class="btn btn-light btn-sm">Delete</a>
                     </td>
                 }
             </tr>

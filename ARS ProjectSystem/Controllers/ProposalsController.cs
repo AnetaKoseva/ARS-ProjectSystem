@@ -49,7 +49,7 @@
                 proposal.UrlPhoto,
                 proposal.Budget,
                 proposal.CustomerRegistrationNumber,
-                proposal.ProjectId);
+                proposal.ProjectId.GetValueOrDefault());
 
             return RedirectToAction("Index", "Home");
         }
@@ -73,9 +73,10 @@
                 CreatedOn = proposal.CreatedOn,
                 UrlPhoto = proposal.UrlPhoto,
                 Budget = proposal.Budget,
-                Customers = this.GetProposalCustomers(),
                 CustomerRegistrationNumber = proposal.CustomerRegistrationNumber,
-                ProjectId = proposal.ProjectId
+                ProjectId = proposal.ProjectId.GetValueOrDefault(),
+                Customers = this.proposals.GetProposalCustomers(),
+
             });
 
         }
@@ -83,6 +84,7 @@
         [HttpPost]
         public IActionResult Edit(int id, ProposalFormModel proposal)
         {
+            
             var proposalIsEdited = this.proposals.Edit(
                 proposal.Id,
                 proposal.Name,

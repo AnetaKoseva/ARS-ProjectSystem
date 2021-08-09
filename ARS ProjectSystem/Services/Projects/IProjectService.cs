@@ -18,6 +18,7 @@
             string status,
             string startDate,
             string endDate,
+            int proposalId,
             double projectRate,
             string customerRegistrationNumber);
         IEnumerable<ProjectTotalServiceModel> Total();

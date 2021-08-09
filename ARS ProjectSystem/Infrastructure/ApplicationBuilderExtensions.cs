@@ -39,11 +39,11 @@
             {
                 return;
             }
-            data.Programms.AddRange(new[]
+            data.Programms.Add(new Programm
             {
-                new Programm{ProgrammName="Horizon2020",Url="https://ec.europa.eu/programmes/horizon2020/en/home" },
-                new Programm{ ProgrammName="EIC accelerator",Url="https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en"}
-
+                ProgrammName="Horizon2020",
+                Description="Horizon 2020 is the financial instrument implementing the Innovation Union, a Europe 2020 flagship initiative aimed at securing Europe's global competitiveness.",
+                Url="https://ec.europa.eu/programmes/horizon2020/en/home"
             });
         }
         private static void SeedProposals(IServiceProvider services)
@@ -53,10 +53,13 @@
             {
                 return;
             }
-            data.Proposals.AddRange(new[]
+            data.Proposals.AddRange(new Proposal
             {
-                new Proposal{Name="AI4Media", },
-                new Proposal{Name="SysAgria",}
+                Name="SysAgria",
+                Budget=2000000,
+                CreatedOn= "01012020",
+                CustomerRegistrationNumber = "99999999",
+                UrlPhoto= "https://www.sysagria.ro/static/media/left_part.a43a83c2.png"
             });
         }
         private static void SeedAdministrator(IServiceProvider services)

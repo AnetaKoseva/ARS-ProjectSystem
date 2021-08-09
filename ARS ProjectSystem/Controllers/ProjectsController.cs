@@ -67,6 +67,7 @@
                 project.Status,
                 project.StartDate,
                 project.EndDate,
+                project.ProposalId.GetValueOrDefault(),
                 project.ProjectRate,
                 project.CustomerRegistrationNumber);
 

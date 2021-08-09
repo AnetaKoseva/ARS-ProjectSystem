@@ -141,7 +141,7 @@
             => this.data
             .Proposals.Any(c => c.Id == proposalId);
 
-        public int Create(int id, string name, int programmId, string projectPhoto, string status, string startDate, string endDate, double projectRate, string customerRegistrationNumber)
+        public int Create(int id, string name, int programmId, string projectPhoto, string status, string startDate, string endDate,int proposalId, double projectRate, string customerRegistrationNumber)
         {
             var projectData = new Project
             {
@@ -153,6 +153,7 @@
                 StartDate = startDate,
                 EndDate = endDate,
                 ProjectRate = projectRate,
+                ProposalId=proposalId,
                 CustomerRegistrationNumber = customerRegistrationNumber
             };
             this.data.Projects.Add(projectData);

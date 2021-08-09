@@ -35,14 +35,12 @@
         =>this.data.Proposals
                 .Where(p => p.Id == id).Select(p=>new ProposalServiceModel 
                 { 
-                 Id=p.Id,
+                    Id=p.Id,
+                    CreatedOn=p.CreatedOn,
                  Name=p.Name,
                  Budget=p.Budget,
-                 CreatedOn=p.CreatedOn,
-                 CustomerName=p.Customer.Name,
                  CustomerRegistrationNumber=p.CustomerRegistrationNumber,
-                 ProjectId = p.ProjectId,
-                 ProjectName =p.Project.Name,
+                 ProjectId = p.ProjectId.GetValueOrDefault(),
                  UrlPhoto=p.UrlPhoto,
                 }).FirstOrDefault();
         public int Create(
@@ -70,20 +68,23 @@
             return proposalData.Id;
         }
 
-        public bool Edit(int id, string name, string createdOn, string urlPhoto, double budget, string customerRegistrationNumber, int projectId)
+        public bool Edit(int id, string name, string createdOn, string urlPhoto, double budget, string customerRegistrationNumber, int? projectId)
         {
+            
+
             var proposalData = this.data.Proposals.Find(id);
             //if you can edit the proposal
             //if()
             //{
             //    return false;
             //}
+            proposalData.Id = id;
             proposalData.Name = name;
             proposalData.CreatedOn = createdOn;
             proposalData.UrlPhoto = urlPhoto;
             proposalData.Budget = budget;
             proposalData.CustomerRegistrationNumber = customerRegistrationNumber;
-            proposalData.ProjectId = projectId;
+            proposalData.ProjectId = projectId.GetValueOrDefault();
 
             this.data.SaveChanges();
             return true;

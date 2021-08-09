@@ -29,14 +29,11 @@
                     <td>@proposal.CustomerName</td>
                     <td>@proposal.Budget</td>
                     <td>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated && User.IsAdmin())
                         {
-                            <a asp-controller="Proposals" asp-action="Edit" class="btn btn-primary btn-sm">Edit</a>
-                            @if (User.IsAdmin())
-                            {
-                                <button id="buttonDelete" type="button" class="btn btn-primary btn-sm">Delete</button>
-                            }
-                        }
+                    <a asp-controller="Proposals" asp-action="Edit" asp-route-id="@proposal.Id"class="btn btn-primary btn-sm">Edit</a>
+                    <a asp-controller="Proposals" asp-action="Details"asp-route-id="@proposal.Id" class="btn btn-primary btn-sm">Details</a>
+                    <a asp-controller="Proposals" asp-action="AddEmployeeToProposal" class="btn btn-primary btn-sm">Add employee</a>}
                     </td>
                 </tr>
             }

@@ -59,6 +59,12 @@
 
             return this.View(programm);
         }
-        
+        public IActionResult Delete(int id)
+        {
+            var programm = this.data.Programms.FirstOrDefault(p => p.Id == id);
+            this.data.Remove(programm);
+            this.data.SaveChanges();
+            return RedirectToAction(nameof(All));
+        }
     }
 }

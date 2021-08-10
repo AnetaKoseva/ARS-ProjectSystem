@@ -9,11 +9,10 @@
         public int Number { get; set; }
         public string CreatedOn { get; set; }
         public string DueDate { get; set; }
-        public string FirmName { get; set; }
-        public string FirmRegistrationNumber { get; set; }
-        public string FirmVAT { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerRegistrationNumber { get; set; }
         public string Owner { get; set; }
-        public string FirmAddress { get; set; }
+        public string CustomerAddress { get; set; }
         public string Town { get; set; }
         public string Country { get; set; }
         public string PaymentMethod { get; set; }
@@ -21,7 +20,10 @@
         [MaxLength(IBANLength)]
         public string IBAN { get; set; }
         public string Item { get; set; }
+        public string Quantity { get; set; }
         public double Price { get; set; }
+        public double Total { get; set; }
+        
 
     }
 }

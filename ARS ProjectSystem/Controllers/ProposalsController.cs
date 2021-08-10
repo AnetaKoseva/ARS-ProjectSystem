@@ -50,7 +50,29 @@
                 proposal.UrlPhoto,
                 proposal.Budget,
                 proposal.CustomerRegistrationNumber,
-                proposal.ProjectId.GetValueOrDefault());
+                proposal.ProjectId.GetValueOrDefault(),
+                proposal.FullProposalTitle,
+                proposal.SolutionType,
+                proposal.ProjectPurpose,
+                proposal.ProjectAcronym,
+                proposal.SolutionDescribtion,
+                proposal.ProblemSolve,
+                proposal.HowProblemIsSolved,
+                proposal.FeatureName1,
+                proposal.FeatureKnowledge1,
+                proposal.FeatureTechnology1,
+                proposal.FeatureName2,
+                proposal.FeatureKnowledge2,
+                proposal.FeatureTechnology2,
+                proposal.Keyword1Parent,
+                proposal.Keyword1Child,
+                proposal.Keyword2Parent,
+                proposal.Keyword2Child,
+                proposal.Keyword3Parent,
+                proposal.Keyword3Child,
+                proposal.FreeKeyword,
+                proposal.Abstract,
+                proposal.Solution);
             
             TempData[GlobalMessageKey] = $"You proposal {proposal.Name} is added succesfully!";
             
@@ -63,6 +85,7 @@
 
             return this.View(proposal);
         }
+
         private IEnumerable<ProposalCustomersServiceModel> GetProposalCustomers()
             => this.proposals.GetProposalCustomers();
         [Authorize]
@@ -88,7 +111,6 @@
         [HttpPost]
         public IActionResult Edit(int id, ProposalFormModel proposal)
         {
-            
             var proposalIsEdited = this.proposals.Edit(
                 proposal.Id,
                 proposal.Name,
@@ -96,8 +118,29 @@
                 proposal.UrlPhoto,
                 proposal.Budget,
                 proposal.CustomerRegistrationNumber,
-                proposal.ProjectId.GetValueOrDefault()
-                );
+                proposal.ProjectId.GetValueOrDefault(),
+                proposal.FullProposalTitle,
+                proposal.SolutionType,
+                proposal.ProjectPurpose,
+                proposal.ProjectAcronym,
+                proposal.SolutionDescribtion,
+                proposal.ProblemSolve,
+                proposal.HowProblemIsSolved,
+                proposal.FeatureName1,
+                proposal.FeatureKnowledge1,
+                proposal.FeatureTechnology1,
+                proposal.FeatureName2,
+                proposal.FeatureKnowledge2,
+                proposal.FeatureTechnology2,
+                proposal.Keyword1Parent,
+                proposal.Keyword1Child,
+                proposal.Keyword2Parent,
+                proposal.Keyword2Child,
+                proposal.Keyword3Parent,
+                proposal.Keyword3Child,
+                proposal.FreeKeyword,
+                proposal.Abstract,
+                proposal.Solution);
             if (!proposalIsEdited || !User.IsAdmin())
             {
                 return BadRequest();

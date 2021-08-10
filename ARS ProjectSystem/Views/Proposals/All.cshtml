@@ -29,12 +29,16 @@
                     <td>@proposal.CustomerName</td>
                     <td>@proposal.Budget</td>
                     <td>
-                        @if (User.Identity.IsAuthenticated && User.IsAdmin())
+                        @if (User.Identity.IsAuthenticated)
                         {
-                    <a asp-controller="Proposals" asp-action="Edit" asp-route-id="@proposal.Id" class="btn btn-primary btn-sm">Edit</a>
-                    <a href="/Proposals/Details?proposalId=@proposal.Id" class="btn btn-primary btn-sm">More</a>
-                    
-                    <a asp-controller="Proposals" asp-action="AddEmployeeToProposal" class="btn btn-primary btn-sm">Add employee</a>}
+                            <a href="/Proposals/Details?proposalId=@proposal.Id" class="btn btn-primary btn-sm">More</a>
+                            <a href="/Platform/AddShortApplicationForm?proposalId=@proposal.Id?custommerNumber=@proposal.CustomerName" class="btn btn-primary btn-sm">Add Form</a>
+                            @if (User.IsAdmin())
+                            {
+                             <a asp-controller="Proposals" asp-action="Edit" asp-route-id="@proposal.Id" class="btn btn-primary btn-sm">Edit</a>
+                            }
+                             <a asp-controller="Proposals" asp-action="AddEmployeeToProposal" class="btn btn-primary btn-sm">Add employee</a>
+                         }
                     </td>
                 </tr>
             }

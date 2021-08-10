@@ -1,6 +1,6 @@
 ﻿@model AllCustomersQueryModel
 @{
-    ViewBag.Title= "All Customers";
+    ViewBag.Title = "All Customers";
 }
 
 <form method="get">
@@ -30,8 +30,8 @@
                 <th scope="col">Registration Number</th>
                 <th scope="col">VAT</th>
                 <th scope="col">Owner</th>
-                @if(User.IsAdmin())
-                { 
+                @if (User.IsAdmin())
+                {
                     <th scope="col">Action</th>
                 }
             </tr>
@@ -45,17 +45,21 @@
                     <td>@customer.VAT</td>
                     <td>@customer.OwnerName</td>
                     <td>
-                        @if (User.Identity.IsAuthenticated&& User.IsAdmin())
+                        @if (User.Identity.IsAuthenticated && User.IsAdmin())
                         {
-                             <a asp-controller="Customers" asp-action="Delete" asp-route-id="@customer.RegistrationNumber" class="btn btn-light btn-sm">Delete</a>
+                        <a asp-controller="Invoices" asp-action="CreateInvoice" asp-route-id="@customer.RegistrationNumber" class="btn btn-light btn-sm">Add Invoice</a>
+                            <a asp-controller="Customers" asp-action="Delete" asp-route-id="@customer.RegistrationNumber" class="btn btn-light btn-sm">Delete</a>
                         }
-                        </td>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
-    @if (User.Identity.IsAuthenticated&& User.IsAdmin())
+    @if (User.Identity.IsAuthenticated && User.IsAdmin())
     {
         <a asp-controller="Customers" asp-action="Add" class="btn btn-primary btn-sm">Add new Customer</a>
     }
-    </div>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

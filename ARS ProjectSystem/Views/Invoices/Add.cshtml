@@ -1,4 +1,4 @@
-﻿@model AddInvoiceFormModel
+﻿@model InvoiceFormModel
 @{
     ViewBag.Title = "Add Invoice";
 }
@@ -13,7 +13,6 @@
                                 <img src="~/pics/ARS.jpg" style="width: 100%; max-width: 300px" />
                             </td>
                             <td>
-                                
                                 Invoice: @Model.Id<br />
                                 Created: @Model.CreatedOn<br />
                                 Due: @Model.DueDate
@@ -35,7 +34,8 @@
                             </td>
                             <td>
                                 Firm: @Model.CustomerName<br />
-                                VAT :@Model.CustomerRegistrationNumber<br />
+                                Reg.Number: @Model.CustomerRegistrationNumber
+                                VAT: @Model.CustomerVAT<br />
                                 Owner: @Model.CustomerOwner<br />
                                 Adress: @Model.CustomerAddress, @Model.Town, @Model.Country<br />
                             </td>
@@ -53,7 +53,6 @@
             </tr>
             <tr class="heading">
                 <td>Item</td>
-
                 <td>Price</td>
             </tr>
             <tr class="item">
@@ -71,9 +70,12 @@
         </table>
     </div>
 </body>
-<a href="#" class="btn btn-primary text-light">Edit</a>
-<a href="#" class="btn btn-danger text-light">Delete</a>
-
-@section Scripts{
-    <partial name="_ValidationScriptsPartial" />
+@if (User.Identity.IsAuthenticated && User.IsAdmin())
+{
+    <a asp-controller="Invoices" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-light btn-sm">Edit</a>
+    <a asp-controller="Invoices" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-light btn-sm">Delete</a>
 }
+<a href="/Customers/All" class="btn btn-primary btn-sm mb-3">Back</a>
+    @section Scripts{
+        <partial name="_ValidationScriptsPartial" />
+    }

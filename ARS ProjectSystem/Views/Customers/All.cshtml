@@ -45,10 +45,15 @@
                     <td>@customer.VAT</td>
                     <td>@customer.OwnerName</td>
                     <td>
-                        @if (User.Identity.IsAuthenticated && User.IsAdmin())
+                        @if (User.Identity.IsAuthenticated)
                         {
-                        <a asp-controller="Invoices" asp-action="CreateInvoice" asp-route-id="@customer.RegistrationNumber" class="btn btn-light btn-sm">Add Invoice</a>
-                            <a asp-controller="Customers" asp-action="Delete" asp-route-id="@customer.RegistrationNumber" class="btn btn-light btn-sm">Delete</a>
+                            <a asp-controller="Invoices" asp-action="AllCustomerInvoices" asp-route-id="@customer.RegistrationNumber" class="btn btn-primary btn-sm">All Invoices</a>
+                            @if (User.IsAdmin())
+                            {
+                                <a asp-controller="Invoices" asp-action="CreateInvoice" asp-route-id="@customer.RegistrationNumber" class="btn btn-primary btn-sm">Add Invoice</a>
+                                <a asp-controller="Customers" asp-action="Delete" asp-route-id="@customer.RegistrationNumber" class="btn btn-info btn-sm">Delete</a>
+
+                            }
                         }
                     </td>
                 </tr>
@@ -58,6 +63,7 @@
     @if (User.Identity.IsAuthenticated && User.IsAdmin())
     {
         <a asp-controller="Customers" asp-action="Add" class="btn btn-primary btn-sm">Add new Customer</a>
+        <a asp-controller="Invoices" asp-action="All" class="btn btn-primary btn-sm">All Invoices</a>
     }
 </div>
 @section Scripts{

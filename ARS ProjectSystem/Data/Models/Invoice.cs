@@ -16,6 +16,7 @@
         public int Quantity { get; set; }
         public double Total { get; set; }
         public string CustomerRegistrationNumber { get; set; }
+        public string CustomerVAT { get; set; }
         public string CustomerName { get; set; }
         public string CustomerAdress { get; set; }
         public string CustomerTown { get; set; }

@@ -17,10 +17,43 @@
         public InvoicesController(ProjectSystemDbContext data)
             => this.data = data;
         [Authorize]
+        public IActionResult All()
+        {
+            var invoices = this.data
+                .Invoices
+                .Select(i=>new InvoiceFormModel 
+                { 
+                 Id=i.Id,
+                 CustomerName=i.CustomerName,
+                 CustomerVAT=i.CustomerVAT,
+                  Item=i.Item,
+                  Quantity=i.Quantity,
+                  Total=i.Total
+                })
+                .ToList();
+            return View(invoices);
+        }
+        public IActionResult AllCustomerInvoices(string id)
+        {
+            var invoices = this.data
+                .Invoices.Where(i=>i.CustomerRegistrationNumber==id)
+                .Select(i => new InvoiceFormModel
+                {
+                    Id = i.Id,
+                    CustomerName = i.CustomerName,
+                    CustomerVAT = i.CustomerVAT,
+                    Item = i.Item,
+                    Quantity = i.Quantity,
+                    Total = i.Total
+                })
+                .ToList();
+            return View(invoices);
+        }
+        [Authorize]
         public IActionResult CreateInvoice() => View();
         [Authorize]
         [HttpPost]
-        public IActionResult CreateInvoice(AddInvoiceFormModel invoice,string id)
+        public IActionResult CreateInvoice(InvoiceFormModel invoice,string id)
         {
             var customer = this.data.Customers.FirstOrDefault(c => c.RegistrationNumber == id);
             if (!ModelState.IsValid)
@@ -31,6 +64,7 @@
             {
                 CreatedOn = invoice.CreatedOn,
                 CustomerRegistrationNumber = customer.RegistrationNumber,
+                CustomerVAT=customer.VAT,
                 CustomerAdress=customer.Address,
                 CustomerCountry=customer.Country,
                 CustomerName=customer.Name,
@@ -54,7 +88,7 @@
         {
             var invoice = this.data.Invoices.FirstOrDefault(i=>i.Id==id);
             
-            var model = new AddInvoiceFormModel
+            var model = new InvoiceFormModel
             {
                 Id=invoice.Id,
                 Number = invoice.Number,
@@ -62,6 +96,7 @@
                 CreatedOn = invoice.CreatedOn,
                 DueDate = invoice.DueDate,
                 CustomerRegistrationNumber = invoice.CustomerRegistrationNumber,
+                CustomerVAT=invoice.CustomerVAT,
                 CustomerAddress=invoice.CustomerAdress,
                 CustomerOwner=invoice.CustomerOwnerName,
                 Quantity=invoice.Quantity,
@@ -72,6 +107,14 @@
                 Total = invoice.Total
             };
             return View(model);
+        }
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+            var invoice= this.data.Invoices.FirstOrDefault(i => i.Id == id);
+            this.data.Invoices.Remove(invoice);
+            this.data.SaveChanges();
+            return RedirectToAction(nameof(All));
         }
     }
 }

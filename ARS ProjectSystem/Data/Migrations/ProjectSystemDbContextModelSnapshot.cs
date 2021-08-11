@@ -122,6 +122,9 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.Property<string>("CustomerTown")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CustomerVAT")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DueDate")
                         .HasColumnType("nvarchar(max)");
 

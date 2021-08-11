@@ -5,6 +5,8 @@
     using ARS_ProjectSystem.Models.Invoices;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Globalization;
     using System.Linq;
 
 
@@ -27,14 +29,17 @@
             }
             var invoiceData = new Invoice
             {
-                
                 CreatedOn = invoice.CreatedOn,
                 CustomerRegistrationNumber = customer.RegistrationNumber,
+                CustomerAdress=customer.Address,
+                CustomerCountry=customer.Country,
+                CustomerName=customer.Name,
+                CustomerTown=customer.Town,
+                CustomerOwnerName=customer.OwnerName,
                 DueDate = invoice.DueDate,
-                IBAN = invoice.IBAN,
                 Item = invoice.Item,
-                Number = invoice.Number,
-                PaymentMethod = invoice.PaymentMethod,
+                Number = invoice.Id,
+                Quantity=invoice.Quantity,
                 Price = invoice.Price,
                 Total=invoice.Price*invoice.Number
             };
@@ -45,19 +50,24 @@
         }
 
         [Authorize]
-        public IActionResult Add(int id)
+        public IActionResult Add(int id, string registrationNumber)
         {
             var invoice = this.data.Invoices.FirstOrDefault(i=>i.Id==id);
+            
             var model = new AddInvoiceFormModel
             {
-                Id = invoice.Id,
+                Id=invoice.Id,
                 Number = invoice.Number,
-                PaymentMethod = invoice.PaymentMethod,
                 Item = invoice.Item,
                 CreatedOn = invoice.CreatedOn,
                 DueDate = invoice.DueDate,
                 CustomerRegistrationNumber = invoice.CustomerRegistrationNumber,
-                IBAN = invoice.IBAN,
+                CustomerAddress=invoice.CustomerAdress,
+                CustomerOwner=invoice.CustomerOwnerName,
+                Quantity=invoice.Quantity,
+                CustomerName=invoice.CustomerName,
+                Country=invoice.CustomerCountry,
+                Town=invoice.CustomerTown,
                 Price = invoice.Price,
                 Total = invoice.Total
             };

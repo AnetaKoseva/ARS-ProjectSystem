@@ -113,6 +113,9 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.Property<string>("CustomerName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CustomerOwnerName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CustomerRegistrationNumber")
                         .HasColumnType("nvarchar(450)");
 
@@ -122,20 +125,12 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.Property<string>("DueDate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IBAN")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<string>("Item")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Number")
                         .HasMaxLength(10)
                         .HasColumnType("int");
-
-                    b.Property<string>("PaymentMethod")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");

@@ -13,7 +13,8 @@
                                 <img src="~/pics/ARS.jpg" style="width: 100%; max-width: 300px" />
                             </td>
                             <td>
-                                Invoice @Model.Number<br />
+                                
+                                Invoice: @Model.Id<br />
                                 Created: @Model.CreatedOn<br />
                                 Due: @Model.DueDate
                             </td>
@@ -33,10 +34,10 @@
                                 Bulgaria<br />
                             </td>
                             <td>
-                                @Model.CustomerName<br />
-                                @Model.CustomerRegistrationNumber<br />
-                                @Model.Owner<br />
-                                @Model.CustomerAddress, @Model.Town, @Model.Country<br />
+                                Firm: @Model.CustomerName<br />
+                                VAT :@Model.CustomerRegistrationNumber<br />
+                                Owner: @Model.CustomerOwner<br />
+                                Adress: @Model.CustomerAddress, @Model.Town, @Model.Country<br />
                             </td>
                         </tr>
                     </table>
@@ -48,15 +49,20 @@
             </tr>
             <tr class="details">
                 <td>IBAN </td>
-                <td>@Model.IBAN.</td>
+                <td>EUR BG91STSA93000026775496</td>
             </tr>
             <tr class="heading">
                 <td>Item</td>
+
                 <td>Price</td>
             </tr>
             <tr class="item">
                 <td>@Model.Item</td>
                 <td>@Model.Price</td>
+            </tr>
+            <tr class="total">
+                <td>Quantity </td>
+                <td>@Model.Quantity</td>
             </tr>
             <tr class="total">
                 <td></td>
@@ -65,8 +71,8 @@
         </table>
     </div>
 </body>
-<a href="#" class="btn btn-primary text-light">Submit</a>
-<a href="#" class="btn btn-danger text-light">Cancel</a>
+<a href="#" class="btn btn-primary text-light">Edit</a>
+<a href="#" class="btn btn-danger text-light">Delete</a>
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />

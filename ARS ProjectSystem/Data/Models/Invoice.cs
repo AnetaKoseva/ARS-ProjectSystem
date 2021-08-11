@@ -1,5 +1,6 @@
 ﻿namespace ARS_ProjectSystem.Data.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using static DataConstants.Invoice;
     public class Invoice
@@ -10,10 +11,6 @@
         public int Number { get; set; }
         public string CreatedOn { get; set; }
         public string DueDate { get; set; }
-        public string PaymentMethod { get; set; }
-        [Required]
-        [MaxLength(IBANLength)]
-        public string IBAN { get; set; }
         public string Item { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }
@@ -23,6 +20,7 @@
         public string CustomerAdress { get; set; }
         public string CustomerTown { get; set; }
         public string CustomerCountry { get; set; }
+        public string CustomerOwnerName { get; set; }
         public Customer Customer { get; set; }
     }
 }

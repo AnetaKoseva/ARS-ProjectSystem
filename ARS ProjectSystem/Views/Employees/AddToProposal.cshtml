@@ -1,0 +1,19 @@
+﻿@model EmployeeProposalsFormModel
+@{
+    ViewBag.Title = "Add  Employee to Project";
+}
+<div class="col-6 offset-3">
+<h2 class="heading-margin text-center">@ViewBag.Title</h2>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.Id">Project</label>
+        <select asp-for="@Model.Id" class="form-control">
+            @foreach (var proposal in Model.Proposals)
+            {
+                <option value="@proposal.Id">@proposal.Name</option>
+            }
+        </select>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Save" />
+</form>
+ </div>

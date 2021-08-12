@@ -1,0 +1,221 @@
+﻿@model ProposalFormModel
+
+<div class="col-6 offset-3">
+    <h2 class="heading-margin text-center">@ViewBag.Title</h2>
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Name">Proposal Name</label>
+            <input asp-for="Name" class="form-control" placeholder="The Proposal name">
+            <span asp-validation-for="Name" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CustomerRegistrationNumber">Customer</label>
+            <select asp-for="CustomerRegistrationNumber" class="form-control">
+                @foreach (var customer in Model.Customers)
+                {
+                    <option value="@customer.RegistrationNumber">@customer.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreatedOn">Created On</label>
+            <input asp-for="CreatedOn" class="form-control" placeholder="dd/MM/year">
+            <span asp-validation-for="CreatedOn" class="small text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ProjectId"></label>
+            <input asp-for="ProjectId" class="form-control">
+            <span asp-validation-for="ProjectId" class="small text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="UrlPhoto">Photo Url</label>
+            <input asp-for="UrlPhoto" class="form-control">
+            <span asp-validation-for="UrlPhoto" class="small text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Budget"></label>
+            <input asp-for="Budget" class="form-control">
+            <span asp-validation-for="Budget" class="small text-danger"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+            <div class="form-droup">
+                <label asp-for="@Model.SolutionType">What type of solution do you have in mind ?</label>
+                <select asp-for="@Model.SolutionType" class="form-control">
+                    <option value="0">Select</option>
+                    <option value="1">New product</option>
+                    <option value="2">New service, Civil engineering, Infraestructures</option>
+                    <option value="3">New process</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <div class="form-droup">
+                <label asp-for="@Model.ProjectPurpose">What is the purpose of your project ? </label>
+                <select asp-for="@Model.ProjectPurpose" class="form-control">
+                    <option value="0">Select</option>
+                    <option value="1">R&D Infrastructure</option>
+                    <option value="2">Training and mobility</option>
+                    <option value="3">Basic Research</option>
+                    <option value="4">Applied research and/or technological innovation</option>
+                    <option value="5">Non-technological innovation</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <label asp-for="@Model.ProjectAcronym">Project acronym </label>
+            <input asp-for="@Model.ProjectAcronym" class="form-control">
+            <span asp-validation-for="@Model.ProjectAcronym" class="small text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <label asp-for="@Model.SolutionDescribtion">Describe your solution </label>
+            <textarea asp-for="@Model.SolutionDescribtion" class="form-control" rows="8"></textarea>
+            <span asp-validation-for="@Model.SolutionDescribtion" class="small text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <label asp-for="@Model.ProblemSolve">Describe the problem to be solved or the need(s) to be satisfied</label>
+            <textarea asp-for="@Model.ProblemSolve" class="form-control" rows="8"></textarea>
+            <span asp-validation-for="@Model.ProblemSolve" class="small text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <div class="form-droup">
+                <label asp-for="@Model.HowProblemIsSolved">Idea or technology based </label>
+                <select asp-for="@Model.HowProblemIsSolved" class="form-control">
+                    <option value="0">Select</option>
+                    <option value="1">Idea</option>
+                    <option value="2">Technology</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <label asp-for="@Model.FeatureName1"></label>
+            <textarea asp-for="@Model.FeatureName1" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="@Model.FeatureName1" class="small text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <label asp-for="@Model.FeatureKnowledge1"></label>
+            <textarea asp-for="@Model.FeatureKnowledge1" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="@Model.FeatureKnowledge1" class="small text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <label asp-for="FeatureTechnology1"></label>
+            <textarea asp-for="FeatureTechnology1" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="FeatureTechnology1" class="small text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <label asp-for="@Model.FeatureName2"></label>
+            <textarea asp-for="@Model.FeatureName2" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="@Model.FeatureName2" class="small text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <label asp-for="@Model.FeatureKnowledge2"></label>
+            <textarea asp-for="@Model.FeatureKnowledge2" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="@Model.FeatureKnowledge2" class="small text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <label asp-for="@Model.FeatureTechnology2"></label>
+            <textarea asp-for="@Model.FeatureTechnology2" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="@Model.FeatureTechnology2" class="small text-danger"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+            <div class="form-droup">
+                <label asp-for="@Model.Keyword1Parent">Keyword Parent 1</label>
+                <select asp-for="@Model.Keyword1Parent" class="form-control">
+                    <option value="0">Select</option>
+                    <option value="1">Agriculture / Rural Development / Fisheries</option>
+                    <option value="2">Biotechnology</option>
+                    <option value="3">Construction, Civil engineering, Infraestructures</option>
+                    <option value="4">Consumer products and services</option>
+                    <option value="5">Earth and related environmental sciences</option>
+                    <option value="6">Earth and related environmental sciences</option>
+                    <option value="7">Energy</option>
+                    <option value="8">Engineering and technology</option>
+                    <option value="9">Food and beverages</option>
+                    <option value="10">Health</option>
+                    <option value="11">Information and Communication Technology (ICT)</option>
+                    <option value="12">Public sector innovation</option>
+                    <option value="13">Security</option>
+                    <option value="14">Transport & Mobility</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <label asp-for="Keyword1Child">Keyword Child 1 see https://eic.ec.europa.eu/system/files/2021-03/HE_EIC_taxonomy.pdf</label>
+            <input asp-for="Keyword1Child" class="form-control">
+            <span asp-validation-for="Keyword1Child" class="small text-danger"></span>
+
+        </div>
+        <div class="form-floating mb-3">
+            <div class="form-droup">
+                <label asp-for="@Model.Keyword2Parent">Keyword Parent 2</label>
+                <select asp-for="@Model.Keyword2Parent" class="form-control">
+                    <option value="0">Select</option>
+                    <option value="1">Agriculture / Rural Development / Fisheries</option>
+                    <option value="2">Biotechnology</option>
+                    <option value="3">Construction, Civil engineering, Infraestructures</option>
+                    <option value="4">Consumer products and services</option>
+                    <option value="5">Earth and related environmental sciences</option>
+                    <option value="6">Earth and related environmental sciences</option>
+                    <option value="7">Energy</option>
+                    <option value="8">Engineering and technology</option>
+                    <option value="9">Food and beverages</option>
+                    <option value="10">Health</option>
+                    <option value="11">Information and Communication Technology (ICT)</option>
+                    <option value="12">Public sector innovation</option>
+                    <option value="13">Security</option>
+                    <option value="14">Transport & Mobility</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <label asp-for="Keyword2Child">Keyword Child 2 see https://eic.ec.europa.eu/system/files/2021-03/HE_EIC_taxonomy.pdf</label>
+            <input asp-for="Keyword2Child" class="form-control">
+            <span asp-validation-for="Keyword2Child" class="small text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <div class="form-droup">
+                <label asp-for="@Model.Keyword3Parent">Keyword Parent 3</label>
+                <select asp-for="@Model.Keyword3Parent" class="form-control">
+                    <option value="0">Select</option>
+                    <option value="1">Agriculture / Rural Development / Fisheries</option>
+                    <option value="2">Biotechnology</option>
+                    <option value="3">Construction, Civil engineering, Infraestructures</option>
+                    <option value="4">Consumer products and services</option>
+                    <option value="5">Earth and related environmental sciences</option>
+                    <option value="6">Earth and related environmental sciences</option>
+                    <option value="7">Energy</option>
+                    <option value="8">Engineering and technology</option>
+                    <option value="9">Food and beverages</option>
+                    <option value="10">Health</option>
+                    <option value="11">Information and Communication Technology (ICT)</option>
+                    <option value="12">Public sector innovation</option>
+                    <option value="13">Security</option>
+                    <option value="14">Transport & Mobility</option>
+                </select>
+            </div>
+        </div>
+        <label asp-for="Keyword3Child">Keyword Child 3 see https://eic.ec.europa.eu/system/files/2021-03/HE_EIC_taxonomy.pdf</label>
+        <input asp-for="Keyword3Child" class="form-control">
+        <span asp-validation-for="Keyword3Child" class="small text-danger"></span>
+        <div class="form-floating mb-3">
+            <label asp-for="@Model.FreeKeyword">Free Keyword</label>
+            <input asp-for="@Model.FreeKeyword" class="form-control">
+            <span asp-validation-for="@Model.FreeKeyword" class="small text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <label asp-for="@Model.Abstract">Abstract</label>
+            <input asp-for="@Model.Abstract" class="form-control">
+            <span asp-validation-for="@Model.Abstract" class="small text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <label asp-for="@Model.Solution">Solution </label>
+            <input asp-for="@Model.Solution" class="form-control">
+            <span asp-validation-for="@Model.Solution" class="small text-danger"></span>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Save" />
+    </form>
+ </div>

@@ -1,0 +1,43 @@
+﻿@model List<AllEmployeesServiceModel>
+@{
+    ViewBag.Title = "All Employee";
+}
+<div class=" table">
+    <h2 class="heading-margin text-center">All Employees</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Job Title</th>
+                <th scope="col">Department</th>
+                @if (User.IsAdmin())
+                {
+                    <th scope="col">Action</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in Model)
+            {
+                <tr>
+                    <td>@employee.FirstName</td>
+                    <td>@employee.LastName</td>
+                    <td>@employee.Jobtitle</td>
+                    <td>@employee.DepartmentName</td>
+                    <td>
+                        @if (User.Identity.IsAuthenticated && User.IsAdmin())
+                        {
+                            <a a href="/Employees/AddToProposal?EmployeeId=@employee.Id" class="btn btn-primary btn-sm">Add Employee to Proposal</a>
+                            <a a href="/Employees/AddToProject?EmployeeId=@employee.Id" class="btn btn-primary btn-sm">Add Employee to Project</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (User.Identity.IsAuthenticated && User.IsAdmin())
+    {
+        <a asp-controller="Employees" asp-action="Add" class="btn btn-primary btn-sm">Add new Employee</a>
+    }
+</div>

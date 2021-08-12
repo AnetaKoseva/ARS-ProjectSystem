@@ -1,0 +1,8 @@
+﻿@model List<InvoiceFormModel>
+@{
+    ViewBag.Title = "Add Invoice";
+}
+<partial name="_PartialInvoices" model="@Model"/>
+    @section Scripts{
+        <partial name="_ValidationScriptsPartial" />
+    }

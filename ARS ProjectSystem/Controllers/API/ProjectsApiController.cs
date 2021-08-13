@@ -19,19 +19,5 @@
         public ActionResult<ProjectQueryServiceModel> All([FromQuery] AllProjectsApiRequestModel query)
             => this.projects.All(query.Programm,query.SearchTerm,
                 query.Sorting,query.CurrentPage,query.ProjectsPerPage);
-
-        //[HttpGet]
-        //[Route("{id}")]
-        //public IActionResult GetDetails(int id)
-        //{
-        //    var project= this.data
-        //        .Projects
-        //        .Find(id);
-        //    if(project==null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(project);
-        //}
     }
 }

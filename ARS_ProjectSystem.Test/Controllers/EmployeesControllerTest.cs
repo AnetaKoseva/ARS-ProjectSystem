@@ -8,18 +8,6 @@
     public class EmployeesControllerTest
     {
         [Fact]
-        public void ControllerTestAdd()
-            => MyMvc
-            .Pipeline()
-            .ShouldMap(request=>request.WithPath("/Employees/Add"))
-            .To<EmployeesController>(c => c.Add())
-            .Which()
-            .ShouldHave()
-            .ActionAttributes(attributes=>attributes.RestrictingForAuthorizedRequests())
-            .AndAlso()
-            .ShouldReturn()
-            .View();
-        [Fact]
         public void ControllerTestAll()
             => MyMvc
             .Pipeline()

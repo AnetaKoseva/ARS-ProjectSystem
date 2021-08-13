@@ -28,9 +28,4 @@
     <ProjectReference Include="..\ARS ProjectSystem\ARS_ProjectSystem.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pipeline\" />
-    <Folder Include="Routing\" />
-  </ItemGroup>
-
 </Project>

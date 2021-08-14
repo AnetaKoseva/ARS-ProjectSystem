@@ -1,5 +1,8 @@
 ﻿namespace ARS_ProjectSystem.Models.Api.Projects
 {
+    using System.Diagnostics.CodeAnalysis;
+
+    [ExcludeFromCodeCoverage]
     public class AllProjectsApiRequestModel
     {
         public  int ProjectsPerPage { get; init; } = 3;

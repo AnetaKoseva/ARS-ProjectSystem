@@ -4,7 +4,6 @@
     using ARS_ProjectSystem.Services.Projects;
     using Microsoft.AspNetCore.Mvc;
 
-
     [ApiController]
     [Route("api/projects")]
     public class ProjectsApiController : ControllerBase
@@ -14,6 +13,7 @@
         {
             this.projects = projects;
         }
+
         [HttpGet]
         [HttpGet]
         public ActionResult<ProjectQueryServiceModel> All([FromQuery] AllProjectsApiRequestModel query)

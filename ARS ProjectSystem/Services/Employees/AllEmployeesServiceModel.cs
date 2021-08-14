@@ -1,8 +1,9 @@
 ﻿namespace ARS_ProjectSystem.Services.Employees
 {
-    using System;
     using System.ComponentModel.DataAnnotations;
+    using System.Diagnostics.CodeAnalysis;
 
+    [ExcludeFromCodeCoverage]
     public class AllEmployeesServiceModel
     {
         public int Id { get; set; }

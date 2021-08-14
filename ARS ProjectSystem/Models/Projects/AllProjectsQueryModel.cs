@@ -2,6 +2,9 @@
 {
     using ARS_ProjectSystem.Services.Projects;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+
+    [ExcludeFromCodeCoverage]
     public class AllProjectsQueryModel
     {
         public const int ProjectsPerPage = 3;

@@ -16,6 +16,8 @@ namespace ARS_ProjectSystem
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -44,12 +46,15 @@ namespace ARS_ProjectSystem
             
             services
                 .AddAutoMapper(typeof(Startup));
+
             services.AddMemoryCache();
+
             services
                 .AddControllersWithViews(options =>
                 {
                     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                  });
+
             services
                 .AddTransient<ICustomerService, CustomerService>();
             services

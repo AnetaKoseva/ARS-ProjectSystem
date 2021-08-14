@@ -25,10 +25,12 @@
             int projectsPerPage)
         {
             var projectQuery = this.data.Projects.AsQueryable();
+            
             if (!string.IsNullOrWhiteSpace(programm))
             {
                 projectQuery = projectQuery.Where(p => p.Programm.ProgrammName == programm);
             }
+            
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 projectQuery = projectQuery.Where(c =>
@@ -42,6 +44,7 @@
                 ProjectSorting.Status => projectQuery.OrderByDescending(p => p.Status).ThenBy(p=>p.Programm.ProgrammName),
                 _ => projectQuery.OrderBy(p => p.Name)
             };
+
             var totalProjects = projectQuery.Count();
 
             var projects = GetProjects(projectQuery
@@ -56,12 +59,7 @@
                 ProjectsPerPage = projectsPerPage
             };
         }
-        public IEnumerable<ProjectServiceModel> ByUser(string userId)
-        {
-            //var customer = this.data.Customers.Where(c => c.ProjectSystemUser.UserId == userId);
-            return GetProjects(this.data.Projects.Where(p => p.Customer.Users.Any(c=>c.Id==userId)));
-            
-        }
+       
         public IEnumerable<string> AllProjectProgramms()
             => this.data
                 .Projects
@@ -155,18 +153,15 @@
                 ProposalId=proposalId,
                 CustomerRegistrationNumber = customerRegistrationNumber
             };
+
             this.data.Projects.Add(projectData);
             this.data.SaveChanges();
+
             return projectData.Id;
         }
         public bool Edit(int id, string name, int programmId, string projectPhoto, string status, string startDate, string endDate, double projectRate, string customerRegistrationNumber)
         {
             var projectData = this.data.Projects.Find(id);
-            //if you can edit the project
-            //if()
-            //{
-            //    return false;
-            //}
 
             projectData.Name = name;
             projectData.ProgrammId = programmId;
@@ -177,6 +172,7 @@
             projectData.ProjectRate = projectRate;
 
             this.data.SaveChanges();
+
             return true;
         }
 
@@ -186,12 +182,5 @@
                 .OrderByDescending(p => p.Id)
                 .ProjectTo<ProjectTotalServiceModel>(this.mapper.ConfigurationProvider)
                 .ToList();
-
-
-        //public bool IsByUser(int projectId, int userId)
-        //=> this.data
-        //        .Projects
-        //        .Any(c => c.Id == projectId && c.Id == userId);
-
     }
 }

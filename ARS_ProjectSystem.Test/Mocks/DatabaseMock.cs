@@ -4,7 +4,6 @@
     using Microsoft.EntityFrameworkCore;
     using System;
 
-
     public static class DatabaseMock
     {
         public static ProjectSystemDbContext Instance

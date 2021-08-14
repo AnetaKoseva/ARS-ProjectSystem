@@ -11,21 +11,19 @@
             {
                  Name="Something"
             });
-        public static IEnumerable<Customer> OneCustomer()
-            => Enumerable.Range(0, 10).Select(i => new Customer
-            {
-                 RegistrationNumber="203300"
-            });
+
         public static IEnumerable<Proposal> TenProposals
             => Enumerable.Range(0, 10).Select(i => new Proposal
             {
                 Name = "Something"
             });
+
         public static IEnumerable<Invoice> TenInvoices
             => Enumerable.Range(0, 10).Select(i => new Invoice
             {
                  CustomerVAT="203300624"
             });
+
         public static IEnumerable<Programm> TenProgramms
             => Enumerable.Range(0, 10).Select(i => new Programm
             {

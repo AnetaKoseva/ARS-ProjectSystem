@@ -1,7 +1,10 @@
 ﻿namespace ARS_ProjectSystem.Services.Proposals
 {
     using System.ComponentModel.DataAnnotations;
+    using System.Diagnostics.CodeAnalysis;
     using static Data.DataConstants.ShortApplication;
+
+    [ExcludeFromCodeCoverage]
     public class ProposalServiceModel
     {
         public int Id { get; set; }

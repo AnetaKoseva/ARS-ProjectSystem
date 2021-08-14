@@ -6,5 +6,4 @@
     {
         public IActionResult Index() => View();
     }
-    
 }

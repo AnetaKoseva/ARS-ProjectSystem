@@ -1,18 +1,17 @@
 ﻿namespace ARS_ProjectSystem.Areas.Identity.Pages.Account
 {
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
-    using System.Text.Encodings.Web;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using ARS_ProjectSystem.Data.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
-    using Microsoft.AspNetCore.WebUtilities;
+    using System.Diagnostics.CodeAnalysis;
 
     using static Data.DataConstants.User;
 
+    [ExcludeFromCodeCoverage]
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {

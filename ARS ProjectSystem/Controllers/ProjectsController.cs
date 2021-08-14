@@ -54,11 +54,13 @@
             {
                 this.ModelState.AddModelError(nameof(project.ProposalId), "Proposal does not exist.");
             }
+
             if (!ModelState.IsValid)
             {
                 project.Programms = this.projects.GetProjectProgramms();
                 project.Proposals = this.projects.GetProjectProposals();
                 project.Customers = this.projects.GetProjectCustomers();
+                
                 return View();
             }
             
@@ -74,24 +76,21 @@
                 project.CustomerRegistrationNumber);
 
             TempData[GlobalMessageKey] = $"You project {project.Name} is added succesfully!";
+            
             return RedirectToAction(nameof(All));
         }
+
         [Authorize]
         public IActionResult Details(int projectId)
         {
             var project = this.projects.Details(projectId);
             return this.View(project);
         }
-        public IActionResult Mine()
-        { 
-            var myProjects = this.projects.ByUser(this.User.GetId());
-            return View(myProjects);
-        }
+        
         [Authorize]
         public IActionResult Edit(int id)
         {
             var project = this.projects.Details(id);
-            //check if you can edit project return UnAuthorized
 
             //automapping registered in MappingProfile
             var projectForm = this.mapper.Map<ProjectFormModel>(project);
@@ -131,11 +130,14 @@
                 project.EndDate,
                 project.ProjectRate,
                 project.CustomerRegistrationNumber);
+
             if(!projectIsEdited||!User.IsAdmin())
             {
                 return BadRequest();
             }
+
             TempData[GlobalMessageKey] = $"You project {project.Name} is edited!";
+            
             return RedirectToAction(nameof(All));
         }
     }

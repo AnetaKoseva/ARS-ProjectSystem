@@ -1,8 +1,10 @@
 ﻿namespace ARS_ProjectSystem.Data.Models
 {
-    using System;
     using System.ComponentModel.DataAnnotations;
+    using System.Diagnostics.CodeAnalysis;
     using static DataConstants.Invoice;
+
+    [ExcludeFromCodeCoverage]
     public class Invoice
     {
         public int Id { get; init; }

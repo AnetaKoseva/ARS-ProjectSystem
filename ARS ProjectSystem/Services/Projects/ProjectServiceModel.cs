@@ -1,8 +1,10 @@
 ﻿namespace ARS_ProjectSystem.Services.Projects
 {
     using System.ComponentModel.DataAnnotations;
+    using System.Diagnostics.CodeAnalysis;
     using static Data.DataConstants.Project;
 
+    [ExcludeFromCodeCoverage]
     public class ProjectServiceModel
     {
         public int Id { get; init; }

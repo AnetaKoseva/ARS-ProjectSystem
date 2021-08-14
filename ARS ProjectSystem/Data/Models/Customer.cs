@@ -2,7 +2,10 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Diagnostics.CodeAnalysis;
     using static DataConstants.Customer;
+
+    [ExcludeFromCodeCoverage]
     public class Customer
     {
         [Key]

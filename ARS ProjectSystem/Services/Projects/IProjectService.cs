@@ -33,12 +33,11 @@
             double projectRate,
             string customerRegistrationNumber);
         ProjectServiceModel Details(int id);
-        IEnumerable<ProjectServiceModel> ByUser(string userId);
         IEnumerable<string> AllProjectProgramms();
         IEnumerable<ProjectProgrammsServiceModel> GetProjectProgramms();
         IEnumerable<ProjectProposalsServiceModel> GetProjectProposals();
         IEnumerable<ProjectCustomersServiceModel> GetProjectCustomers();
         bool ProposalExists(int proposalId);
-        //bool IsByUser(int projectId, int userId);
+        
     }
 }

@@ -2,7 +2,10 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Diagnostics.CodeAnalysis;
     using static Data.DataConstants.ShortApplication;
+
+    [ExcludeFromCodeCoverage]
     public class Proposal
     {
         public int Id { get; set; }

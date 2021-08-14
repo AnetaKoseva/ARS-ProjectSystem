@@ -1,6 +1,5 @@
 ﻿namespace ARS_ProjectSystem.Controllers.Api
 {
-    using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Models.Api.Customers;
     using ARS_ProjectSystem.Services.Customers;
     using Microsoft.AspNetCore.Mvc;

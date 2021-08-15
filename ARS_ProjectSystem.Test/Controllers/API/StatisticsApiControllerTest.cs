@@ -4,7 +4,6 @@
     using ARS_ProjectSystem.Test.Mocks;
     using Xunit;
 
-
     public class StatisticsApiControllerTest
     {
         [Fact]

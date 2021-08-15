@@ -15,7 +15,6 @@
         }
 
         [HttpGet]
-        [HttpGet]
         public ActionResult<ProjectQueryServiceModel> All([FromQuery] AllProjectsApiRequestModel query)
             => this.projects.All(query.Programm,query.SearchTerm,
                 query.Sorting,query.CurrentPage,query.ProjectsPerPage);

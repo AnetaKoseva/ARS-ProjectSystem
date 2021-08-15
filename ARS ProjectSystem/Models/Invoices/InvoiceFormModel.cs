@@ -1,12 +1,11 @@
 ﻿namespace ARS_ProjectSystem.Models.Invoices
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
-    using static Data.DataConstants.Invoice;
+    using System.Diagnostics.CodeAnalysis;
+
+    [ExcludeFromCodeCoverage]
     public class InvoiceFormModel
     {
         public int Id { get; set; }
-        //10symbols
         public int Number { get; set; }
         public string CreatedOn { get; set; }
         public string DueDate { get; set; }

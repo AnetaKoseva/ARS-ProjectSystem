@@ -1,6 +1,7 @@
 ﻿namespace ARS_ProjectSystem.Test.Controllers
 {
     using ARS_ProjectSystem.Controllers;
+    using ARS_ProjectSystem.Data.Models;
     using MyTested.AspNetCore.Mvc;
     using Xunit;
 
@@ -18,6 +19,7 @@
                 .AndAlso()
             .ShouldReturn()
             .View();
+
         [Fact]
         public void DetailsShouldReturnView()
             => MyController<ProjectsController>
@@ -25,5 +27,13 @@
                 .ShouldReturn()
                 .View();
 
+        [Fact]
+        public void AllActionShouldReturnCorrectViewWithModel()
+            => MyController<ProjectsController>
+            .Instance()
+            .Calling(c => c.All(new Models.Projects.AllProjectsQueryModel { SearchTerm = "aneta" }))
+            .ShouldReturn()
+            .View();
     }
 }
+

@@ -91,5 +91,22 @@
             Assert.Equal(1, count);
             Assert.Equal(1, result);
         }
+        [Fact]
+        public void DetailsShoulReturnAll()
+        {
+            using var data = DatabaseMock.Instance;
+            data.Proposals.Add(new Proposal
+            {
+                Id = 1,
+                CustomerRegistrationNumber = "99999"
+            });
+
+            data.SaveChanges();
+
+            var proposalService = new ProposalService(data);
+            var result = proposalService.Details(1);
+            
+            Assert.NotNull( result);
+        }
     }
 }

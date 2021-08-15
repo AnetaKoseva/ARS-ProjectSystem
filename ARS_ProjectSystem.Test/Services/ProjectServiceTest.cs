@@ -91,7 +91,7 @@
             var result = projectService.Total();
             Assert.NotNull(result);
             var count = result.Count();
-            Assert.Equal(1,count);
+            Assert.Equal(1, count);
         }
         [Fact]
         public void AllProjectProgrammsShoudReturnNotNull()
@@ -108,18 +108,18 @@
             {
                 Id = 1,
                 ProgrammName = "Horizon",
-                 Description="blabla",
-                  Url="http:\\ars-consult.eu"
+                Description = "blabla",
+                Url = "http:\\ars-consult.eu"
             });
             data.SaveChanges();
-            
+
             var projectService = new ProjectService(data, mapper);
             var result = projectService.AllProjectProgramms().ToList();
-            
+
             Assert.NotNull(result);
 
             var count = result.Count();
-            Assert.Equal(1,count);
+            Assert.Equal(1, count);
 
             Assert.Equal("Horizon", result.Single());
         }
@@ -151,8 +151,8 @@
             data.SaveChanges();
 
             var projectService = new ProjectService(data, mapper);
-            var result = projectService.All(programm,searchTerm,projectsorting, currentPage,projectsPerPage);
-            
+            var result = projectService.All(programm, searchTerm, projectsorting, currentPage, projectsPerPage);
+
             Assert.NotNull(result);
             var count = result.ProjectsPerPage;
             Assert.Equal(3, count);
@@ -165,7 +165,7 @@
 
             data.Proposals.Add(new Proposal
             {
-                Id=1
+                Id = 1
             });
 
             data.SaveChanges();
@@ -208,9 +208,40 @@
                 3,
                 1,
                 "999999");
-            var count=data.Projects.Count();
-            Assert.Equal(1,count);
-            Assert.Equal(1,result);
+            var count = data.Projects.Count();
+            Assert.Equal(1, count);
+            Assert.Equal(1, result);
+        }
+            [Fact]
+        public void EditShouldReturnDataAndMustBeTrue()
+        {
+            var data = DatabaseMock.Instance;
+            var mapper = MapperMock.Instance;
+            
+            data.Projects.Add(new Project
+            {
+                Id = 2,
+                ProgrammId = 1,
+                Name = "ARS",
+                CustomerRegistrationNumber = "99999999",
+                ProjectPhoto = "https://imagga.com/static/images/content-moderation/dashboard.svg",
+                Status = "started",
+                StartDate = "14082021",
+                EndDate = "14082023",
+                ProjectRate = 2.5
+            });
+            var projectService = new ProjectService(data, mapper);
+            var result = projectService.Edit(2,
+                "ARS",
+                1,
+                "https://imagga.com/static/images/content-moderation/dashboard.svg",
+                "started",
+                "14082021",
+                 "14082023",
+                 2.5,
+                 "88888888");
+
+            Assert.True(result);
         }
     }
 }

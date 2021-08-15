@@ -1,9 +1,7 @@
-﻿using ARS_ProjectSystem.Services.Statistics;
-using Moq;
-
-namespace ARS_ProjectSystem.Test.Mocks
+﻿namespace ARS_ProjectSystem.Test.Mocks
 {
-
+    using ARS_ProjectSystem.Services.Statistics;
+    using Moq;
 
     public class StatisticsServiceMock
     {

@@ -12,30 +12,23 @@
     using static WebConstants;
     public class EmployeesController:Controller
     {
-
-        private readonly ProjectSystemDbContext data;
         private readonly IEmployeeService employees;
-        public EmployeesController(ProjectSystemDbContext data, IEmployeeService employees)
+
+        public EmployeesController(IEmployeeService employees)
         {
-            this.data = data;
             this.employees = employees;
         }
+
         public IActionResult All()
         {
-            var employees = this.data.Employees.Select(e => new AllEmployeesServiceModel
+            var employeesData = this.employees.All();
+            if (employeesData != null)
             {
-                Id = e.Id,
-                FirstName=e.FirstName,
-                LastName=e.LastName,
-                Jobtitle=e.Jobtitle,
-                DepartmentName=e.DepartmentName
-            }).ToList();
-            if (employees != null)
-            {
-                return View(employees);
+                return View(employeesData);
             }
             return RedirectToAction("Index", "Home");
         }
+
         [Authorize]
         public IActionResult Add()
         {
@@ -53,28 +46,27 @@
             {
                 return View();
             }
-            var employeeData = new Employee
-            {
-                Id=employee.Id,
-                FirstName = employee.FirstName,
-                LastName=employee.LastName,
-                Jobtitle=employee.Jobtitle,
-                CustomerRegistrationNumber =employee.CustomerRegistrationNumber,
-                DepartmentName=employee.DepartmentName,
-            };
-            this.data.Employees.Add(employeeData);
-            this.data.SaveChanges();
+            this.employees.Create(employee.Id,
+                employee.FirstName,
+                employee.LastName,
+                employee.Jobtitle,
+                employee.CustomerRegistrationNumber,
+                employee.DepartmentName);
 
             TempData[GlobalMessageKey] = $"Employee {employee.FirstName} {employee.LastName} is added succesfully!";
 
             return RedirectToAction("Index", "Home");
         }
+
         private IEnumerable<EmployeeCustomersServiceModel> GetEmployeeCustomers()
             => this.employees.GetEmployeeCustomers();
+
         private IEnumerable<EmployeeProjectsServiceModel> GetEmployeeProjects()
             => this.employees.GetEmployeeProjects();
+
         private IEnumerable<EmployeeProposalsServiceModel> GetEmployeeProposals()
             => this.employees.GetEmployeeProposals();
+
         [Authorize]
         public IActionResult AddToProject()
         {
@@ -88,15 +80,13 @@
         [Authorize]
         public IActionResult AddToProject(AddEmployeeFormModel employee,int employeeId)
         {
-            var employeeToAdd = this.data.Employees.First(e => e.Id == employeeId);
-            var project = this.data.Projects.First(p => p.Id == employee.Id);
-            employeeToAdd.Projects.Add(project);
-            this.data.SaveChanges();
+            var employeeData=this.employees.AddToProject(employee, employeeId);
 
-            TempData[GlobalMessageKey] = $"Employee {employee.FirstName} {employee.LastName} is added succesfully to {project.Name}!";
+            TempData[GlobalMessageKey] = $"Employee {employeeData.FirstName} {employeeData.LastName} is added succesfully to project {employeeData.ProjectName}!";
 
             return RedirectToAction(nameof(All));
         }
+
         [Authorize]
         public IActionResult AddToProposal()
         {
@@ -106,16 +96,14 @@
             });
 
         }
+
         [HttpPost]
         [Authorize]
         public IActionResult AddToProposal(AddEmployeeFormModel employee, int employeeId)
         {
-            var employeeToAdd = this.data.Employees.First(e => e.Id == employeeId);
-            var proposal = this.data.Proposals.First(p => p.Id == employee.Id);
-            employeeToAdd.Proposals.Add(proposal);
-            this.data.SaveChanges();
+            var employeeData = this.employees.AddToProposal(employee, employeeId);
 
-            TempData[GlobalMessageKey] = $"Employee {employee.FirstName} {employee.LastName} is added succesfully to {proposal.Name}!";
+            TempData[GlobalMessageKey] = $"Employee {employeeData.FirstName} {employeeData.LastName} is added succesfully to proposal {employeeData.ProposalName}!";
 
             return RedirectToAction(nameof(All));
         }

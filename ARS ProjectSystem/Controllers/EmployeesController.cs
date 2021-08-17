@@ -1,13 +1,10 @@
 ﻿namespace ARS_ProjectSystem.Controllers
 {
-    using ARS_ProjectSystem.Data;
-    using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Models.Employees;
     using ARS_ProjectSystem.Services.Employees;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
-    using System.Linq;
 
     using static WebConstants;
     public class EmployeesController:Controller
@@ -22,10 +19,12 @@
         public IActionResult All()
         {
             var employeesData = this.employees.All();
+
             if (employeesData != null)
             {
                 return View(employeesData);
             }
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -46,6 +45,7 @@
             {
                 return View();
             }
+
             this.employees.Create(employee.Id,
                 employee.FirstName,
                 employee.LastName,
@@ -74,8 +74,8 @@
             {
                 Projects = this.GetEmployeeProjects()
             });
-            
         }
+
         [HttpPost]
         [Authorize]
         public IActionResult AddToProject(AddEmployeeFormModel employee,int employeeId)
@@ -94,7 +94,6 @@
             {
                 Proposals = this.GetEmployeeProposals()
             });
-
         }
 
         [HttpPost]
@@ -107,6 +106,5 @@
 
             return RedirectToAction(nameof(All));
         }
-
     }
 }

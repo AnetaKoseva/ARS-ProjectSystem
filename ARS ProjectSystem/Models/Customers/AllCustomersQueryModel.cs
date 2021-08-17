@@ -8,6 +8,7 @@
     public class AllCustomersQueryModel
     {
         public string SearchTerm { get; init; }
+
         public IEnumerable<CustomerServiceModel> Customers{get;set;}
     }
 }

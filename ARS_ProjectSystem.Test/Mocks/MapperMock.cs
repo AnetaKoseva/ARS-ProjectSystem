@@ -2,7 +2,6 @@
 {
     using ARS_ProjectSystem.Infrastructure;
     using AutoMapper;
-    using System;
 
     public static class MapperMock
     {

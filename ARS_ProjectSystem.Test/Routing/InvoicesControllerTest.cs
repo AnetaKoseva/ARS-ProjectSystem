@@ -12,12 +12,12 @@
             .Configuration()
             .ShouldMap("/Invoices/CreateInvoice")
             .To<InvoicesController>(c => c.CreateInvoice());
+
         [Fact]
         public void GetAllRouteShouldBeMapped()
             => MyRouting
             .Configuration()
             .ShouldMap("/Invoices/All")
             .To<InvoicesController>(c => c.All());
-        
     }
 }

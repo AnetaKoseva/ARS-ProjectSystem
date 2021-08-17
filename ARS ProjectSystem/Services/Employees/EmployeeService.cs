@@ -9,6 +9,7 @@
     public class EmployeeService:IEmployeeService
     {
         private readonly ProjectSystemDbContext data;
+
         public EmployeeService(ProjectSystemDbContext data)
         {
             this.data = data;
@@ -30,6 +31,7 @@
                 CustomerRegistrationNumber = customerRegistrationNumber,
                 DepartmentName = departmentName
             };
+
             this.data.Employees.Add(employeeData);
             this.data.SaveChanges();
 
@@ -66,6 +68,7 @@
                     Name = c.Name
                 })
             .ToList();
+
         public IEnumerable<EmployeeProposalsServiceModel> GetEmployeeProposals()
             => this.data
                 .Proposals

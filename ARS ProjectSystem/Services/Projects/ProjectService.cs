@@ -12,12 +12,14 @@
     {
         private readonly ProjectSystemDbContext data;
         private readonly IMapper mapper;
+
         public ProjectService(ProjectSystemDbContext data,
             IMapper mapper)
         {
             this.data = data;
             this.mapper = mapper;
         }
+
         public ProjectQueryServiceModel All(string programm,
             string searchTerm,
             ProjectSorting sorting,
@@ -159,6 +161,7 @@
 
             return projectData.Id;
         }
+
         public bool Edit(int id, string name, int programmId, string projectPhoto, string status, string startDate, string endDate, double projectRate, string customerRegistrationNumber)
         {
             var projectData = this.data.Projects.Find(id);

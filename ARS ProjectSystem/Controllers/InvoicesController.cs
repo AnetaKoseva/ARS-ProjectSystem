@@ -46,17 +46,21 @@
                 .ToList();
             return View(invoices);
         }
+
         [Authorize]
         public IActionResult CreateInvoice() => View();
+
         [Authorize]
         [HttpPost]
         public IActionResult CreateInvoice(InvoiceFormModel invoice,string id)
         {
             var customer = this.data.Customers.FirstOrDefault(c => c.RegistrationNumber == id);
+
             if (!ModelState.IsValid)
             {
                 return View();
             }
+
             var invoiceData = new Invoice
             {
                 CreatedOn = invoice.CreatedOn,
@@ -74,6 +78,7 @@
                 Price = invoice.Price,
                 Total=invoice.Price*invoice.Number
             };
+
             this.data.Invoices.Add(invoiceData);
             this.data.SaveChanges();
 
@@ -103,6 +108,7 @@
                 Price = invoice.Price,
                 Total = invoice.Total
             };
+
             return View(model);
         }
         [Authorize]
@@ -127,6 +133,7 @@
                     Price = i.Price,
                     Total = i.Total
                 }).FirstOrDefault();
+
             return View(new InvoiceFormModel
             {
                 Id = invoices.Id,
@@ -147,6 +154,7 @@
             });
 
         }
+
         [Authorize]
         [HttpPost]
         public IActionResult Edit(InvoiceFormModel invoice,int id)
@@ -172,14 +180,17 @@
 
             return RedirectToAction(nameof(All));
         }
+
         [Authorize]
         public IActionResult Delete(int id)
         {
             var invoice= this.data
                 .Invoices
                 .FirstOrDefault(i => i.Id == id);
+
             this.data.Invoices.Remove(invoice);
             this.data.SaveChanges();
+
             return RedirectToAction(nameof(All));
         }
     }

@@ -3,6 +3,5 @@
     public interface IStatisticsService
     {
         StatisticsServiceModel Total();
-        
     }
 }

@@ -7,13 +7,12 @@
     public class StatisticsApiControllerTest
     {
         [Fact]
-        public void etStatisticsShoudReturnTotalStatistics()
+        public void GetStatisticsShoudReturnTotalStatistics()
         {
-            //Arrange
             var statisticsController = new StatisticsApiController(StatisticsServiceMock.Instance);
-            //Act
+
             var result = statisticsController.GetStatistics();
-            //Assert
+
             Assert.NotNull(result);
             Assert.Equal(5, result.TotalCustomers);
             Assert.Equal(5, result.TotalInvoices);

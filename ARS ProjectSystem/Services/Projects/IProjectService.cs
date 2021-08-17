@@ -10,6 +10,7 @@
             ProjectSorting sorting,
             int currentPage,
             int projectsPerPage);
+
         int Create(
             int id,
             string name,
@@ -21,7 +22,9 @@
             int proposalId,
             double projectRate,
             string customerRegistrationNumber);
+
         IEnumerable<ProjectTotalServiceModel> Total();
+
         bool Edit(
             int id,
             string name,
@@ -32,12 +35,17 @@
             string endDate,
             double projectRate,
             string customerRegistrationNumber);
+
         ProjectServiceModel Details(int id);
+
         IEnumerable<string> AllProjectProgramms();
+
         IEnumerable<ProjectProgrammsServiceModel> GetProjectProgramms();
+
         IEnumerable<ProjectProposalsServiceModel> GetProjectProposals();
+
         IEnumerable<ProjectCustomersServiceModel> GetProjectCustomers();
+
         bool ProposalExists(int proposalId);
-        
     }
 }

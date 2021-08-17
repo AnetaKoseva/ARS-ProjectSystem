@@ -20,6 +20,5 @@
                 .AndAlso()
                 .ShouldReturn()
                 .View();
-        
     }
 }

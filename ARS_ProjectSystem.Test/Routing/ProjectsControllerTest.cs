@@ -13,6 +13,7 @@
             .Configuration()
             .ShouldMap("/Projects/Add")
             .To<ProjectsController>(c => c.Add());
+
         [Fact]
         public void PostAddRouteShouldBeMapperd()
             => MyRouting
@@ -20,6 +21,5 @@
             .ShouldMap(request=>request.WithPath("/Projects/Add")
             .WithMethod(HttpMethod.Post))
             .To<ProjectsController>(c => c.Add(With.Any<ProjectFormModel>()));
-        
     }
 }

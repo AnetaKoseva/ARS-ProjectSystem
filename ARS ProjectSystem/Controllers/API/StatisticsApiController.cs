@@ -8,6 +8,7 @@
     public class StatisticsApiController:ControllerBase
     {
         private readonly IStatisticsService statistics;
+
         public StatisticsApiController(IStatisticsService statistics)
         {
             this.statistics = statistics;

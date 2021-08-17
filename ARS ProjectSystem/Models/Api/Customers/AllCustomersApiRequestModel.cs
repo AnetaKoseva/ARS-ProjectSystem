@@ -8,6 +8,7 @@
     public class AllCustomersApiRequestModel
     {
         public string SearchTerm { get; init; }
+
         public IEnumerable<CustomerServiceModel> Customers { get; init; }
     }
 }

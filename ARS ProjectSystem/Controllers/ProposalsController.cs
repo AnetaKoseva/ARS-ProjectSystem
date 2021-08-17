@@ -13,20 +13,25 @@
     {
         private readonly IProposalService proposals;
         private readonly IMapper mapper;
+
         public ProposalsController(IProposalService proposals, IMapper mapper)
         {
             this.proposals = proposals;
             this.mapper = mapper;
         }
+
         public IActionResult All()
         {
             var proposals = this.proposals.All();
+
             if (proposals != null)
             {
                 return View(proposals);
             }
+
             return RedirectToAction("Index", "Home");
         }
+
         [Authorize]
         public IActionResult Add()
         {
@@ -35,6 +40,7 @@
                 Customers = this.GetProposalCustomers()
             });
         }
+
         [HttpPost]
         [Authorize]
         public IActionResult Add(ProposalFormModel proposal)
@@ -43,6 +49,7 @@
             {
                 return View();
             }
+
             this.proposals.Create(
                 proposal.Id,
                 proposal.Name,
@@ -78,6 +85,7 @@
             
             return RedirectToAction("Index", "Home");
         }
+
         [Authorize]
         public IActionResult Details(int proposalId)
         {
@@ -88,12 +96,16 @@
 
         private IEnumerable<ProposalCustomersServiceModel> GetProposalCustomers()
             => this.proposals.GetProposalCustomers();
+
         [Authorize]
         public IActionResult Edit(int id)
         {
             var proposal = this.proposals.Details(id);
+
             var proposalForm = this.mapper.Map<ProposalFormModel>(proposal);
+
             proposalForm.Customers = this.proposals.GetProposalCustomers();
+
             return View(proposalForm);
             //return View(new ProposalFormModel
             //{
@@ -107,6 +119,7 @@
             //    Customers = this.proposals.GetProposalCustomers(),
             //});
         }
+
         [Authorize(Roles = "Administrator")]
         [HttpPost]
         public IActionResult Edit(int id, ProposalFormModel proposal)
@@ -141,6 +154,7 @@
                 proposal.FreeKeyword,
                 proposal.Abstract,
                 proposal.Solution);
+
             if (!proposalIsEdited || !User.IsAdmin())
             {
                 return BadRequest();

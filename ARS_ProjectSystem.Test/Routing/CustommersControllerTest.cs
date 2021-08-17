@@ -13,6 +13,7 @@
             .Configuration()
             .ShouldMap("/Customers/Add")
             .To<CustomersController>(c => c.Add());
+
         [Fact]
         public void GetAllRouteShouldBeMapped()
             => MyRouting
@@ -20,6 +21,7 @@
             .ShouldMap(request => request.WithPath("/Customers/All")
             .WithMethod(HttpMethod.Post))
             .To<CustomersController>(c => c.All(With.Any<AllCustomersQueryModel >()));
+
         [Fact]
         public void PostAddRouteShouldBeMapperd()
             => MyRouting

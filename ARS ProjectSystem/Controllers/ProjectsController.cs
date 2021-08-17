@@ -12,6 +12,7 @@
     {
         private readonly IProjectService projects;
         private readonly IMapper mapper;
+
         public ProjectsController( IProjectService projects, IMapper mapper)
         {
             this.mapper = mapper;
@@ -28,6 +29,7 @@
                 Customers = this.projects.GetProjectCustomers()
             });
         }
+
         public IActionResult All([FromQuery] AllProjectsQueryModel query)
         {
             var queryResult = this.projects.All(
@@ -45,11 +47,11 @@
 
             return View(query);
         }
+
         [HttpPost]
         [Authorize]
         public IActionResult Add(ProjectFormModel project)
         {
-            //is it true.Check
             if (!this.projects.ProposalExists(project.ProposalId.GetValueOrDefault()))
             {
                 this.ModelState.AddModelError(nameof(project.ProposalId), "Proposal does not exist.");
@@ -84,6 +86,7 @@
         public IActionResult Details(int projectId)
         {
             var project = this.projects.Details(projectId);
+
             return this.View(project);
         }
         
@@ -116,6 +119,7 @@
             //    Customers = this.projects.GetProjectCustomers()
             //});
         }
+
         [Authorize(Roles ="Administrator")]
         [HttpPost]
         public IActionResult Edit(int id,ProjectFormModel project)

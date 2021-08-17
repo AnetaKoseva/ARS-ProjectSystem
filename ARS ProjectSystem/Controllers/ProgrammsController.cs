@@ -3,6 +3,7 @@
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Models.Programms;
+    using ARS_ProjectSystem.Services.Programms;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Linq;
@@ -10,26 +11,25 @@
     using static WebConstants;
     public class ProgrammsController : Controller
     {
-        private readonly ProjectSystemDbContext data;
-        public ProgrammsController(ProjectSystemDbContext data)
-            => this.data = data;
+        private readonly IProgrammService programms;
+
+        public ProgrammsController( IProgrammService programms)
+        {
+            this.programms = programms;
+        }
+
         [Authorize]
         public IActionResult Add()=>View();
         
         public IActionResult All()
         {
-            var programms = this.data.Programms.Select(p => new ProgrammListingViewModel
+            var programmData = programms.All();
+
+            if (programmData != null)
             {
-                Id=p.Id,
-                ProgrammName = p.ProgrammName,
-                Description = p.Description.Substring(0, 110),
-                FullDescription = p.Description,
-                Url = p.Url
-            }).ToList();
-            if (programms != null)
-            {
-                return View(programms);
+                return View(programmData);
             }
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -41,32 +41,21 @@
             {
                 return View();
             }
-            var programmData = new Programm
-            {
-                ProgrammName = programm.ProgrammName,
-                Url = programm.Url,
-                Description = programm.Description
-            };
-            this.data.Programms.Add(programmData);
-            this.data.SaveChanges();
+
+            this.programms.Create(
+                programm.ProgrammName,
+                programm.Url,
+                programm.Description);
 
             TempData[GlobalMessageKey] = $"Programm {programm.ProgrammName} is added succesfully!";
 
             return RedirectToAction("Index", "Home");
         }
-       
-        public IActionResult Details(string programmId)
-        {
-            var programm = this.data.Programms
-                .First(t => t.Id == int.Parse(programmId));
 
-            return this.View(programm);
-        }
         public IActionResult Delete(int id)
         {
-            var programm = this.data.Programms.FirstOrDefault(p => p.Id == id);
-            this.data.Remove(programm);
-            this.data.SaveChanges();
+            var programmDta = programms.Delete(id);
+
             return RedirectToAction(nameof(All));
         }
     }

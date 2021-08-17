@@ -7,6 +7,7 @@
     public class CustomerService:ICustomerService
     {
         private readonly ProjectSystemDbContext data;
+
         public CustomerService(ProjectSystemDbContext data)
         {   
             this.data = data;
@@ -25,6 +26,7 @@
             string country)
         {
             var customerData = new Customer();
+
             if (!this.data.Customers.Any(c => c.RegistrationNumber == registrationNumber))
             {
                  customerData = new Customer
@@ -52,6 +54,7 @@
         {
 
             var customerQuery = this.data.Customers.AsQueryable();
+
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 customerQuery = customerQuery.Where(c =>
@@ -61,6 +64,7 @@
                     ||c.VAT.ToLower().Contains(searchTerm.ToLower())
                     ||c.RegistrationNumber.ToLower().Contains(searchTerm.ToLower()));
             }
+
             var customers = customerQuery
                 .OrderBy(c => c.Name)
                 .Select(c => new CustomerServiceModel
@@ -71,6 +75,7 @@
                     OwnerName = c.OwnerName
                 })
                 .ToList();
+
             return new CustomerQueryServiceModel
             {
                 Customers = customers,

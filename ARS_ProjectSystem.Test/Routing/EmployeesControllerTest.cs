@@ -14,12 +14,14 @@
             .Configuration()
             .ShouldMap("/Employees/All")
             .To<EmployeesController>(c => c.All());
+
         [Fact]
         public void GetAddRouteShouldBeMapped()
             => MyRouting
             .Configuration()
             .ShouldMap("/Employees/Add")
             .To<EmployeesController>(c => c.Add());
+
         [Fact]
         public void PostAddRouteShouldBeMapperd()
             => MyRouting
@@ -27,6 +29,5 @@
             .ShouldMap(request => request.WithPath("/Employees/Add")
             .WithMethod(HttpMethod.Post))
             .To<EmployeesController>(c => c.Add(With.Any<AddEmployeeFormModel>()));
-
     }
 }

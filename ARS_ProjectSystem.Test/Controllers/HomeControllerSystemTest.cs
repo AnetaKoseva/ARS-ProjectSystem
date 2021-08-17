@@ -9,17 +9,18 @@
         private readonly WebApplicationFactory<Startup> factory;
         public HomeControllerSystemTest(WebApplicationFactory<Startup> factory)
             => this.factory = factory;
+
         [Fact]
         public async Task IndexShouldReturnStatusCode()
         {
-            //Arrange
-            var client = this.factory.CreateClient();
-            //Act
-            var result =await client.GetAsync("/");
-            //Arrange
-            Assert.True(result.IsSuccessStatusCode);
-            var response = await result.Content.ReadAsStringAsync();
 
+            var client = this.factory.CreateClient();
+
+            var result =await client.GetAsync("/");
+
+            Assert.True(result.IsSuccessStatusCode);
+
+            await result.Content.ReadAsStringAsync();
         }
     }
 }

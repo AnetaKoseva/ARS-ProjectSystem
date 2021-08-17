@@ -27,18 +27,22 @@
 
             return app;
         }
+
         private static void MigrateDatabase(IServiceProvider services)
         {
             var data = services.GetRequiredService<ProjectSystemDbContext>();
             data.Database.Migrate();
         }
+
         private static void SeedProgramms(IServiceProvider services)
         {
             var data = services.GetRequiredService<ProjectSystemDbContext>();
+
             if (data.Programms.Any())
             {
                 return;
             }
+
             data.Programms.Add(new Programm
             {
                 ProgrammName="Horizon2020",
@@ -49,10 +53,12 @@
         private static void SeedProposals(IServiceProvider services)
         {
             var data = services.GetRequiredService<ProjectSystemDbContext>();
+
             if (data.Proposals.Any())
             {
                 return;
             }
+
             data.Proposals.AddRange(new Proposal
             {
                 Name="SysAgria",
@@ -62,6 +68,7 @@
                 UrlPhoto= "https://www.sysagria.ro/static/media/left_part.a43a83c2.png"
             });
         }
+
         private static void SeedAdministrator(IServiceProvider services)
         {
             var userManager = services.GetRequiredService<UserManager<User>>();

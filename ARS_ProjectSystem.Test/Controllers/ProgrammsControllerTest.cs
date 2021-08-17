@@ -18,7 +18,8 @@
             .Calling(c => c.All())
             .ShouldReturn()
             .View(view => view
-            .WithModelOfType<List<ProgrammListingViewModel>>().Passing(p => p.Should().HaveCount(10)));
+            .WithModelOfType<List<ProgrammsListingViewModel>>().Passing(p => p.Should().HaveCount(10)));
+
         [Fact]
         public void ControllerTestAdd()
                 => MyController<ProgrammsController>

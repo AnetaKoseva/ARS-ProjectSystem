@@ -5,8 +5,11 @@
     public interface IProposalService
     {
         IEnumerable<ProposalCustomersServiceModel> GetProposalCustomers();
-        public IEnumerable<AllProposalsListingViewModel> All();
+
+        public IEnumerable<ProposalServiceModel> All();
+
         public ProposalServiceModel Details(int id);
+
         public int Create(
                 int id,
                 string name,

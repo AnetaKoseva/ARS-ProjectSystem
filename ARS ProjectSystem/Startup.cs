@@ -5,6 +5,7 @@ namespace ARS_ProjectSystem
     using ARS_ProjectSystem.Infrastructure;
     using ARS_ProjectSystem.Services.Customers;
     using ARS_ProjectSystem.Services.Employees;
+    using ARS_ProjectSystem.Services.Programms;
     using ARS_ProjectSystem.Services.Projects;
     using ARS_ProjectSystem.Services.Proposals;
     using ARS_ProjectSystem.Services.Statistics;
@@ -17,11 +18,11 @@ namespace ARS_ProjectSystem
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
             =>Configuration = configuration;
+
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
@@ -57,30 +58,39 @@ namespace ARS_ProjectSystem
 
             services
                 .AddTransient<ICustomerService, CustomerService>();
+
             services
                 .AddTransient<IStatisticsService, StatisticsService>();
+
             services
                 .AddTransient<IProjectService, ProjectService>();
+
             services
                 .AddTransient<IProposalService, ProposalService>();
+
             services
                 .AddTransient<IEmployeeService, EmployeeService>();
 
+            services
+                .AddTransient<IProgrammService, ProgrammService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.PrepareDatabase();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
             }
+
             else
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
             app
                 .UseHttpsRedirection()
                 .UseStaticFiles()
@@ -93,7 +103,6 @@ namespace ARS_ProjectSystem
                     endpoints.MapDefaultControllerRoute();
                     endpoints.MapRazorPages();
                 });
-            
         }
     }
 }

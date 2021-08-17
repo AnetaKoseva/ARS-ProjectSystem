@@ -2,10 +2,11 @@
 {
     using System.Collections.Generic;
     using ARS_ProjectSystem.Controllers;
-    using ARS_ProjectSystem.Models.Proposals;
+    using ARS_ProjectSystem.Services.Proposals;
     using FluentAssertions;
     using MyTested.AspNetCore.Mvc;
     using Xunit;
+
     using static Data.ProjectSystem;
     public class ProposalControllerTest
     {
@@ -16,7 +17,8 @@
             .Calling(c => c.All())
             .ShouldReturn()
             .View(view => view
-            .WithModelOfType<IEnumerable<AllProposalsListingViewModel>>().Passing(p => p.Should().HaveCount(10)));
+            .WithModelOfType<IEnumerable<ProposalServiceModel>>().Passing(p => p.Should().HaveCount(10)));
+
         [Fact]
         public void ControllerTestAdd()
             => MyController<ProposalsController>

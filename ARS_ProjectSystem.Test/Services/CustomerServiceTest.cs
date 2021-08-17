@@ -15,7 +15,12 @@
 
             using var data = DatabaseMock.Instance;
 
-            var customer = data.Customers.Add(new Customer { RegistrationNumber = "999999999", Name = "Aneta" });
+            var customer = data.Customers.Add(new Customer 
+            { 
+                RegistrationNumber = "999999999",
+                Name = "Aneta" 
+            });
+
             data.SaveChanges();
 
             var customerService = new CustomerService(data);
@@ -27,12 +32,18 @@
             Assert.NotNull(result);
             Assert.Equal(1, count);
         }
+
         [Fact]
         public void AllShoudReturnAllCustomers()
         {
             using var data = DatabaseMock.Instance;
 
-            var customer = data.Customers.Add(new Customer { RegistrationNumber = "999999999", Name = "Aneta" });
+            var customer = data.Customers.Add(new Customer 
+            { 
+                RegistrationNumber = "999999999",
+                Name = "Aneta" 
+            });
+
             data.SaveChanges();
 
             var customerService = new CustomerService(data);
@@ -44,6 +55,7 @@
             Assert.NotNull(result);
             Assert.Equal(1, count);
         }
+
         [Fact]
         public void AddShoudReturnAllCustomers()
         {
@@ -65,6 +77,27 @@
             var count = data.Customers.Count();
 
             Assert.Equal(1, count);
+        }
+
+        [Fact]
+        public void DeleteShoudReturnAllCustomers()
+        {
+            using var data = DatabaseMock.Instance;
+
+            var customer = data.Customers.Add(new Customer { RegistrationNumber = "999999999", Name = "Aneta" });
+            var customer2 = data.Customers.Add(new Customer { RegistrationNumber = "888888888", Name = "Alisa" });
+            var employee = data.Employees.Add(new Employee { CustomerRegistrationNumber = "888888888" });
+            
+            data.SaveChanges();
+
+            var customerService = new CustomerService(data);
+            customerService.Delete(customer2.Entity.RegistrationNumber);
+
+            var count = data.Customers.Count();
+            var employeeCount = data.Employees.Count();
+
+            Assert.Equal(1, count);
+            Assert.Equal(0, employeeCount);
         }
     }
 }

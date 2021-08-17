@@ -72,6 +72,7 @@
                 {
                     return RedirectToPage("./Lockout");
                 }
+
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");

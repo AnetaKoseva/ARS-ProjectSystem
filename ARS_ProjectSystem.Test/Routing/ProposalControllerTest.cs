@@ -13,6 +13,7 @@
            .Configuration()
            .ShouldMap("/Proposals/Add")
            .To<ProposalsController>(c => c.Add());
+
         [Fact]
         public void GetAllRouteShouldBeMapped()
             => MyRouting
@@ -20,6 +21,7 @@
             .ShouldMap(request => request.WithPath("/Proposals/All")
             .WithMethod(HttpMethod.Post))
             .To<ProposalsController>(c => c.All());
+
         [Fact]
         public void PostAddRouteShouldBeMapperd()
             => MyRouting

@@ -12,6 +12,7 @@
           .Configuration()
           .ShouldMap("/Programms/Add")
           .To<ProgrammsController>(c => c.Add());
+
         [Fact]
         public void GetAllRouteShouldBeMapped()
             => MyRouting
@@ -19,6 +20,7 @@
             .ShouldMap(request => request.WithPath("/Programms/All")
             .WithMethod(HttpMethod.Post))
             .To<ProgrammsController>(c => c.All());
+
         [Fact]
         public void PostAddRouteShouldBeMapperd()
             => MyRouting

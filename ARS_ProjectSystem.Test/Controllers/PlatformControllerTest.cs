@@ -3,10 +3,7 @@
     using Xunit;
     using MyTested.AspNetCore.Mvc;
     using ARS_ProjectSystem.Controllers;
-    using static Data.ProjectSystem;
-    using FluentAssertions;
-    using ARS_ProjectSystem.Models.Invoices;
-    using System.Collections.Generic;
+
     public class PlatformControllerTest
     {
         [Fact]

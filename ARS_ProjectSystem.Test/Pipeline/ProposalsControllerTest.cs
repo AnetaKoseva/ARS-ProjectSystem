@@ -20,6 +20,7 @@
                 .AndAlso()
                 .ShouldReturn()
                 .View();
+
         [Fact]
         public void GetAllShoulddReturnView()
             => MyPipeline

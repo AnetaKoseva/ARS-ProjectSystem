@@ -2,7 +2,6 @@
 {
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
-    using ARS_ProjectSystem.Models.Proposals;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -23,9 +22,9 @@
                 })
             .ToList();
 
-        public IEnumerable<AllProposalsListingViewModel> All()
-        => this.data.Proposals.Select(p => new AllProposalsListingViewModel
-            {
+        public IEnumerable<ProposalServiceModel> All()
+        => this.data.Proposals.Select(p => new ProposalServiceModel
+        {
                 Id = p.Id,
                 Name=p.Name,
                 CustomerRegistrationNumber=p.CustomerRegistrationNumber,

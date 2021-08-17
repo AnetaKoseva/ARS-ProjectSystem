@@ -18,6 +18,7 @@
             .ShouldReturn()
             .View(view => view
             .WithModelOfType<IndexViewModel>().Passing(p => p.Should().NotBeNull()));
+
         [Fact]
         public void ErrorShouldReturnView()
                 => MyController<HomeController>

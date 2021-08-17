@@ -3,10 +3,11 @@
     using Xunit;
     using MyTested.AspNetCore.Mvc;
     using ARS_ProjectSystem.Controllers;
-    using static Data.ProjectSystem;
     using FluentAssertions;
     using ARS_ProjectSystem.Models.Invoices;
     using System.Collections.Generic;
+
+    using static Data.ProjectSystem;
 
     public class InvoicesControllerTest
     {
@@ -23,6 +24,7 @@
             .ShouldReturn()
             .View(view => view
             .WithModelOfType<List<InvoiceFormModel>>().Passing(p => p.Should().HaveCount(10)));
+
         [Fact]
         public void CreateInvoiceActionShouldReturnCorrectViewWithModel()
            => MyController<InvoicesController>
@@ -35,6 +37,5 @@
            .AndAlso()
            .ShouldReturn()
            .View();
-
     }
 }

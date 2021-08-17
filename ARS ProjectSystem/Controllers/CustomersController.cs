@@ -1,6 +1,5 @@
 ﻿namespace ARS_ProjectSystem.Controllers
 {
-    using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Services.Customers;
     using ARS_ProjectSystem.Models.Customers;
     using Microsoft.AspNetCore.Authorization;

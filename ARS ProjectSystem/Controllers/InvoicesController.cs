@@ -20,7 +20,8 @@
                 .Invoices
                 .Select(i=>new InvoiceFormModel 
                 { 
-                 Id=i.Id,
+                    Id=i.Id,
+                 Number=i.Number,
                  CustomerName=i.CustomerName,
                  CustomerVAT=i.CustomerVAT,
                   Item=i.Item,
@@ -36,7 +37,8 @@
                 .Invoices.Where(i=>i.CustomerRegistrationNumber==id)
                 .Select(i => new InvoiceFormModel
                 {
-                    Id = i.Id,
+                    Id=i.Id,
+                    Number = i.Number,
                     CustomerName = i.CustomerName,
                     CustomerVAT = i.CustomerVAT,
                     Item = i.Item,
@@ -44,6 +46,7 @@
                     Total = i.Total
                 })
                 .ToList();
+
             return View(invoices);
         }
 
@@ -63,20 +66,21 @@
 
             var invoiceData = new Invoice
             {
+
                 CreatedOn = invoice.CreatedOn,
                 CustomerRegistrationNumber = customer.RegistrationNumber,
-                CustomerVAT=customer.VAT,
-                CustomerAdress=customer.Address,
-                CustomerCountry=customer.Country,
-                CustomerName=customer.Name,
-                CustomerTown=customer.Town,
-                CustomerOwnerName=customer.OwnerName,
+                CustomerVAT = customer.VAT,
+                CustomerAdress = customer.Address,
+                CustomerCountry = customer.Country,
+                CustomerName = customer.Name,
+                CustomerTown = customer.Town,
+                CustomerOwnerName = customer.OwnerName,
                 DueDate = invoice.DueDate,
+                Number = invoice.Number,
                 Item = invoice.Item,
-                Number = invoice.Id,
-                Quantity=invoice.Quantity,
+                Quantity =invoice.Quantity,
                 Price = invoice.Price,
-                Total=invoice.Price*invoice.Number
+                Total=invoice.Price*invoice.Quantity
             };
 
             this.data.Invoices.Add(invoiceData);
@@ -89,11 +93,12 @@
         public IActionResult Add(int id)
         {
             var invoice = this.data.Invoices.FirstOrDefault(i=>i.Id==id);
-            
+            var invoiceNumber = (invoice.Id + 1).ToString(string.Format("E{0:000000}", 42));
+
             var model = new InvoiceFormModel
             {
                 Id=invoice.Id,
-                Number = invoice.Number,
+                Number = invoiceNumber,
                 Item = invoice.Item,
                 CreatedOn = invoice.CreatedOn,
                 DueDate = invoice.DueDate,
@@ -117,13 +122,11 @@
             var invoices = this.data.Invoices.Where(i => i.Id == id)
                 .Select(i => new InvoiceFormModel
                 {
-                    Id = i.Id,
+                    Id=i.Id,
                     Number = i.Number,
                     Item = i.Item,
                     CreatedOn = i.CreatedOn,
                     DueDate = i.DueDate,
-                    CustomerRegistrationNumber = i.CustomerRegistrationNumber,
-                    CustomerVAT = i.CustomerVAT,
                     CustomerAddress = i.CustomerAdress,
                     CustomerOwner = i.CustomerOwnerName,
                     Quantity = i.Quantity,
@@ -141,8 +144,6 @@
                 Item = invoices.Item,
                 CreatedOn = invoices.CreatedOn,
                 DueDate = invoices.DueDate,
-                CustomerRegistrationNumber = invoices.CustomerRegistrationNumber,
-                CustomerVAT = invoices.CustomerVAT,
                 CustomerAddress = invoices.CustomerAddress,
                 CustomerOwner = invoices.CustomerOwner,
                 Quantity = invoices.Quantity,

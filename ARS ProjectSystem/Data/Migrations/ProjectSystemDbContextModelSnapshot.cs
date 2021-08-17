@@ -131,9 +131,9 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.Property<string>("Item")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Number")
+                    b.Property<string>("Number")
                         .HasMaxLength(10)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");

@@ -83,7 +83,5 @@
         public string Solution { get; init; }
 
         public IEnumerable<ProposalCustomersServiceModel> Customers { get; set; }
-
-        public IEnumerable<ProposalProjectsViewModel> Projects { get; set; }
     }
 }

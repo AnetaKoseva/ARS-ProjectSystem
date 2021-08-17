@@ -2,8 +2,7 @@
 {
     using System.Collections.Generic;
     using ARS_ProjectSystem.Controllers;
-    using ARS_ProjectSystem.Models.Programms;
-    using ARS_ProjectSystem.Models.Proposals;
+    using ARS_ProjectSystem.Services.Programms;
     using FluentAssertions;
     using MyTested.AspNetCore.Mvc;
     using Xunit;
@@ -18,7 +17,7 @@
             .Calling(c => c.All())
             .ShouldReturn()
             .View(view => view
-            .WithModelOfType<List<ProgrammsListingViewModel>>().Passing(p => p.Should().HaveCount(10)));
+            .WithModelOfType<List<ProgrammServiceModel>>().Passing(p => p.Should().HaveCount(10)));
 
         [Fact]
         public void ControllerTestAdd()

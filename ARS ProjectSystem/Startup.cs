@@ -5,6 +5,7 @@ namespace ARS_ProjectSystem
     using ARS_ProjectSystem.Infrastructure;
     using ARS_ProjectSystem.Services.Customers;
     using ARS_ProjectSystem.Services.Employees;
+    using ARS_ProjectSystem.Services.Invoices;
     using ARS_ProjectSystem.Services.Programms;
     using ARS_ProjectSystem.Services.Projects;
     using ARS_ProjectSystem.Services.Proposals;
@@ -73,6 +74,9 @@ namespace ARS_ProjectSystem
 
             services
                 .AddTransient<IProgrammService, ProgrammService>();
+
+            services
+               .AddTransient<IInvoiceService, InvoiceService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -30,7 +30,7 @@
 
         public string CustomerName { get; set; }
 
-        public string CustomerAdress { get; set; }
+        public string CustomerAddress { get; set; }
 
         public string CustomerTown { get; set; }
 

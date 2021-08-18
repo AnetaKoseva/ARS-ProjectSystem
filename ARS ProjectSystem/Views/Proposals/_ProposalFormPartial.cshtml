@@ -44,23 +44,23 @@
             <div class="form-droup">
                 <label asp-for="@Model.SolutionType">What type of solution do you have in mind ?</label>
                 <select asp-for="@Model.SolutionType" class="form-control">
-                    <option value="0">Select</option>
-                    <option value="1">New product</option>
-                    <option value="2">New service, Civil engineering, Infraestructures</option>
-                    <option value="3">New process</option>
+                    <option>Select</option>
+                    <option>New product</option>
+                    <option>New service, Civil engineering, Infraestructures</option>
+                    <option >New process</option>
                 </select>
             </div>
         </div>
         <div class="form-floating mb-3">
             <div class="form-droup">
                 <label asp-for="@Model.ProjectPurpose">What is the purpose of your project ? </label>
-                <select asp-for="@Model.ProjectPurpose" class="form-control">
-                    <option value="0">Select</option>
-                    <option value="1">R&D Infrastructure</option>
-                    <option value="2">Training and mobility</option>
-                    <option value="3">Basic Research</option>
-                    <option value="4">Applied research and/or technological innovation</option>
-                    <option value="5">Non-technological innovation</option>
+                <select onchange="val()" asp-for="@Model.ProjectPurpose" id="projectPurpose" class="form-control">
+                    <option>Select</option>
+                    <option>R&D Infrastructure</option>
+                    <option>Training and mobility</option>
+                    <option>Basic Research</option>
+                    <option>Applied research and/or technological innovation</option>
+                    <option>Non-technological innovation</option>
                 </select>
             </div>
         </div>
@@ -83,9 +83,9 @@
             <div class="form-droup">
                 <label asp-for="@Model.HowProblemIsSolved">Idea or technology based </label>
                 <select asp-for="@Model.HowProblemIsSolved" class="form-control">
-                    <option value="0">Select</option>
-                    <option value="1">Idea</option>
-                    <option value="2">Technology</option>
+                    <option>Select</option>
+                    <option>Idea</option>
+                    <option>Technology</option>
                 </select>
             </div>
         </div>
@@ -125,21 +125,21 @@
             <div class="form-droup">
                 <label asp-for="@Model.Keyword1Parent">Keyword Parent 1</label>
                 <select asp-for="@Model.Keyword1Parent" class="form-control">
-                    <option value="0">Select</option>
-                    <option value="1">Agriculture / Rural Development / Fisheries</option>
-                    <option value="2">Biotechnology</option>
-                    <option value="3">Construction, Civil engineering, Infraestructures</option>
-                    <option value="4">Consumer products and services</option>
-                    <option value="5">Earth and related environmental sciences</option>
-                    <option value="6">Earth and related environmental sciences</option>
-                    <option value="7">Energy</option>
-                    <option value="8">Engineering and technology</option>
-                    <option value="9">Food and beverages</option>
-                    <option value="10">Health</option>
-                    <option value="11">Information and Communication Technology (ICT)</option>
-                    <option value="12">Public sector innovation</option>
-                    <option value="13">Security</option>
-                    <option value="14">Transport & Mobility</option>
+                    <option>Select</option>
+                    <option>Agriculture / Rural Development / Fisheries</option>
+                    <option>Biotechnology</option>
+                    <option>Construction, Civil engineering, Infraestructures</option>
+                    <option>Consumer products and services</option>
+                    <option>Earth and related environmental sciences</option>
+                    <option>Earth and related environmental sciences</option>
+                    <option>Energy</option>
+                    <option>Engineering and technology</option>
+                    <option>Food and beverages</option>
+                    <option>Health</option>
+                    <option>Information and Communication Technology (ICT)</option>
+                    <option>Public sector innovation</option>
+                    <option>Security</option>
+                    <option>Transport & Mobility</option>
                 </select>
             </div>
         </div>
@@ -153,21 +153,21 @@
             <div class="form-droup">
                 <label asp-for="@Model.Keyword2Parent">Keyword Parent 2</label>
                 <select asp-for="@Model.Keyword2Parent" class="form-control">
-                    <option value="0">Select</option>
-                    <option value="1">Agriculture / Rural Development / Fisheries</option>
-                    <option value="2">Biotechnology</option>
-                    <option value="3">Construction, Civil engineering, Infraestructures</option>
-                    <option value="4">Consumer products and services</option>
-                    <option value="5">Earth and related environmental sciences</option>
-                    <option value="6">Earth and related environmental sciences</option>
-                    <option value="7">Energy</option>
-                    <option value="8">Engineering and technology</option>
-                    <option value="9">Food and beverages</option>
-                    <option value="10">Health</option>
-                    <option value="11">Information and Communication Technology (ICT)</option>
-                    <option value="12">Public sector innovation</option>
-                    <option value="13">Security</option>
-                    <option value="14">Transport & Mobility</option>
+                    <option>Select</option>
+                    <option>Agriculture / Rural Development / Fisheries</option>
+                    <option>Biotechnology</option>
+                    <option>Construction, Civil engineering, Infraestructures</option>
+                    <option>Consumer products and services</option>
+                    <option>Earth and related environmental sciences</option>
+                    <option>Earth and related environmental sciences</option>
+                    <option>Energy</option>
+                    <option>Engineering and technology</option>
+                    <option>Food and beverages</option>
+                    <option>Health</option>
+                    <option>Information and Communication Technology (ICT)</option>
+                    <option>Public sector innovation</option>
+                    <option>Security</option>
+                    <option>Transport & Mobility</option>
                 </select>
             </div>
         </div>
@@ -180,21 +180,21 @@
             <div class="form-droup">
                 <label asp-for="@Model.Keyword3Parent">Keyword Parent 3</label>
                 <select asp-for="@Model.Keyword3Parent" class="form-control">
-                    <option value="0">Select</option>
-                    <option value="1">Agriculture / Rural Development / Fisheries</option>
-                    <option value="2">Biotechnology</option>
-                    <option value="3">Construction, Civil engineering, Infraestructures</option>
-                    <option value="4">Consumer products and services</option>
-                    <option value="5">Earth and related environmental sciences</option>
-                    <option value="6">Earth and related environmental sciences</option>
-                    <option value="7">Energy</option>
-                    <option value="8">Engineering and technology</option>
-                    <option value="9">Food and beverages</option>
-                    <option value="10">Health</option>
-                    <option value="11">Information and Communication Technology (ICT)</option>
-                    <option value="12">Public sector innovation</option>
-                    <option value="13">Security</option>
-                    <option value="14">Transport & Mobility</option>
+                    <option>Select</option>
+                    <option>Agriculture / Rural Development / Fisheries</option>
+                    <option>Biotechnology</option>
+                    <option>Construction, Civil engineering, Infraestructures</option>
+                    <option>Consumer products and services</option>
+                    <option>Earth and related environmental sciences</option>
+                    <option>Earth and related environmental sciences</option>
+                    <option>Energy</option>
+                    <option>Engineering and technology</option>
+                    <option>Food and beverages</option>
+                    <option>Health</option>
+                    <option>Information and Communication Technology (ICT)</option>
+                    <option>Public sector innovation</option>
+                    <option>Security</option>
+                    <option>Transport & Mobility</option>
                 </select>
             </div>
         </div>

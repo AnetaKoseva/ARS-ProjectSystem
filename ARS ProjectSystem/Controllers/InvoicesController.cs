@@ -2,52 +2,38 @@
 {
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
+    using ARS_ProjectSystem.Infrastructure;
     using ARS_ProjectSystem.Models.Invoices;
+    using ARS_ProjectSystem.Services.Invoices;
+    using AutoMapper;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Linq;
 
     using static WebConstants;
-    public class InvoicesController:Controller
+    public class InvoicesController : Controller
     {
         private readonly ProjectSystemDbContext data;
-        public InvoicesController(ProjectSystemDbContext data)
-            => this.data = data;
+        private readonly IInvoiceService invoices;
+        private readonly IMapper mapper;
+        public InvoicesController(ProjectSystemDbContext data, IInvoiceService invoices, IMapper mapper)
+        {
+            this.data = data;
+            this.invoices = invoices;
+            this.mapper = mapper;
+        }
         [Authorize]
         public IActionResult All()
         {
-            var invoices = this.data
-                .Invoices
-                .Select(i=>new InvoiceFormModel 
-                { 
-                    Id=i.Id,
-                 Number=i.Number,
-                 CustomerName=i.CustomerName,
-                 CustomerVAT=i.CustomerVAT,
-                  Item=i.Item,
-                  Quantity=i.Quantity,
-                  Total=i.Total
-                })
-                .ToList();
-            return View(invoices);
+            var invoiceData = this.invoices.All();
+
+            return View(invoiceData);
         }
         public IActionResult AllCustomerInvoices(string id)
         {
-            var invoices = this.data
-                .Invoices.Where(i=>i.CustomerRegistrationNumber==id)
-                .Select(i => new InvoiceFormModel
-                {
-                    Id=i.Id,
-                    Number = i.Number,
-                    CustomerName = i.CustomerName,
-                    CustomerVAT = i.CustomerVAT,
-                    Item = i.Item,
-                    Quantity = i.Quantity,
-                    Total = i.Total
-                })
-                .ToList();
+            var invoiceData = this.invoices.AllCustomerInvoices(id);
 
-            return View(invoices);
+            return View(invoiceData);
         }
 
         [Authorize]
@@ -66,11 +52,10 @@
 
             var invoiceData = new Invoice
             {
-
                 CreatedOn = invoice.CreatedOn,
                 CustomerRegistrationNumber = customer.RegistrationNumber,
                 CustomerVAT = customer.VAT,
-                CustomerAdress = customer.Address,
+                CustomerAddress = customer.Address,
                 CustomerCountry = customer.Country,
                 CustomerName = customer.Name,
                 CustomerTown = customer.Town,
@@ -93,18 +78,16 @@
         public IActionResult Add(int id)
         {
             var invoice = this.data.Invoices.FirstOrDefault(i=>i.Id==id);
-            var invoiceNumber = (invoice.Id + 1).ToString(string.Format("E{0:000000}", 42));
 
             var model = new InvoiceFormModel
             {
                 Id=invoice.Id,
-                Number = invoiceNumber,
                 Item = invoice.Item,
                 CreatedOn = invoice.CreatedOn,
                 DueDate = invoice.DueDate,
                 CustomerRegistrationNumber = invoice.CustomerRegistrationNumber,
                 CustomerVAT=invoice.CustomerVAT,
-                CustomerAddress=invoice.CustomerAdress,
+                CustomerAddress=invoice.CustomerAddress,
                 CustomerOwner=invoice.CustomerOwnerName,
                 Quantity=invoice.Quantity,
                 CustomerName=invoice.CustomerName,
@@ -119,48 +102,30 @@
         [Authorize]
         public IActionResult Edit(int id)
         {
-            var invoices = this.data.Invoices.Where(i => i.Id == id)
-                .Select(i => new InvoiceFormModel
-                {
-                    Id=i.Id,
-                    Number = i.Number,
-                    Item = i.Item,
-                    CreatedOn = i.CreatedOn,
-                    DueDate = i.DueDate,
-                    Quantity = i.Quantity,
-                    Price = i.Price,
-                    Total = i.Total
-                }).FirstOrDefault();
+            var invoice = this.invoices.Details(id);
+            var invoiceForm = this.mapper.Map<InvoiceFormModel>(invoice);
 
-            return View(new InvoiceFormModel
-            {
-                Id = invoices.Id,
-                Number = invoices.Number,
-                Item = invoices.Item,
-                CreatedOn = invoices.CreatedOn,
-                DueDate = invoices.DueDate,
-                Quantity = invoices.Quantity,
-                Price = invoices.Price,
-                Total = invoices.Total
-            });
+            return View(invoiceForm);
         }
 
         [Authorize]
         [HttpPost]
         public IActionResult Edit(InvoiceFormModel invoice,int id)
         {
-            var invoiceData = this.data
-                .Invoices
-                .Find(id);
+            var invoiceIsEdited = this.invoices.Edit(
+            invoice.Id,
+            invoice.Item,
+            invoice.Number,
+            invoice.Price,
+            invoice.Quantity,
+            invoice.CreatedOn,
+            invoice.DueDate,
+            invoice.Total);
 
-            invoiceData.Item = invoice.Item;
-            invoiceData.Number = invoice.Number;
-            invoiceData.Price = invoice.Price;
-            invoiceData.Quantity = invoice.Quantity;
-            invoiceData.CreatedOn = invoice.CreatedOn;
-            invoiceData.DueDate = invoice.DueDate;
-
-            this.data.SaveChanges();
+            if (!invoiceIsEdited || !User.IsAdmin())
+            {
+                return BadRequest();
+            }
 
             TempData[GlobalMessageKey] = $"You invoice {invoice.Id} is edited!";
 
@@ -170,12 +135,7 @@
         [Authorize]
         public IActionResult Delete(int id)
         {
-            var invoice= this.data
-                .Invoices
-                .FirstOrDefault(i => i.Id == id);
-
-            this.data.Invoices.Remove(invoice);
-            this.data.SaveChanges();
+             this.invoices.Delete(id);
 
             return RedirectToAction("All","Customers");
         }

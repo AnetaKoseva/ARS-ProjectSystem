@@ -102,22 +102,6 @@
             projectForm.Customers = this.projects.GetProjectCustomers();
 
             return View(projectForm);
-
-            //return View(new ProjectFormModel
-            //{
-            //    Id = project.Id,
-            //    Name = project.Name,
-            //    ProgrammId = project.ProgrammId,
-            //    ProjectPhoto = project.ProjectPhoto,
-            //    Status = project.Status,
-            //    StartDate = project.StartDate,
-            //    EndDate = project.EndDate,
-            //    ProjectRate = project.ProjectRate,
-            //    CustomerRegistrationNumber = project.CustomerRegistrationNumber,
-            //    Programms = this.projects.GetProjectProgramms(),
-            //    Proposals = this.projects.GetProjectProposals(),
-            //    Customers = this.projects.GetProjectCustomers()
-            //});
         }
 
         [Authorize(Roles ="Administrator")]

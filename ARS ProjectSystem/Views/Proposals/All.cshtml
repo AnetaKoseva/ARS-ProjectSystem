@@ -34,7 +34,7 @@
                             <a href="/Proposals/Details?proposalId=@proposal.Id" class="btn btn-primary btn-sm">More</a>
                              @if (User.IsAdmin())
                              {
-                                 <a a href="/Platform/AddShortApplicationForm?proposalId=@proposal.Id?custommerNumber=@proposal.CustomerName" class="btn btn-primary btn-sm">Add Form</a>
+                                 
                                  <a asp-controller="Proposals" asp-action="Edit" asp-route-id="@proposal.Id" class="btn btn-primary btn-sm">Edit</a>
                                  <a asp-controller="Proposals" asp-action="AddEmployeeToProposal" class="btn btn-primary btn-sm">Add employee</a>
                              }

@@ -2,8 +2,10 @@
 {
     using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Models.Home;
+    using ARS_ProjectSystem.Models.Invoices;
     using ARS_ProjectSystem.Models.Projects;
     using ARS_ProjectSystem.Models.Proposals;
+    using ARS_ProjectSystem.Services.Invoices;
     using ARS_ProjectSystem.Services.Projects;
     using ARS_ProjectSystem.Services.Proposals;
     using AutoMapper;
@@ -19,8 +21,10 @@
             this.CreateMap<Project,ProjectTotalServiceModel >();
 
             this.CreateMap<ProjectServiceModel, ProjectFormModel>();
+            this.CreateMap<Invoice, InvoiceServiceModel>();
 
             this.CreateMap<ProposalServiceModel, ProposalFormModel>();
+            this.CreateMap<InvoiceServiceModel, InvoiceFormModel>();
         }
     }
 }

@@ -121,20 +121,6 @@
             .Where(p => p.Id == id)
             .ProjectTo<ProjectServiceModel>(this.mapper.ConfigurationProvider)
             .FirstOrDefault();
-        //mapping/
-        //.Select(p => new ProjectServiceModel
-        //{
-        //    Id = p.Id,
-        //    Name = p.Name,
-        //    ProgrammId = p.Programm.Id,
-        //    ProgrammName=p.Programm.ProgrammName,
-        //    ProjectPhoto = p.ProjectPhoto,
-        //    Status = p.Status,
-        //    StartDate = p.StartDate,
-        //    EndDate = p.EndDate,
-        //    ProjectRate = p.ProjectRate,
-        //    CustomerRegistrationNumber = p.Customer.Name
-        //}).FirstOrDefault();
 
         public bool ProposalExists(int proposalId)
             => this.data

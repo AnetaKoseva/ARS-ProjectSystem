@@ -14,7 +14,7 @@
                                 <img src="~/pics/ARS.jpg" style="width: 100%; max-width: 300px" />
                             </td>
                             <td>
-                                Invoice @Model.Id<br />
+                                Invoice :@(Model.Id.ToString("D10"))<br />
                                 Created: @Model.CreatedOn<br />
                                 Due: @Model.DueDate
                             </td>

@@ -104,7 +104,7 @@ namespace ARS_ProjectSystem.Data.Migrations
                     b.Property<string>("CreatedOn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CustomerAdress")
+                    b.Property<string>("CustomerAddress")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CustomerCountry")

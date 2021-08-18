@@ -7,7 +7,7 @@
             <input asp-for="Name" class="form-control" placeholder="Project Name">
             <span asp-validation-for="Name" class="small text-danger"></span>
         </div>
-        
+
         <div class="form-group">
             <label asp-for="ProjectPhoto">Project Photo</label>
             <input asp-for="ProjectPhoto" class="form-control" placeholder="Photo link">
@@ -32,12 +32,17 @@
                 }
             </select>
         </div>
-
-
-        <div class="form-group">
-            <label asp-for="Status">Status</label>
-            <input asp-for="Status" class="form-control" placeholder="Status">
-            <span asp-validation-for="Status" class="small text-danger"></span>
+        <div class="form-floating mb-3">
+            <div class="form-droup">
+                <label asp-for="@Model.Status">What is the purpose of your project ? </label>
+                <select onchange="val()" asp-for="@Model.Status" id="projectPurpose" class="form-control">
+                    <option>Select</option>
+                    <option>Started</option>
+                    <option>In Progress</option>
+                    <option>Finished</option>
+                    <option>To be Started</option>
+                </select>
+            </div>
         </div>
         <div class="form-group">
             <label asp-for="StartDate">StartDate</label>

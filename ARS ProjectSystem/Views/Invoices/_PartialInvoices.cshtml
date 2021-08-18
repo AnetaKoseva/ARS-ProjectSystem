@@ -1,9 +1,10 @@
-﻿@model List<InvoiceFormModel>
+﻿@model List<InvoiceServiceModel>
 <div class=" table">
     <h2 class="heading-margin text-center">All Invoices</h2>
     <table class="table table-striped">
         <thead>
             <tr>
+                <th scope="col">Number</th>
                 <th scope="col">CustomerName</th>
                 <th scope="col">VAT</th>
                 <th scope="col">Item</th>
@@ -18,22 +19,23 @@
         <tbody>
             @foreach (var invoice in Model)
             {
-                <tr>
-                    <td>@invoice.CustomerName</td>
-                    <td>@invoice.CustomerVAT</td>
-                    <td>@invoice.Item</td>
-                    <td>@invoice.Quantity</td>
-                    <td>@invoice.Total</td>
-                    @if (User.Identity.IsAuthenticated && User.IsAdmin())
-                    {
-                <td>
-                    
-                    <a asp-controller="Invoices" asp-action="Edit" asp-route-id="@invoice.Id" class="btn btn-light btn-sm">Edit</a>
-                    <a asp-controller="Invoices" asp-action="Delete" asp-route-id="@invoice.Id" class="btn btn-light btn-sm">Delete</a>
-                </td>
-                    }
+            <tr>
+                <td>@invoice.Id</td>
+                <td>@invoice.CustomerName</td>
+                <td>@invoice.CustomerVAT</td>
+                <td>@invoice.Item</td>
+                <td>@invoice.Quantity</td>
+                <td>@invoice.Total</td>
+                @if (User.Identity.IsAuthenticated && User.IsAdmin())
+                {
+                    <td>
 
-                </tr>
+                        <a asp-controller="Invoices" asp-action="Edit" asp-route-id="@invoice.Id" class="btn btn-light btn-sm">Edit</a>
+                        <a asp-controller="Invoices" asp-action="Delete" asp-route-id="@invoice.Id" class="btn btn-light btn-sm">Delete</a>
+                    </td>
+                }
+
+            </tr>
             }
         </tbody>
     </table>

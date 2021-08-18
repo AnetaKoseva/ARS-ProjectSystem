@@ -56,7 +56,7 @@
             {
                 this.ModelState.AddModelError(nameof(project.ProposalId), "Proposal does not exist.");
             }
-
+            
             if (!ModelState.IsValid)
             {
                 project.Programms = this.projects.GetProjectProgramms();

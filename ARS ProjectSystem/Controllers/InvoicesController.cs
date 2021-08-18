@@ -8,6 +8,7 @@
     using AutoMapper;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
     using System.Linq;
 
     using static WebConstants;
@@ -44,12 +45,12 @@
         public IActionResult CreateInvoice(InvoiceFormModel invoice,string id)
         {
             var customer = this.data.Customers.FirstOrDefault(c => c.RegistrationNumber == id);
-
-            if (!ModelState.IsValid)
+            
+                if (!ModelState.IsValid)
             {
                 return View();
             }
-
+                
             var invoiceData = new Invoice
             {
                 CreatedOn = invoice.CreatedOn,

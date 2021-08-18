@@ -9,4 +9,4 @@ Administrator can:<br/>
 -see-all Customers, Projects, Programms, Proposals, Employees, Invoices<br/>
 -edit-Projects, Programms, Proposals<br/>
 -delete-Customer<br/>
--add-Customers, Invoices,Programm, Proposal, Project, Employee, add Employee to Project and to Proposal,<br/>
+-add-Customers, Invoices,Programm, Proposal, Project(you must add proposal at first), Employee, add Employee to Project and to Proposal,<br/>

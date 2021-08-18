@@ -20,6 +20,7 @@
             this.mapper = mapper;
         }
 
+        [Authorize]
         public IActionResult All()
         {
             var proposals = this.proposals.All();
@@ -107,17 +108,6 @@
             proposalForm.Customers = this.proposals.GetProposalCustomers();
 
             return View(proposalForm);
-            //return View(new ProposalFormModel
-            //{
-            //    Id = proposal.Id,
-            //    Name = proposal.Name,
-            //    CreatedOn = proposal.CreatedOn,
-            //    UrlPhoto = proposal.UrlPhoto,
-            //    Budget = proposal.Budget,
-            //    CustomerRegistrationNumber = proposal.CustomerRegistrationNumber,
-            //    ProjectId = proposal.ProjectId.GetValueOrDefault(),
-            //    Customers = this.proposals.GetProposalCustomers(),
-            //});
         }
 
         [Authorize(Roles = "Administrator")]

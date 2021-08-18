@@ -1,12 +1,9 @@
 ﻿namespace ARS_ProjectSystem.Controllers
 {
-    using ARS_ProjectSystem.Data;
-    using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Models.Programms;
     using ARS_ProjectSystem.Services.Programms;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using System.Linq;
 
     using static WebConstants;
     public class ProgrammsController : Controller

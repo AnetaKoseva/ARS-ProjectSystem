@@ -16,6 +16,7 @@
             this.employees = employees;
         }
 
+        [Authorize]
         public IActionResult All()
         {
             var employeesData = this.employees.All();

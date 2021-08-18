@@ -127,12 +127,7 @@
                     Item = i.Item,
                     CreatedOn = i.CreatedOn,
                     DueDate = i.DueDate,
-                    CustomerAddress = i.CustomerAdress,
-                    CustomerOwner = i.CustomerOwnerName,
                     Quantity = i.Quantity,
-                    CustomerName = i.CustomerName,
-                    Country = i.CustomerCountry,
-                    Town = i.CustomerTown,
                     Price = i.Price,
                     Total = i.Total
                 }).FirstOrDefault();
@@ -144,16 +139,10 @@
                 Item = invoices.Item,
                 CreatedOn = invoices.CreatedOn,
                 DueDate = invoices.DueDate,
-                CustomerAddress = invoices.CustomerAddress,
-                CustomerOwner = invoices.CustomerOwner,
                 Quantity = invoices.Quantity,
-                CustomerName = invoices.CustomerName,
-                Country = invoices.Country,
-                Town = invoices.Town,
                 Price = invoices.Price,
                 Total = invoices.Total
             });
-
         }
 
         [Authorize]
@@ -170,10 +159,6 @@
             invoiceData.Quantity = invoice.Quantity;
             invoiceData.CreatedOn = invoice.CreatedOn;
             invoiceData.DueDate = invoice.DueDate;
-            invoiceData.CustomerOwnerName = invoice.CustomerOwner;
-            invoiceData.CustomerAdress = invoice.CustomerAddress;
-            invoiceData.CustomerCountry = invoice.Country;
-            invoiceData.CustomerTown = invoice.Town;
 
             this.data.SaveChanges();
 
@@ -192,7 +177,7 @@
             this.data.Invoices.Remove(invoice);
             this.data.SaveChanges();
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction("All","Customers");
         }
     }
 }

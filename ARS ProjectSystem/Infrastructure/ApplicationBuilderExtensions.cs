@@ -9,8 +9,9 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
-    using static ARS_ProjectSystem.Areas.Admin.AdminConstants;
 
+    using static ARS_ProjectSystem.Areas.Admin.AdminConstants;
+    using static ARS_ProjectSystem.Areas.User.UserConstants;
     public static class ApplicationBuilderExtensions
     {
         public static IApplicationBuilder PrepareDatabase(
@@ -83,12 +84,18 @@
                     }
 
                     var role = new IdentityRole { Name = AdministratorRoleName };
+                    
 
                     await roleManager.CreateAsync(role);
 
                     const string adminEmail = "admin@ars.com";
                     const string adminPassword = "admin2020";
 
+                    if (await roleManager.RoleExistsAsync(UserRoleName))
+                    {
+                        return;
+                    }
+                   
                     var user = new User
                     {
                         Email = adminEmail,

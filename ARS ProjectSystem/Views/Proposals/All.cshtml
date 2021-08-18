@@ -15,7 +15,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Customer Name</th>
                 <th scope="col">Budget</th>
-                @if (User.IsAdmin())
+                @if (User.Identity.IsAuthenticated && User.IsAdmin())
                 {
                     <th scope="col">Action</th>
                 }
@@ -32,13 +32,13 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <a href="/Proposals/Details?proposalId=@proposal.Id" class="btn btn-primary btn-sm">More</a>
-                            <a href="/Platform/AddShortApplicationForm?proposalId=@proposal.Id?custommerNumber=@proposal.CustomerName" class="btn btn-primary btn-sm">Add Form</a>
-                            @if (User.IsAdmin())
-                            {
-                             <a asp-controller="Proposals" asp-action="Edit" asp-route-id="@proposal.Id" class="btn btn-primary btn-sm">Edit</a>
-                            }
-                             <a asp-controller="Proposals" asp-action="AddEmployeeToProposal" class="btn btn-primary btn-sm">Add employee</a>
-                         }
+                             @if (User.IsAdmin())
+                             {
+                                 <a a href="/Platform/AddShortApplicationForm?proposalId=@proposal.Id?custommerNumber=@proposal.CustomerName" class="btn btn-primary btn-sm">Add Form</a>
+                                 <a asp-controller="Proposals" asp-action="Edit" asp-route-id="@proposal.Id" class="btn btn-primary btn-sm">Edit</a>
+                                 <a asp-controller="Proposals" asp-action="AddEmployeeToProposal" class="btn btn-primary btn-sm">Add employee</a>
+                             }
+                        }
                     </td>
                 </tr>
             }

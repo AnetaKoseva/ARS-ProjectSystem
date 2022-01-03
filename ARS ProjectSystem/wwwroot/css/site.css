@@ -165,8 +165,15 @@ body {
         text-align: left;
     }
 .img-fluid {
-    width: 340px;
-    height: 340px;
+    width: 200px;
+    height: 200px;
     
 }
-
+.flex-v-center {
+    display: flex;
+    align-items: center;
+}
+#container {
+    max-width: 800px;
+    margin: 1em auto;
+}

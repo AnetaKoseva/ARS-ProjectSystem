@@ -9,15 +9,19 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using System.Diagnostics.CodeAnalysis;
+    using ARS_ProjectSystem.Models;
 
     [ExcludeFromCodeCoverage]
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
         private readonly SignInManager<User> signInManager;
-
-        public LoginModel(SignInManager<User> signInManager)
-            =>this.signInManager = signInManager;
+        private readonly GoogleRecaptchaService _GooleRecaptchaService;
+        public LoginModel(SignInManager<User> signInManager, GoogleRecaptchaService googleRecaptchaService)
+        {
+            this.signInManager = signInManager;
+            _GooleRecaptchaService = googleRecaptchaService;
+        }
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -36,6 +40,7 @@
             [Required]
             [DataType(DataType.Password)]
             public string Password { get; set; }
+            
 
             [Display(Name = "Remember Me?")]
             public bool RememberMe { get; set; }
@@ -58,6 +63,9 @@
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
+
+            
+            
 
             if (ModelState.IsValid)
             {

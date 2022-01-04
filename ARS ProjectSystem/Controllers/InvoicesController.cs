@@ -24,12 +24,14 @@
             this.mapper = mapper;
         }
         [Authorize]
+        
         public IActionResult All()
         {
             var invoiceData = this.invoices.All();
 
             return View(invoiceData);
         }
+
         public IActionResult AllCustomerInvoices(string id)
         {
             var invoiceData = this.invoices.AllCustomerInvoices(id);
@@ -42,6 +44,7 @@
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateInvoice(InvoiceFormModel invoice,string id)
         {
             var customer = this.data.Customers.FirstOrDefault(c => c.RegistrationNumber == id);

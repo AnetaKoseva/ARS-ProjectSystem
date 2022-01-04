@@ -38,5 +38,31 @@
         {
             return View();
         }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
+        public IActionResult Charts()
+        {
+            return View();
+        }
+       
+        public IActionResult Service()
+        {
+            return View();
+        }
+        public IActionResult Team()
+        {
+            return View();
+        }
+        public IActionResult Testimonials()
+        {
+            return View();
+        }
+        public IActionResult Index1()
+        {
+            return View();
+        }
     }
 }

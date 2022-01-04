@@ -3,6 +3,7 @@ namespace ARS_ProjectSystem
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Infrastructure;
+    using ARS_ProjectSystem.Models;
     using ARS_ProjectSystem.Services.Customers;
     using ARS_ProjectSystem.Services.Employees;
     using ARS_ProjectSystem.Services.Invoices;
@@ -35,7 +36,11 @@ namespace ARS_ProjectSystem
             services
                 .AddDatabaseDeveloperPageExceptionFilter();
 
-            services
+            services.Configure<ReCAPTCHASettings>(Configuration.GetSection("GooglereCAPTCHA"));
+
+            services.AddTransient<GoogleRecaptchaService>();
+            
+                services
                 .AddDefaultIdentity<User>(options => 
                 {
                     options.Password.RequireDigit = false;

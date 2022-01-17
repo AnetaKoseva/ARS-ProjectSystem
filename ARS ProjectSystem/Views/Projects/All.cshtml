@@ -2,77 +2,80 @@
 @{
     ViewBag.Title = "All Projects";
 }
-
-<form method="get">
-    <div class="row mb-3">
-        <div class="form-group col-md-3">
-            <div class="form-group">
-                <label asp-for="Programm"></label>
-                <select asp-for="Programm" class="form-control">
-                    <option value="">All</option>
-                    @foreach (var programm in Model.Programms)
-                    {
-        <option value="@programm">@programm</option>}
-                </select>
+<div class="container section-bg" data-aos="fade-up">
+    <br />
+    <form method="get">
+        <div class="row mb-3">
+            <div class="form-group col-md-3">
+                <div class="form-group">
+                    <label asp-for="Programm"></label>
+                    <select asp-for="Programm" class="form-control">
+                        <option value="">All</option>
+                        @foreach (var programm in Model.Programms)
+                        {
+                            <option value="@programm">@programm</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label asp-for="SearchTerm">SearchBy</label>
+                <input asp-for="SearchTerm" class="form-control" placeholder="Please select">
+            </div>
+            <div class="form-group col-md-3">
+                <div class="form-droup">
+                    <label asp-for="Sorting"></label>
+                    <select asp-for="Sorting" class="form-control">
+                        <option value="0" selected>Name</option>
+                        <option value="1">Programm</option>
+                        <option value="2">Status</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="form-group col-md-3">
-            <label asp-for="SearchTerm">SearchBy</label>
-            <input asp-for="SearchTerm" class="form-control" placeholder="Please select">
         </div>
-        <div class="form-group col-md-3">
-            <div class="form-droup">
-                <label asp-for="Sorting"></label>
-                <select asp-for="Sorting" class="form-control">
-                    <option value="0" selected>Name</option>
-                    <option value="1">Programm</option>
-                    <option value="2">Status</option>
-                </select>
-            </div>
-        </div>
-    </div>
-        <div class="form-group col-md-3">
-     </div>
-</form>
+    </form>
 
-<partial name="_ProjectsPartial" model="@Model.Projects" />
-@if(!Model.Projects.Any())
-            {
-                <h2 class="text-center">No projects found by the given criteria!</h2>
-            }
-@{ 
-    var previousPage = Model.CurrentPage - 1;
-    if(previousPage<1)
+    <partial name="_ProjectsPartial" model="@Model.Projects" />
+    @if (!Model.Projects.Any())
     {
-        previousPage = 1;
+        <h2 class="text-center">No projects found by the given criteria!</h2>
     }
-    var maxPage = Math.Ceiling((double)Model.TotalProjects / AllProjectsQueryModel.ProjectsPerPage);
+    @{
+        var previousPage = Model.CurrentPage - 1;
+        if (previousPage < 1)
+        {
+            previousPage = 1;
+        }
+        var maxPage = Math.Ceiling((double)Model.TotalProjects / AllProjectsQueryModel.ProjectsPerPage);
 
-}
-<div class="row mb-3">
-    <div class="col-md-6" >
-        <a class="btn btn-primary @(Model.CurrentPage==1?"disabled": string.Empty)"
-           asp-controller="Projects" 
-           asp-action="All" 
-           asp-route-currentPage="@(Model.CurrentPage-1)"
-           asp-route-programm="@Model.Programm"
-           asp-route-searchTerm="@Model.SearchTerm"
-           asp-route-sorting="@((int)Model.Sorting)"><<</a>
+    }
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <a class="btn btn-primary @(Model.CurrentPage==1?"disabled": string.Empty)"
+               asp-controller="Projects"
+               asp-action="All"
+               asp-route-currentPage="@(Model.CurrentPage-1)"
+               asp-route-programm="@Model.Programm"
+               asp-route-searchTerm="@Model.SearchTerm"
+               asp-route-sorting="@((int)Model.Sorting)"><<</a>
+        </div>
+        <div class="col-md-6">
+            <a class="btn btn-primary float-right @(Model.CurrentPage==maxPage?"disabled":string.Empty)"
+               asp-controller="Projects"
+               asp-action="All"
+               asp-route-currentPage="@(Model.CurrentPage+1)"
+               asp-route-programm="@Model.Programm"
+               asp-route-searchTerm="@Model.SearchTerm"
+               asp-route-sorting="@((int)Model.Sorting)">>></a>
+        </div>
     </div>
-    <div class="col-md-6">
-        <a class="btn btn-primary float-right @(Model.CurrentPage==maxPage?"disabled":string.Empty)"
-           asp-controller="Projects" 
-           asp-action="All" 
-           asp-route-currentPage="@(Model.CurrentPage+1)"
-           asp-route-programm="@Model.Programm"
-           asp-route-searchTerm="@Model.SearchTerm"
-           asp-route-sorting="@((int)Model.Sorting)">>></a>
-    </div>
+    @if (User.IsAdmin())
+    {
+        <a asp-controller="Projects" asp-action="Add" class="btn btn-primary">Add new Project</a>
+    }
+    <br />
+    <br />
 </div>
-@if (User.IsAdmin())
-{
-    <a asp-controller="Projects" asp-action="Add" class="btn btn-primary">Add new Project</a>
-}
-
-
 

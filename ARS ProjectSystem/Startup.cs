@@ -47,6 +47,7 @@ namespace ARS_ProjectSystem
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
+                    options.Lockout.DefaultLockoutTimeSpan=System.TimeSpan.FromMinutes(2);
                 })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ProjectSystemDbContext>();

@@ -3,7 +3,7 @@
     ViewBag.Title = "Add new Invoice";
 }
 
-<div class="col-6 offset-3">
+<div class="col-6 offset-3 section-bg" data-aos="fade-up">
     <h2 class="heading-margin text-center">@ViewBag.Title</h2>
     <form method="post" asp-action="CreateInvoice">
         <div class="form-floating mb-3">
@@ -36,6 +36,7 @@
         </div>
         <input class="btn btn-primary" type="submit"  value="Save" />
     </form>
+    <br/>
 </div>
 
 @section Scripts{

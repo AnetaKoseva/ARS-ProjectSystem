@@ -2,18 +2,27 @@
 @{
     ViewBag.Title = "Add  Employee to Project";
 }
-<div class="col-6 offset-3">
-<h2 class="heading-margin text-center">@ViewBag.Title</h2>
-<form method="post">
-    <div class="form-group">
-        <label asp-for="@Model.Id">Project</label>
-        <select asp-for="@Model.Id" class="form-control">
-            @foreach (var project in Model.Projects)
-            {
-                <option value="@project.Id">@project.Name</option>
-            }
-        </select>
-    </div>
-    <input class="btn btn-primary" type="submit" value="Save" />
-</form>
- </div>
+<div class="col-6 offset-3 section-bg" data-aos="fade-up">
+    <h2 class="heading-margin text-center">@ViewBag.Title</h2>
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="@Model.Id">Project</label>
+            <select asp-for="@Model.Id" class="form-control">
+                @foreach (var project in Model.Projects)
+                {
+                    <option value="@project.Id">@project.Name</option>
+                }
+            </select>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Save" />
+    </form>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+</div>

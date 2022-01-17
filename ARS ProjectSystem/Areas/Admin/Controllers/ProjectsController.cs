@@ -6,7 +6,7 @@
     using static User.UserConstants;
 
     [Area(AreaName)]
-    [Authorize(Roles = UserRoleName)]
+    [Authorize(Roles = NormalUserRoleName)]
     public class ProjectsController:Controller
     {
         public IActionResult Index() => View();

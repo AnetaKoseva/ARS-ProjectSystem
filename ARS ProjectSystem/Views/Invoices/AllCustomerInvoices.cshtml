@@ -2,15 +2,32 @@
 @{
     ViewBag.Title = "Add Invoice";
 }
-@if (!Model.Any())
-{
-    <h2 class="text-center">There is no invoices for this customer yet!</h2>
-}
-else
-{
-    <partial name="_PartialInvoices" model="@Model" />
-}
+<div class="col-12  section-bg" data-aos="fade-up">
+    @if (!Model.Any())
+    {
+        <br />
+        <h2 class="text-center">There is no invoices for this customer yet!</h2>
+    }
+    else
+    {
+        <partial name="_PartialInvoices" model="@Model" />
+    }
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+</div>
 
-@section Scripts{
-    <partial name="_ValidationScriptsPartial" />
-}
+    @section Scripts{
+        <partial name="_ValidationScriptsPartial" />
+    }

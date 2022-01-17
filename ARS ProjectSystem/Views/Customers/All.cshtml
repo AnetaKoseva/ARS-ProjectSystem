@@ -2,70 +2,73 @@
 @{
     ViewBag.Title = "All Customers";
 }
+<section id="contact" class="contact section-bg">
+    <div class="container" data-aos="fade-up">
+        <form method="get">
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="SearchTerm">SearchBy</label>
+                    <input asp-for="SearchTerm" class="form-control" placeholder="Please select">
+                </div>
+                <div class="form-group col-md-3">
 
-<form method="get">
-    <div class="row">
-        <div class="form-group col-md-3">
-            <label asp-for="SearchTerm">SearchBy</label>
-            <input asp-for="SearchTerm" class="form-control" placeholder="Please select">
-        </div>
-        <div class="form-group col-md-3">
+                </div>
+                <div class="form-group col-md-3">
 
-        </div>
-        <div class="form-group col-md-3">
+                </div>
+                <div class="form-group col-md-3">
+                    <input type="submit" class="btn btn-primary" value="Search">
+                </div>
+            </div>
+        </form>
 
-        </div>
-        <div class="form-group col-md-3">
-            <input type="submit" class="btn btn-primary" value="Search">
-        </div>
-    </div>
-</form>
-
-<div class=" table">
-    <h2 class="heading-margin text-center">All Customers</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Registration Number</th>
-                <th scope="col">VAT</th>
-                <th scope="col">Owner</th>
-                @if (User.IsAdmin())
-                {
-                    <th scope="col">Action</th>
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var customer in Model.Customers)
-            {
-                <tr>
-                    <td>@customer.Name</td>
-                    <td>@customer.RegistrationNumber</td>
-                    <td>@customer.VAT</td>
-                    <td>@customer.OwnerName</td>
-                    <td>
-                        @if (User.Identity.IsAuthenticated)
+        <div class=" table">
+            <h2 class="heading-margin text-center">All Customers</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Registration Number</th>
+                        <th scope="col">VAT</th>
+                        <th scope="col">Owner</th>
+                        @if (User.IsAdmin())
                         {
-                            <a asp-controller="Invoices" asp-action="AllCustomerInvoices" asp-route-id="@customer.RegistrationNumber" class="btn btn-primary btn-sm">All Invoices</a>
-                            @if (User.IsAdmin())
-                            {
-                                <a asp-controller="Invoices" asp-action="CreateInvoice" asp-route-id="@customer.RegistrationNumber" class="btn btn-primary btn-sm">Add Invoice</a>
-                                <a asp-controller="Customers" asp-action="Delete" asp-route-id="@customer.RegistrationNumber" class="btn btn-info btn-sm">Delete</a>
-
-                            }
+                            <th scope="col">Action</th>
                         }
-                    </td>
-                </tr>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var customer in Model.Customers)
+                    {
+                        <tr>
+                            <td>@customer.Name</td>
+                            <td>@customer.RegistrationNumber</td>
+                            <td>@customer.VAT</td>
+                            <td>@customer.OwnerName</td>
+                            <td>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <a asp-controller="Invoices" asp-action="AllCustomerInvoices" asp-route-id="@customer.RegistrationNumber" class="btn btn-primary btn-sm">All Invoices</a>
+                                    @if (User.IsAdmin())
+                                    {
+                                        <a asp-controller="Invoices" asp-action="CreateInvoice" asp-route-id="@customer.RegistrationNumber" class="btn btn-primary btn-sm">Add Invoice</a>
+                                        <a asp-controller="Customers" asp-action="Delete" asp-route-id="@customer.RegistrationNumber" class="btn btn-info btn-sm">Delete</a>
+
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @if (User.Identity.IsAuthenticated && User.IsAdmin())
+            {
+                <a asp-controller="Customers" asp-action="Add" class="btn btn-primary btn-sm">Add new Customer</a>
+                <a asp-controller="Invoices" asp-action="All" class="btn btn-primary btn-sm">All Invoices</a>
             }
-        </tbody>
-    </table>
-    @if (User.Identity.IsAuthenticated && User.IsAdmin())
-    {
-        <a asp-controller="Customers" asp-action="Add" class="btn btn-primary btn-sm">Add new Customer</a>
-        <a asp-controller="Invoices" asp-action="All" class="btn btn-primary btn-sm">All Invoices</a>
-    }
-</div>
-@section Scripts{
-    <partial name="_ValidationScriptsPartial" />
-}
+        </div>
+        </div>
+    </section>
+        @section Scripts{
+            <partial name="_ValidationScriptsPartial" />
+        }

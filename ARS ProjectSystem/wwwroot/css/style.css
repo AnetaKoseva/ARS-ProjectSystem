@@ -163,8 +163,7 @@ h1, h2, h3, h4, h5, h6 {
   background: #fff;
   transition: all 0.5s;
   z-index: 997;
-  padding: 25px 0;
-  top: 40px;
+  padding: 0px 0;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -575,7 +574,7 @@ section {
 }
 
 .section-bg {
-  background-color: #f6f9fe;
+    background-color: rgba(246,249,254,0.9);
 }
 
 .section-title {
@@ -597,7 +596,7 @@ section {
 }
 
 .section-title h3 {
-  margin: 15px 0 0 0;
+  margin: 30px 0 0 0;
   font-size: 32px;
   font-weight: 700;
 }
@@ -1264,10 +1263,12 @@ section {
   box-shadow: 0px 2px 15px rgba(16, 110, 234, 0.15);
 }
 
-.team .member .member-img {
-  position: relative;
-  overflow: hidden;
-}
+    .team .member .member-img {
+        position: relative;
+        overflow: hidden;
+        -webkit-filter: grayscale(1);
+
+    }
 
 .team .member .social {
   position: absolute;
@@ -1634,7 +1635,7 @@ section {
 --------------------------------------------------------------*/
 #footer {
   background: #fff;
-  padding: 0 0 30px 0;
+  padding: 0 0 10px ;
   color: #444444;
   font-size: 14px;
   background: #f1f6fe;
@@ -1826,8 +1827,34 @@ section {
 body {
     background-image: url("/pics/img/hero-bg.jpg"); /* The image used */
     background-color: #cccccc; /* Used if the image is unavailable */
-    height: 200px; /* You must set a specified height */
+    height:auto; /* You must set a specified height */
     background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
+    background-repeat: inherit; /* Do not repeat the image */
     background-size: cover;
 }
+@media only screen and (max-width: 600px) {
+    .invoice-box table tr.top table td {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+
+    .invoice-box table tr.information table td {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+}
+
+.invoice-box.rtl {
+    direction: rtl;
+    font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+}
+
+    .invoice-box.rtl table {
+        text-align: right;
+    }
+
+        .invoice-box.rtl table tr td:nth-child(2) {
+            text-align: left;
+        }

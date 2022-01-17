@@ -25,6 +25,7 @@
             SeedProgramms(services);
             SeedProposals(services);
             SeedAdministrator(services);
+            SeedNormalUser(services);
 
             return app;
         }
@@ -84,17 +85,11 @@
                     }
 
                     var role = new IdentityRole { Name = AdministratorRoleName };
-                    
 
                     await roleManager.CreateAsync(role);
 
                     const string adminEmail = "admin@ars.com";
                     const string adminPassword = "admin2020";
-
-                    if (await roleManager.RoleExistsAsync(UserRoleName))
-                    {
-                        return;
-                    }
                    
                     var user = new User
                     {
@@ -106,6 +101,42 @@
                     await userManager.CreateAsync(user, adminPassword);
 
                     await userManager.AddToRoleAsync(user, role.Name);
+                })
+                .GetAwaiter()
+                .GetResult();
+        }
+        private static void SeedNormalUser(IServiceProvider services)
+        {
+            var userManager = services.GetRequiredService<UserManager<User>>();
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            Task
+                .Run(async () =>
+                {
+                   
+                    if (await roleManager.RoleExistsAsync(NormalUserRoleName))
+                    {
+                        return;
+                    }
+
+                    var roleNormalUser = new IdentityRole { Name = NormalUserRoleName };
+
+                    await roleManager.CreateAsync(roleNormalUser);
+
+                    const string normalUserEmail = "normalUser@ars.com";
+                    const string normalUserPassword = "normalUser2020";
+
+                    var normalUser = new User
+                    {
+                        Email = normalUserEmail,
+                        UserName = normalUserEmail,
+                        Number = "203300624"
+
+                    };
+
+                    await userManager.CreateAsync(normalUser, normalUserPassword);
+
+                    await userManager.AddToRoleAsync(normalUser, roleNormalUser.Name);
                 })
                 .GetAwaiter()
                 .GetResult();

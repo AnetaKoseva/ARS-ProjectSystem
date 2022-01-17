@@ -47,6 +47,9 @@
         [ValidateAntiForgeryToken]
         public IActionResult CreateInvoice(InvoiceFormModel invoice,string id)
         {
+            var userId = this.User.GetId();
+            var userNumber = this.data.Users.Where(x => x.Number == id);
+            
             var customer = this.data.Customers.FirstOrDefault(c => c.RegistrationNumber == id);
             
                 if (!ModelState.IsValid)

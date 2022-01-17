@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "All Employee";
 }
-<div class=" table">
+<div class=" table section-bg" data-aos="fade-up">
     <h2 class="heading-margin text-center">All Employees</h2>
     <table class="table table-striped">
         <thead>
@@ -38,6 +38,10 @@
     </table>
     @if (User.Identity.IsAuthenticated && User.IsAdmin())
     {
+        <br/>
         <a asp-controller="Employees" asp-action="Add" class="btn btn-primary btn-sm">Add new Employee</a>
-    }
+    
+        }
+    <br/>
+    <br/>
 </div>

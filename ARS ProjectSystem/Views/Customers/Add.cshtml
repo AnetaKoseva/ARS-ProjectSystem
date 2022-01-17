@@ -3,7 +3,7 @@
     ViewBag.Title = "Add new Custommer";
 }
 
-<div class="col-6 offset-3">
+<div class="col-6 offset-3 section-bg" data-aos="fade-up">
     <h2 class="heading-margin text-center">@ViewBag.Title</h2>
     <form method="post">
         <div class="form-group">
@@ -59,6 +59,7 @@
 
         <input class="btn btn-primary" type="submit" value="Save" />
     </form>
+    <br/>
 </div>
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />

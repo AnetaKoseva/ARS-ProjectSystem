@@ -2,6 +2,7 @@
 {
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
+    using ARS_ProjectSystem.Models.Customers;
     using System.Linq;
 
     public class CustomerService:ICustomerService
@@ -13,34 +14,24 @@
             this.data = data;
         }
 
-        public string Add(
-            string name,
-            string registrationNumber,
-            string VAT,
-            string ownerName,
-            string phoneNumber,
-            string email,
-            string url,
-            string address,
-            string town,
-            string country)
+        public string Add(AddCustomerFormModel customer)
         {
             var customerData = new Customer();
 
-            if (!this.data.Customers.Any(c => c.RegistrationNumber == registrationNumber))
+            if (!this.data.Customers.Any(c => c.RegistrationNumber == customer.RegistrationNumber))
             {
                  customerData = new Customer
                 {
-                    Name = name,
-                    RegistrationNumber = registrationNumber,
-                    VAT = VAT,
-                    OwnerName = ownerName,
-                    PhoneNumber = phoneNumber,
-                    Email = email,
-                    Url = url,
-                    Address = address,
-                    Town = town,
-                    Country = country,
+                    Name = customer.Name,
+                    RegistrationNumber = customer.RegistrationNumber,
+                    VAT = customer.VAT,
+                    OwnerName = customer.OwnerName,
+                    PhoneNumber = customer.PhoneNumber,
+                    Email = customer.Email,
+                    Url = customer.Url,
+                    Address = customer.Address,
+                    Town = customer.Town,
+                    Country = customer.Country,
                 };
 
                 this.data.Customers.Add(customerData);

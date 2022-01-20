@@ -37,17 +37,7 @@
                 return View();
             }
 
-            this.customers.Add(
-                customer.Name,
-                customer.RegistrationNumber,
-                customer.VAT,
-                customer.OwnerName,
-                customer.PhoneNumber,
-                customer.Email,
-                customer.Url,
-                customer.Address,
-                customer.Town,
-                customer.Country);
+            this.customers.Add(customer);
 
             TempData[GlobalMessageKey] = $"Customer {customer.Name} is added succesfully!";
 

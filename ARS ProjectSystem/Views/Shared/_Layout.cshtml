@@ -35,59 +35,46 @@
 
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow mb-3">
-        <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                <img src="~/pics/ARS.jpg" height="40" alt="CoolBrand">
-            </a>
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Team">Team</a>
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Service">Services</a>
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Testimonials">Testimonials</a>
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Charts">Charts</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    @if (User.IsAdmin())
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center">
+            
+            <a href="index.html" class="logo mr-auto"><img src="~/pics/ARS.jpg" height="40" alt="CoolBrand"></a>
+            <nav class="nav-menu d-none d-lg-block">
+                <ul>
+                    @if (!User.Identity.IsAuthenticated)
                     {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                All
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="All">All Customers</a>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="All">All Projects</a>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Programms" asp-action="All">All Programms</a>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Proposals" asp-action="All">All Proposals</a>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="All">All Employees</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Add
-                            </a>
-
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Add">Add Customer</a>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Programms" asp-action="Add">Add Programm</a>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Proposals" asp-action="Add">Add Proposal</a>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Add">Add Project</a>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Add">Add Employee</a>
-                            </div>
-                        </li>
+                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Team">Team</a></li>
+                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Service">Services</a></li>
+                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Testimonials">Testimonials</a></li>
+                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Charts">Charts</a></li>
                     }
-                </ul>
+                    else
+                    {
+                        @if (User.IsAdmin())
+                        {
+                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="All">Customers</a></li>
+                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="All">Projects</a></li>
+                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Programms" asp-action="All"> Programms</a></li>
+                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Proposals" asp-action="All"> Proposals</a></li>
+                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="All">Employees</a></li>
 
-                <partial name="_LoginPartial" />
-            </div>
+                        }
+                        else
+                        {
+                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Platform" asp-action="PlatformPage">Platform</a></li>
+                        }
+                    }
+
+                    <partial name="_LoginPartial" />
+
+                </ul>
+            </nav><!-- .nav-menu -->
         </div>
-    </nav>
+    </header>
+    <br />
+    <br />
+    <br />
 
     <div class="container">
         @if (TempData.ContainsKey(WebConstants.GlobalMessageKey))

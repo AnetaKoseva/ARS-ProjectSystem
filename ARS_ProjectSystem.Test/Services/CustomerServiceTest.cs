@@ -5,6 +5,7 @@
     using ARS_ProjectSystem.Test.Mocks;
     using Xunit;
     using System.Linq;
+    using ARS_ProjectSystem.Models.Customers;
 
     public class CustomerServiceTest
     {
@@ -62,17 +63,20 @@
             using var data = DatabaseMock.Instance;
 
             var customerService = new CustomerService(data);
-
-            customerService.Add("ARS",
-            "203300624",
-            "BG203300624",
-            "Aneta Koseva",
-            "088888888",
-            "ars@ars.eu",
-            "https:\\ars-consult.eu",
-            "xxx",
-            "xxxxx",
-            "xxxx");
+            var customer = new AddCustomerFormModel
+            {
+             Name="ARS",
+             RegistrationNumber="203300624",
+             VAT="BG203300624",
+             OwnerName="Aneta Koseva",
+             PhoneNumber="088888888",
+             Email="ars@ars.eu",
+             Url="https:\\ars-consult.eu",
+             Town="xxx",
+             Address="xxxxx",
+             Country="xxxx"
+            };
+            customerService.Add(customer);
 
             var count = data.Customers.Count();
 

@@ -84,14 +84,16 @@
             using var data = DatabaseMock.Instance;
 
             var employeeService = new EmployeeService(data);
-
-            employeeService.Create(
-                1,
-                "Aneta",
-                "Koseva",
-                "CEO",
-                "9999999",
-                "xxxx");
+            var employee = new EmployeeFormModel
+            {
+                Id = 1,
+                FirstName = "Aneta",
+                LastName = "Koseva",
+                Jobtitle = "CEO",
+                CustomerRegistrationNumber = "9999999",
+                DepartmentName = "xxxx"
+            };
+            employeeService.Create(employee);
             var count = data.Employees.Count();
 
             Assert.Equal(1,count);

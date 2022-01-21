@@ -15,21 +15,16 @@
             this.data = data;
         }
 
-        public int Create(int id,
-            string firstName,
-            string lastName,
-            string jobTitle,
-            string customerRegistrationNumber,
-            string departmentName)
+        public int Create(EmployeeFormModel employee)
         {
             var employeeData = new Employee
             {
-                Id = id,
-                FirstName = firstName,
-                LastName = lastName,
-                Jobtitle = jobTitle,
-                CustomerRegistrationNumber = customerRegistrationNumber,
-                DepartmentName = departmentName
+                Id = employee.Id,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                Jobtitle = employee.Jobtitle,
+                CustomerRegistrationNumber = employee.CustomerRegistrationNumber,
+                DepartmentName = employee.DepartmentName
             };
 
             this.data.Employees.Add(employeeData);

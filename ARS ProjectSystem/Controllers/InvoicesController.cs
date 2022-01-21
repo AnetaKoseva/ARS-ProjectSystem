@@ -7,6 +7,7 @@
     using ARS_ProjectSystem.Services.Invoices;
     using AutoMapper;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
 
     using System.Linq;
@@ -17,11 +18,13 @@
         private readonly ProjectSystemDbContext data;
         private readonly IInvoiceService invoices;
         private readonly IMapper mapper;
-        public InvoicesController(ProjectSystemDbContext data, IInvoiceService invoices, IMapper mapper)
+        private readonly IWebHostEnvironment environment;
+        public InvoicesController(ProjectSystemDbContext data, IInvoiceService invoices, IMapper mapper, IWebHostEnvironment environment)
         {
             this.data = data;
             this.invoices = invoices;
             this.mapper = mapper;
+            this.environment = environment;
         }
         [Authorize]
         
@@ -56,56 +59,41 @@
             {
                 return View();
             }
-                
-            var invoiceData = new Invoice
-            {
-                CreatedOn = invoice.CreatedOn,
-                CustomerRegistrationNumber = customer.RegistrationNumber,
-                CustomerVAT = customer.VAT,
-                CustomerAddress = customer.Address,
-                CustomerCountry = customer.Country,
-                CustomerName = customer.Name,
-                CustomerTown = customer.Town,
-                CustomerOwnerName = customer.OwnerName,
-                DueDate = invoice.DueDate,
-                Number = invoice.Number,
-                Item = invoice.Item,
-                Quantity =invoice.Quantity,
-                Price = invoice.Price,
-                Total=invoice.Price*invoice.Quantity
-            };
+            var invoiceid = this.invoices.Create(invoice,customer);
+            //var invoiceData = new Invoice
+            //{
+            //    CreatedOn = invoice.CreatedOn,
+            //    CustomerRegistrationNumber = customer.RegistrationNumber,
+            //    CustomerVAT = customer.VAT,
+            //    CustomerAddress = customer.Address,
+            //    CustomerCountry = customer.Country,
+            //    CustomerName = customer.Name,
+            //    CustomerTown = customer.Town,
+            //    CustomerOwnerName = customer.OwnerName,
+            //    DueDate = invoice.DueDate,
+            //    Number = invoice.Number,
+            //    Item = invoice.Item,
+            //    Quantity = invoice.Quantity,
+            //    Price = invoice.Price,
+            //    Total = invoice.Price * invoice.Quantity
+            //};
 
-            this.data.Invoices.Add(invoiceData);
-            this.data.SaveChanges();
 
-            return RedirectToAction("Add", "Invoices",new {id=invoiceData.Id } );
+            //this.data.Invoices.Add(invoiceData);
+            //this.data.SaveChanges();
+
+            return RedirectToAction("Add", "Invoices",new {id=invoiceid }, $"{this.environment.WebRootPath}/images");
         }
 
         [Authorize]
         public IActionResult Add(int id)
         {
-            var invoice = this.data.Invoices.FirstOrDefault(i=>i.Id==id);
+            var invoiceModel = this.invoices.Add(id);
 
-            var model = new InvoiceFormModel
-            {
-                Id=invoice.Id,
-                Item = invoice.Item,
-                CreatedOn = invoice.CreatedOn,
-                DueDate = invoice.DueDate,
-                CustomerRegistrationNumber = invoice.CustomerRegistrationNumber,
-                CustomerVAT=invoice.CustomerVAT,
-                CustomerAddress=invoice.CustomerAddress,
-                CustomerOwner=invoice.CustomerOwnerName,
-                Quantity=invoice.Quantity,
-                CustomerName=invoice.CustomerName,
-                Country=invoice.CustomerCountry,
-                Town=invoice.CustomerTown,
-                Price = invoice.Price,
-                Total = invoice.Total
-            };
 
-            return View(model);
+            return View(invoiceModel);
         }
+
         [Authorize]
         public IActionResult Edit(int id)
         {
@@ -119,15 +107,8 @@
         [HttpPost]
         public IActionResult Edit(InvoiceFormModel invoice,int id)
         {
-            var invoiceIsEdited = this.invoices.Edit(
-            invoice.Id,
-            invoice.Item,
-            invoice.Number,
-            invoice.Price,
-            invoice.Quantity,
-            invoice.CreatedOn,
-            invoice.DueDate,
-            invoice.Total);
+            var invoiceIsEdited = this.invoices.Edit(invoice);
+
 
             if (!invoiceIsEdited || !User.IsAdmin())
             {
@@ -146,5 +127,6 @@
 
             return RedirectToAction("All","Customers");
         }
+
     }
 }

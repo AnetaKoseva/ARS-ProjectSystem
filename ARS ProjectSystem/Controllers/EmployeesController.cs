@@ -40,19 +40,14 @@
 
         [HttpPost]
         [Authorize]
-        public IActionResult Add(AddEmployeeFormModel employee)
+        public IActionResult Add(EmployeeFormModel employee)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            this.employees.Create(employee.Id,
-                employee.FirstName,
-                employee.LastName,
-                employee.Jobtitle,
-                employee.CustomerRegistrationNumber,
-                employee.DepartmentName);
+            this.employees.Create(employee);
 
             TempData[GlobalMessageKey] = $"Employee {employee.FirstName} {employee.LastName} is added succesfully!";
 

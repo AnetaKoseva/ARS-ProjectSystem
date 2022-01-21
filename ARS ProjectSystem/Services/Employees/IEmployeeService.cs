@@ -6,12 +6,7 @@
     public interface IEmployeeService
     {
         IEnumerable< AllEmployeesServiceModel> All();
-        int Create(int id,
-            string firstName,
-            string lastName,
-            string jobTitle,
-            string customerRegistrationNumber,
-            string departmentName);
+        int Create(EmployeeFormModel employee);
 
         EmployeeProjectToAddModel AddToProject(AddEmployeeFormModel employee, int employeeId);
 

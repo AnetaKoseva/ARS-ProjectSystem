@@ -3,6 +3,7 @@
     using ARS_ProjectSystem.Controllers;
     using ARS_ProjectSystem.Models.Employees;
     using ARS_ProjectSystem.Models.Projects;
+    using ARS_ProjectSystem.Services.Employees;
     using MyTested.AspNetCore.Mvc;
     using Xunit;
 
@@ -28,6 +29,6 @@
             .Configuration()
             .ShouldMap(request => request.WithPath("/Employees/Add")
             .WithMethod(HttpMethod.Post))
-            .To<EmployeesController>(c => c.Add(With.Any<AddEmployeeFormModel>()));
+            .To<EmployeesController>(c => c.Add(With.Any<EmployeeFormModel>()));
     }
 }

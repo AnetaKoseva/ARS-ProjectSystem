@@ -2,6 +2,7 @@
 {
     using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Models;
+    using ARS_ProjectSystem.Models.Projects;
     using ARS_ProjectSystem.Services.Projects;
     using ARS_ProjectSystem.Test.Mocks;
     using System.Linq;
@@ -288,17 +289,20 @@
             var mapper = MapperMock.Instance;
 
             var projectService = new ProjectService(data, mapper);
-
-            var result = projectService.Create(1,
-                "ARS",
-                1,
-                "https://imagga.com/static/images/content-moderation/dashboard.svg",
-                "started",
-                "10082020",
-                "10082022",
-                3,
-                1,
-                "999999");
+            var project = new ProjectFormModel
+            {
+                  Id=1,
+                 Name="ARS",
+                 ProposalId=1,
+                 ProjectPhoto="https://imagga.com/static/images/content-moderation/dashboard.svg",
+                 Status="started",
+                 StartDate="10082020",
+                 EndDate="10082022",
+                 ProjectRate=3,
+                 ProgrammId=1,
+                 CustomerRegistrationNumber="999999"
+            };
+            var result = projectService.Create(project);
 
             var count = data.Projects.Count();
 
@@ -326,16 +330,19 @@
             });
 
             var projectService = new ProjectService(data, mapper);
-
-            var result = projectService.Edit(2,
-                "ARS",
-                1,
-                "https://imagga.com/static/images/content-moderation/dashboard.svg",
-                "started",
-                "14082021",
-                 "14082023",
-                 2.5,
-                 "88888888");
+            var project = new ProjectFormModel
+            {
+                 Id=2,
+                 Name="ARS",
+                 ProposalId=1,
+                 ProjectPhoto="https://imagga.com/static/images/content-moderation/dashboard.svg",
+                 Status="started",
+                 StartDate="14082021",
+                  EndDate="14082023",
+                  ProjectRate=2.5,
+                  CustomerRegistrationNumber="88888888"
+            };
+            var result = projectService.Edit(project);
 
             Assert.True(result);
         }

@@ -2,6 +2,7 @@
 {
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
+    using ARS_ProjectSystem.Models.Proposals;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -90,136 +91,79 @@
                 Solution = p.Solution})
             .FirstOrDefault();
 
-        public int Create(
-                int id,
-                string name,
-                string createdOn,
-                string urlPhoto,
-                double budget,
-                string customerRegistrationNumber,
-                int? projectId,
-                string fullProposalTitle,
-                string solutionType,
-                string projectPurpose,
-                string projectAcronym,
-                string solutionDescribtion,
-                string problemSolve,
-                string howProblemIsSolved,
-                string featureName1,
-                string featureKnowledge1,
-                string featureTechnology1,
-                string featureName2,
-                string featureKnowledge2,
-                string featureTechnology2,
-                string keyword1Parent,
-                string keyword1Child,
-                string keyword2Parent,
-                string keyword2Child,
-                string keyword3Parent,
-                string keyword3Child,
-                string freeKeyword,
-                string aabstract,
-                string solution)
+        public int Create(ProposalFormModel proposal)
         {
             var proposalData = new Proposal
             {
-                Id = id,
-                Name = name,
-                CreatedOn = createdOn,
-                UrlPhoto = urlPhoto,
-                Budget = budget,
-                CustomerRegistrationNumber = customerRegistrationNumber,
-                ProjectId = projectId,
-                FullProposalTitle=fullProposalTitle,
-                SolutionType=solutionType,
-                ProjectPurpose=projectPurpose,
-                ProjectAcronym=projectAcronym,
-                SolutionDescribtion=solutionDescribtion,
-                ProblemSolve= problemSolve,
-                HowProblemIsSolved= howProblemIsSolved,
-                FeatureName1= featureName1,
-                FeatureKnowledge1= featureKnowledge1,
-                FeatureTechnology1= featureTechnology1,
-                FeatureName2= featureName2,
-                FeatureKnowledge2= featureKnowledge2,
-                FeatureTechnology2= featureTechnology2,
-                Keyword1Parent= keyword1Parent,
-                Keyword1Child= keyword1Child,
-                Keyword2Parent= keyword2Parent,
-                Keyword2Child= keyword2Child,
-                Keyword3Parent= keyword3Parent,
-                Keyword3Child= keyword3Child,
-                FreeKeyword= freeKeyword,
-                Abstract= aabstract,
-                Solution= solution};
+                Id = proposal.Id,
+                Name = proposal.Name,
+                CreatedOn = proposal.CreatedOn,
+                UrlPhoto = proposal.UrlPhoto,
+                Budget = proposal.Budget,
+                CustomerRegistrationNumber = proposal.CustomerRegistrationNumber,
+                ProjectId = proposal.ProjectId,
+                FullProposalTitle= proposal.FullProposalTitle,
+                SolutionType= proposal.SolutionType,
+                ProjectPurpose= proposal.ProjectPurpose,
+                ProjectAcronym= proposal.ProjectAcronym,
+                SolutionDescribtion= proposal.SolutionDescribtion,
+                ProblemSolve= proposal.ProblemSolve,
+                HowProblemIsSolved= proposal.HowProblemIsSolved,
+                FeatureName1= proposal.FeatureName1,
+                FeatureKnowledge1= proposal.FeatureKnowledge1,
+                FeatureTechnology1= proposal.FeatureTechnology1,
+                FeatureName2= proposal.FeatureName2,
+                FeatureKnowledge2= proposal.FeatureKnowledge2,
+                FeatureTechnology2= proposal.FeatureTechnology2,
+                Keyword1Parent= proposal.Keyword1Parent,
+                Keyword1Child= proposal.Keyword1Child,
+                Keyword2Parent= proposal.Keyword2Parent,
+                Keyword2Child= proposal.Keyword2Child,
+                Keyword3Parent= proposal.Keyword3Parent,
+                Keyword3Child= proposal.Keyword3Child,
+                FreeKeyword= proposal.FreeKeyword,
+                Abstract= proposal.Abstract,
+                Solution= proposal.Solution
+            };
             this.data.Proposals.Add(proposalData);
             this.data.SaveChanges();
 
             return proposalData.Id;
         }
 
-        public bool Edit(
-                int id,
-                string name,
-                string createdOn,
-                string urlPhoto,
-                double budget,
-                string customerRegistrationNumber,
-                int? projectId,
-                string fullProposalTitle,
-                string solutionType,
-                string projectPurpose,
-                string projectAcronym,
-                string solutionDescribtion,
-                string problemSolve,
-                string howProblemIsSolved,
-                string featureName1,
-                string featureKnowledge1,
-                string featureTechnology1,
-                string featureName2,
-                string featureKnowledge2,
-                string featureTechnology2,
-                string keyword1Parent,
-                string keyword1Child,
-                string keyword2Parent,
-                string keyword2Child,
-                string keyword3Parent,
-                string keyword3Child,
-                string freeKeyword,
-                string aabstract,
-                string solution)
+        public bool Edit(ProposalFormModel proposal)
         {
-            var proposalData = this.data.Proposals.Find(id);
+            var proposalData = this.data.Proposals.Find(proposal.Id);
 
-                proposalData.Id = id;
-                proposalData.Name = name;
-                proposalData.CreatedOn = createdOn;
-                proposalData.UrlPhoto = urlPhoto;
-                proposalData.Budget = budget;
-                proposalData.CustomerRegistrationNumber = customerRegistrationNumber;
-                proposalData.ProjectId = projectId.GetValueOrDefault();
-                proposalData.FullProposalTitle = fullProposalTitle;
-                proposalData.SolutionType = solutionType;
-                proposalData.ProjectPurpose = projectPurpose;
-                proposalData.ProjectAcronym = projectAcronym;
-                proposalData.SolutionDescribtion = solutionDescribtion;
-                proposalData.ProblemSolve = problemSolve;
-                proposalData.HowProblemIsSolved = howProblemIsSolved;
-                proposalData.FeatureName1 = featureName1;
-                proposalData.FeatureKnowledge1 = featureKnowledge1;
-                proposalData.FeatureTechnology1 = featureTechnology1;
-                proposalData.FeatureName2 = featureName2;
-                proposalData.FeatureKnowledge2 = featureKnowledge2;
-                proposalData.FeatureTechnology2 = featureTechnology2;
-                proposalData.Keyword1Parent = keyword1Parent;
-                proposalData.Keyword1Child = keyword1Child;
-                proposalData.Keyword2Parent = keyword2Parent;
-                proposalData.Keyword2Child = keyword2Child;
-                proposalData.Keyword3Parent = keyword3Parent;
-                proposalData.Keyword3Child = keyword3Child;
-                proposalData.FreeKeyword = freeKeyword;
-                proposalData.Abstract = aabstract;
-                proposalData.Solution = solution;
+                proposalData.Id = proposal.Id;
+                proposalData.Name = proposal.Name;
+                proposalData.CreatedOn = proposal.CreatedOn;
+                proposalData.UrlPhoto = proposal.UrlPhoto;
+                proposalData.Budget = proposal.Budget;
+                proposalData.CustomerRegistrationNumber = proposal.CustomerRegistrationNumber;
+                proposalData.ProjectId = proposal.ProjectId.GetValueOrDefault();
+                proposalData.FullProposalTitle = proposal.FullProposalTitle;
+                proposalData.SolutionType = proposal.SolutionType;
+                proposalData.ProjectPurpose = proposal.ProjectPurpose;
+                proposalData.ProjectAcronym = proposal.ProjectAcronym;
+                proposalData.SolutionDescribtion = proposal.SolutionDescribtion;
+                proposalData.ProblemSolve = proposal.ProblemSolve;
+                proposalData.HowProblemIsSolved = proposal.HowProblemIsSolved;
+                proposalData.FeatureName1 = proposal.FeatureName1;
+                proposalData.FeatureKnowledge1 = proposal.FeatureKnowledge1;
+                proposalData.FeatureTechnology1 = proposal.FeatureTechnology1;
+                proposalData.FeatureName2 = proposal.FeatureName2;
+                proposalData.FeatureKnowledge2 = proposal.FeatureKnowledge2;
+                proposalData.FeatureTechnology2 = proposal.FeatureTechnology2;
+                proposalData.Keyword1Parent = proposal.Keyword1Parent;
+                proposalData.Keyword1Child = proposal.Keyword1Child;
+                proposalData.Keyword2Parent = proposal.Keyword2Parent;
+                proposalData.Keyword2Child = proposal.Keyword2Child;
+                proposalData.Keyword3Parent = proposal.Keyword3Parent;
+                proposalData.Keyword3Child = proposal.Keyword3Child;
+                proposalData.FreeKeyword = proposal.FreeKeyword;
+                proposalData.Abstract = proposal.Abstract;
+                proposalData.Solution = proposal.Solution;
 
             this.data.SaveChanges();
 

@@ -66,16 +66,7 @@
                 return View();
             }
             
-            this.projects.Create(project.Id,
-                project.Name,
-                project.ProgrammId,
-                project.ProjectPhoto,
-                project.Status,
-                project.StartDate,
-                project.EndDate,
-                project.ProposalId.GetValueOrDefault(),
-                project.ProjectRate,
-                project.CustomerRegistrationNumber);
+            this.projects.Create(project);
 
             TempData[GlobalMessageKey] = $"You project {project.Name} is added succesfully!";
             
@@ -108,16 +99,7 @@
         [HttpPost]
         public IActionResult Edit(int id,ProjectFormModel project)
         {
-           var projectIsEdited=this.projects.Edit(
-                project.Id,
-                project.Name,
-                project.ProgrammId,
-                project.ProjectPhoto,
-                project.Status,
-                project.StartDate,
-                project.EndDate,
-                project.ProjectRate,
-                project.CustomerRegistrationNumber);
+           var projectIsEdited=this.projects.Edit(project);
 
             if(!projectIsEdited||!User.IsAdmin())
             {

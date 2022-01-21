@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using ARS_ProjectSystem.Models;
+    using ARS_ProjectSystem.Models.Projects;
 
     public interface IProjectService
     {
@@ -11,30 +12,11 @@
             int currentPage,
             int projectsPerPage);
 
-        int Create(
-            int id,
-            string name,
-            int programmId,
-            string projectPhoto,
-            string status,
-            string startDate,
-            string endDate,
-            int proposalId,
-            double projectRate,
-            string customerRegistrationNumber);
+        int Create(ProjectFormModel project);
 
         IEnumerable<ProjectTotalServiceModel> Total();
 
-        bool Edit(
-            int id,
-            string name,
-            int programmId,
-            string projectPhoto,
-            string status,
-            string startDate,
-            string endDate,
-            double projectRate,
-            string customerRegistrationNumber);
+        bool Edit(ProjectFormModel project);
 
         ProjectServiceModel Details(int id);
 

@@ -1,7 +1,6 @@
 ﻿namespace ARS_ProjectSystem.Controllers
 {
     using ARS_ProjectSystem.Data;
-    using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Infrastructure;
     using ARS_ProjectSystem.Models.Invoices;
     using ARS_ProjectSystem.Services.Invoices;
@@ -60,27 +59,6 @@
                 return View();
             }
             var invoiceid = this.invoices.Create(invoice,customer);
-            //var invoiceData = new Invoice
-            //{
-            //    CreatedOn = invoice.CreatedOn,
-            //    CustomerRegistrationNumber = customer.RegistrationNumber,
-            //    CustomerVAT = customer.VAT,
-            //    CustomerAddress = customer.Address,
-            //    CustomerCountry = customer.Country,
-            //    CustomerName = customer.Name,
-            //    CustomerTown = customer.Town,
-            //    CustomerOwnerName = customer.OwnerName,
-            //    DueDate = invoice.DueDate,
-            //    Number = invoice.Number,
-            //    Item = invoice.Item,
-            //    Quantity = invoice.Quantity,
-            //    Price = invoice.Price,
-            //    Total = invoice.Price * invoice.Quantity
-            //};
-
-
-            //this.data.Invoices.Add(invoiceData);
-            //this.data.SaveChanges();
 
             return RedirectToAction("Add", "Invoices",new {id=invoiceid }, $"{this.environment.WebRootPath}/images");
         }
@@ -90,11 +68,10 @@
         {
             var invoiceModel = this.invoices.Add(id);
 
-
             return View(invoiceModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(int id)
         {
             var invoice = this.invoices.Details(id);
@@ -103,12 +80,11 @@
             return View(invoiceForm);
         }
 
-        [Authorize]
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(InvoiceFormModel invoice,int id)
         {
             var invoiceIsEdited = this.invoices.Edit(invoice);
-
 
             if (!invoiceIsEdited || !User.IsAdmin())
             {
@@ -120,7 +96,7 @@
             return RedirectToAction(nameof(All));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Delete(int id)
         {
              this.invoices.Delete(id);

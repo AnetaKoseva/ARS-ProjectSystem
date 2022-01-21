@@ -3,6 +3,7 @@
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Models;
+    using ARS_ProjectSystem.Models.Projects;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using System.Collections.Generic;
@@ -126,20 +127,20 @@
             => this.data
             .Proposals.Any(c => c.Id == proposalId);
 
-        public int Create(int id, string name, int programmId, string projectPhoto, string status, string startDate, string endDate,int proposalId, double projectRate, string customerRegistrationNumber)
+        public int Create(ProjectFormModel project)
         {
             var projectData = new Project
             {
-                Id = id,
-                Name = name,
-                ProgrammId = programmId,
-                ProjectPhoto = projectPhoto,
-                Status = status,
-                StartDate = startDate,
-                EndDate = endDate,
-                ProjectRate = projectRate,
-                ProposalId=proposalId,
-                CustomerRegistrationNumber = customerRegistrationNumber
+                Id = project.Id,
+                Name = project.Name,
+                ProgrammId = project.ProgrammId,
+                ProjectPhoto = project.ProjectPhoto,
+                Status = project.Status,
+                StartDate = project.StartDate,
+                EndDate = project.EndDate,
+                ProjectRate = project.ProjectRate,
+                ProposalId= project.ProposalId,
+                CustomerRegistrationNumber = project.CustomerRegistrationNumber
             };
 
             this.data.Projects.Add(projectData);
@@ -148,17 +149,17 @@
             return projectData.Id;
         }
 
-        public bool Edit(int id, string name, int programmId, string projectPhoto, string status, string startDate, string endDate, double projectRate, string customerRegistrationNumber)
+        public bool Edit(ProjectFormModel project)
         {
-            var projectData = this.data.Projects.Find(id);
+            var projectData = this.data.Projects.Find(project.Id);
 
-            projectData.Name = name;
-            projectData.ProgrammId = programmId;
-            projectData.ProjectPhoto = projectPhoto;
-            projectData.Status = status;
-            projectData.StartDate = startDate;
-            projectData.EndDate = endDate;
-            projectData.ProjectRate = projectRate;
+            projectData.Name = project.Name;
+            projectData.ProgrammId = project.ProgrammId;
+            projectData.ProjectPhoto = project.ProjectPhoto;
+            projectData.Status = project.Status;
+            projectData.StartDate = project.StartDate;
+            projectData.EndDate = project.EndDate;
+            projectData.ProjectRate = project.ProjectRate;
 
             this.data.SaveChanges();
 

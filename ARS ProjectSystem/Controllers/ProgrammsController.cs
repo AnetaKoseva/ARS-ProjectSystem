@@ -39,10 +39,7 @@
                 return View();
             }
 
-            this.programms.Create(
-                programm.ProgrammName,
-                programm.Url,
-                programm.Description);
+            this.programms.Create(programm);
 
             TempData[GlobalMessageKey] = $"Programm {programm.ProgrammName} is added succesfully!";
 
@@ -52,6 +49,16 @@
         public IActionResult Delete(int id)
         {
             var programmDta = programms.Delete(id);
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [Authorize(Roles ="Administrator")]
+
+        //TODo
+        public IActionResult Edit(int id)
+        {
+
 
             return RedirectToAction(nameof(All));
         }

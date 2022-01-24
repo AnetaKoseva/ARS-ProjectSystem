@@ -25,6 +25,10 @@
             {
                 return View(employeesData);
             }
+            else if(employeesData==null)
+            {
+                return NotFound();
+            }
 
             return RedirectToAction("Index", "Home");
         }

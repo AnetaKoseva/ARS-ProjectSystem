@@ -1,6 +1,7 @@
 ﻿namespace ARS_ProjectSystem.Test.Services
 {
     using ARS_ProjectSystem.Data.Models;
+    using ARS_ProjectSystem.Models.Proposals;
     using ARS_ProjectSystem.Services.Proposals;
     using ARS_ProjectSystem.Test.Mocks;
     using System.Linq;
@@ -61,37 +62,16 @@
             using var data = DatabaseMock.Instance;
 
             var proposalService = new ProposalService(data);
+            var proposalModel = new ProposalFormModel
+            {
 
-            var result = proposalService.Create(
-                1,
-                "Ars",
-                "10082020",
-                "https://imagga.com/static/images/content-moderation/dashboard.svg",
-                3.5,
-                "99999",
-                1,
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx");
+                Id = 1,
+                Name = "Ars",
+                CustomerRegistrationNumber = "10082020",
+
+            };
+
+            var result = proposalService.Create(proposalModel);
 
             var count = data.Proposals.Count();
 
@@ -129,37 +109,14 @@
                 Id = 1,
                 CustomerRegistrationNumber = "99999"
             });
+            var proposalModel = new ProposalFormModel
+            {
+                Id = 1,
+                Abstract = "xxx",
+               
+            };
 
-            var result=proposalService.Edit(
-            1,
-                "xxx",
-                "xxx",
-                "xxx",
-                3.2,
-                "xxx",
-                2,
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx",
-                "xxx");
+            var result=proposalService.Edit(proposalModel);
 
             proposal.Entity.CustomerRegistrationNumber = "xxxxxxx";
 

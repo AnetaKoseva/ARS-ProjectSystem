@@ -56,6 +56,12 @@ namespace ARS_ProjectSystem
                 .AddAutoMapper(typeof(Startup));
 
             services.AddMemoryCache();
+            services.AddDistributedSqlServerCache(options =>
+            {
+                options.ConnectionString = Configuration.GetConnectionString("DefaultConnection");
+                options.SchemaName = "dbo";
+                options.TableName = "CacheRecords";
+            });
 
             services
                 .AddControllersWithViews(options =>

@@ -80,7 +80,7 @@
         if (cur_pos <= bottom) {
           main_nav.find('li').removeClass('active');
         }
-        main_nav.find('a[href="#' + $(this).attr('id') + '"]').parent('li').addClass('active');
+        main_nav.find('a').parent('li').addClass('active');
       }
       if (cur_pos < 300) {
         $(".nav-menu ul:first li:first, .mobile-menu ul:first li:first").addClass('active');

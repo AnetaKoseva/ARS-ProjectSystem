@@ -17,6 +17,7 @@
 
             var data = DatabaseMock.Instance;
             var mapper = MapperMock.Instance;
+            var cache = DistributedCacheMocks.Cache;
 
             var projects = Enumerable
                 .Range(0, 10)
@@ -27,7 +28,8 @@
 
             var projectService = new ProjectService(data,mapper);
             var statisticsService = new StatisticsService(data);
-            var homeController = new HomeController(statisticsService, projectService);
+            
+            var homeController = new HomeController(statisticsService, projectService,cache);
 
             var result = homeController.Index();
 
@@ -43,7 +45,7 @@
         [Fact]
         public void ErrorShouldReturnView()
         {
-            var homeController = new HomeController(null,null);
+            var homeController = new HomeController(null,null,null);
 
             var result = homeController.Error();
 

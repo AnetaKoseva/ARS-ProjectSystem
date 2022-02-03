@@ -38,12 +38,12 @@
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
             
-            <a href="index.html" class="logo mr-auto"><img src="~/pics/ARS.jpg" height="40" alt="CoolBrand"></a>
+            <a  href="/Home/Index"class="logo mr-auto" ><img src="~/pics/ARS.jpg" height="40" alt="CoolBrand"></a>
             <nav class="nav-menu d-none d-lg-block">
                 <ul>
                     @if (!User.Identity.IsAuthenticated)
                     {
-                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Team">Team</a></li>
+                        <li ><a href="/Home/Team" class="nav-link text-dark" >Team</a></li>
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Service">Services</a></li>
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Testimonials">Testimonials</a></li>
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
@@ -91,7 +91,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/main.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    ///@await RenderSectionAsync("Scripts", required: false)
 
 
     <!-- Vendor JS Files -->

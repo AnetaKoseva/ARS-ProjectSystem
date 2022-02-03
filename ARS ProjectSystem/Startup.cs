@@ -118,7 +118,12 @@ namespace ARS_ProjectSystem
                     endpoints.MapDefaultAreaRoute();
                     endpoints.MapDefaultControllerRoute();
                     endpoints.MapRazorPages();
+                    endpoints.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+          );
                 });
+            
         }
     }
 }

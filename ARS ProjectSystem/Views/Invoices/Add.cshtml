@@ -4,7 +4,8 @@
 }
 <link href="~/css/style.css" rel="stylesheet">
 <body>
-    <div id="invoice"class="invoice-box section-bg" data-aos="fade-up">
+    
+    <div id="invoice" class="invoice-box section-bg" data-aos="fade-up">
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
                 <td colspan="2">
@@ -13,8 +14,9 @@
                             <td class="title">
                                 <img src="~/pics/ARS.jpg" style="width: 100%; max-width: 300px" />
                             </td>
-                            <td >
-                                Invoice :@(Model.Id.ToString("D10"))<br />
+                            <td>
+                                Invoice :@Model.Number
+                                <br />
                                 Created: @Model.CreatedOn<br />
                                 Due: @Model.DueDate
                             </td>
@@ -72,7 +74,9 @@
                 <td>Total: @Model.Total</td>
             </tr>
         </table>
+        
     </div>
+
 </body>
 
 <a href="/Customers/All" class="btn btn-primary btn-sm mb-3">Back</a>
@@ -84,7 +88,7 @@
      
     $('#printPDF').click(function () {
         var element = document.getElementById('invoice');
-        var number = @Model.Id;
+        var number = @Model.Number;
         html2pdf().from(element).set({
             marin: 1,
             filename: `invoice${number}.pdf`,

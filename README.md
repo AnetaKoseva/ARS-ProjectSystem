@@ -1,12 +1,12 @@
 # ARS-ProjectSystem
-The System is a alfa version  for Horizon Programms project management.The Customer can log in the system and start emplementing the needed inormation, can see  proposals and the projects and can see his/hers invoices. Can search in Customers and projects menu. The most changes are made from the administrator of the program.<br/>
+The System is an alfa version for Horizon Europe project management.The client can log into the platform and provide inormation, can see their proposals and  projects and can check their company's invoices. They can search in client and projects menus. The administrotor has full rights to make any changes to the system.<br/>
 Not logged in users can:<br/>
--have a look of the progects, but just photo and name on the front page<br/>
-Customers/logged in users/ can:<br/>
--see: All Customers,Proposals and Invoices /ToBeDone-just invoices and proposals for his/her company<br/>
+-have a look at projects, but only photo and name on the front page<br/>
+Clients/logged in users/ can:<br/>
+-see: their clients, Proposal and Invoices' information <br/>
 -make a new Proposal<br/>
 Administrator can:<br/>
--see-all Customers, Projects, Programms, Proposals, Employees, Invoices<br/>
+-see-all Clients, Projects, Programms, Proposals, Employees, Invoices<br/>
 -edit-Projects, Programms, Proposals<br/>
--delete-Customer<br/>
--add-Customers, Invoices,Programm, Proposal, Project(you must add proposal at first), Employee, add Employee to Project and to Proposal,<br/>
+-delete-Client<br/>
+-add-Clients, Invoices,Programm, Proposal, Project(you must add proposal first), Employee, add Employee to Project and to Proposal,<br/>

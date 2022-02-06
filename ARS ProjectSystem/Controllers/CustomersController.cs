@@ -6,6 +6,8 @@
     using Microsoft.AspNetCore.Mvc;
 
     using static WebConstants;
+    using ARS_ProjectSystem.Infrastructure;
+
     public class CustomersController:Controller
     {
         private readonly ICustomerService customers;
@@ -21,11 +23,25 @@
         [Authorize]
         public IActionResult All([FromQuery] AllCustomersQueryModel query)
         {
-            var queryResult = this.customers.All(query.SearchTerm);
+            var userId = this.User.GetId();
+            if(User.IsInRole("Administrator"))
+            {
+                var queryResult = this.customers.All(query.SearchTerm);
 
-            query.Customers = queryResult.Customers;
+                query.Customers = queryResult.Customers;
 
-            return View(query);
+                return View(query);
+            }
+            else
+            {
+                var queryResult = this.customers.GetById(query.SearchTerm, userId);
+
+                query.Customers = queryResult.Customers;
+
+                return View(query);
+            }
+
+            
         }
 
         [HttpPost]

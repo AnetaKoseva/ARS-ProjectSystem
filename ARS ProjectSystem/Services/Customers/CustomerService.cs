@@ -89,5 +89,38 @@
 
             return customer.RegistrationNumber;
         }
+
+        public CustomerQueryServiceModel GetById(string searchTerm, string id)
+        {
+            var user = this.data.Users.FirstOrDefault(x => x.Id == id);
+            var customerQuery = this.data.Customers.Where(x => x.RegistrationNumber == user.Number);
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                customerQuery = customerQuery.Where(c =>
+                    c.Name.ToLower().Contains(searchTerm.ToLower())
+                    || c.OwnerName.ToLower().Contains(searchTerm.ToLower())
+                    || c.RegistrationNumber.ToLower().Contains(searchTerm.ToLower())
+                    || c.VAT.ToLower().Contains(searchTerm.ToLower())
+                    || c.RegistrationNumber.ToLower().Contains(searchTerm.ToLower()));
+            }
+
+            var customers = customerQuery
+                .OrderBy(c => c.Name)
+                .Select(c => new CustomerServiceModel
+                {
+                    Name = c.Name,
+                    RegistrationNumber = c.RegistrationNumber,
+                    VAT = c.VAT,
+                    OwnerName = c.OwnerName
+                })
+                .ToList();
+
+            return new CustomerQueryServiceModel
+            {
+                Customers = customers,
+                SearchTerm = searchTerm
+            };
+        }
     }
 }

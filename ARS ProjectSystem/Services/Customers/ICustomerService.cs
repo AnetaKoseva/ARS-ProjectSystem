@@ -6,6 +6,7 @@ namespace ARS_ProjectSystem.Services.Customers
     {
         CustomerQueryServiceModel All(string searchTerm);
 
+        CustomerQueryServiceModel GetById(string searchTerm, string id);
         string Add(AddCustomerFormModel customer);
 
         string Delete(string id);

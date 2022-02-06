@@ -1,16 +1,18 @@
 ﻿namespace ARS_ProjectSystem.Services.Proposals
 {
+    using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Models.Proposals;
     using System.Collections.Generic;
     public interface IProposalService
     {
         IEnumerable<ProposalCustomersServiceModel> GetProposalCustomers();
 
-        public IEnumerable<ProposalServiceModel> All();
+        IEnumerable<ProposalServiceModel> All();
 
-        public ProposalServiceModel Details(int id);
+        IEnumerable<ProposalServiceModel> GetById(string id);
+        ProposalServiceModel Details(int id);
 
-        public int Create(ProposalFormModel proposal);
+        int Create(ProposalFormModel proposal);
         bool Edit(ProposalFormModel proposal);
     }
 }

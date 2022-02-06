@@ -23,12 +23,25 @@
         [Authorize]
         public IActionResult All()
         {
-            var proposals = this.proposals.All();
-
-            if (proposals != null)
+            var userId = this.User.GetId();
+            if(User.IsInRole("Administrator"))
             {
-                return View(proposals);
+                var proposals = this.proposals.All();
+                if (proposals != null)
+                {
+                    return View(proposals);
+                }
             }
+            else
+            {
+                var proposals = this.proposals.GetById(userId);
+                if (proposals != null)
+                {
+                    return View(proposals);
+                }
+            }
+            
+            
 
             return RedirectToAction("Index", "Home");
         }

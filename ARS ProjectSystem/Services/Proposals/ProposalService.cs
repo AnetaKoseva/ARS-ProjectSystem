@@ -169,5 +169,44 @@
 
             return true;
         }
+
+        public IEnumerable<ProposalServiceModel> GetById(string id)
+        {
+            var user = this.data.Users.FirstOrDefault(x => x.Id == id);
+
+            var proposalData = this.data.Proposals.Where(x => x.CustomerRegistrationNumber == user.Number);
+            return proposalData.Select(p => new ProposalServiceModel
+            {
+                Id = p.Id,
+                Name = p.Name,
+                CustomerRegistrationNumber = p.CustomerRegistrationNumber,
+                CustomerName = p.Customer.Name,
+                Budget = p.Budget,
+                CreatedOn = p.CreatedOn,
+                FullProposalTitle = p.FullProposalTitle,
+                SolutionType = p.SolutionType,
+                ProjectPurpose = p.ProjectPurpose,
+                ProjectAcronym = p.ProjectAcronym,
+                SolutionDescribtion = p.SolutionDescribtion,
+                ProblemSolve = p.ProblemSolve,
+                HowProblemIsSolved = p.HowProblemIsSolved,
+                FeatureName1 = p.FeatureName1,
+                FeatureKnowledge1 = p.FeatureKnowledge1,
+                FeatureTechnology1 = p.FeatureTechnology1,
+                FeatureName2 = p.FeatureName2,
+                FeatureKnowledge2 = p.FeatureKnowledge2,
+                FeatureTechnology2 = p.FeatureTechnology2,
+                Keyword1Parent = p.Keyword1Parent,
+                Keyword1Child = p.Keyword1Child,
+                Keyword2Parent = p.Keyword2Parent,
+                Keyword2Child = p.Keyword2Child,
+                Keyword3Parent = p.Keyword3Parent,
+                Keyword3Child = p.Keyword3Child,
+                FreeKeyword = p.FreeKeyword,
+                Abstract = p.Abstract,
+                Solution = p.Solution
+            })
+            .ToList();
+        }
     }
 }

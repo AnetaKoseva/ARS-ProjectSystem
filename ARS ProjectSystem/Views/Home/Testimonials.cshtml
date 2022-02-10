@@ -1,0 +1,90 @@
+﻿    <!-- ======= Counts Section ======= -->
+<button class="btn btn-primary" id="statistics-button">Show Statistics</button>
+<br />
+<div class="counts" data-aos="fade-up" id="statistics">
+
+    <div class="row">
+
+        <div class="col-lg-4 col-md-12">
+            <div class="count-box">
+                <i class="icofont-simple-smile"></i>
+                <p class="col-md-4 text-center" id="total-customers"></p>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12">
+            <div class="count-box">
+                <i class="icofont-document-folder"></i>
+                <p class="col-md-4 text-center" id="total-projects"></p>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12">
+            <div class="count-box">
+                <i class="icofont-live-support"></i>
+                <p class="col-md-4 text-center" id="total-proposals"></p>
+            </div>
+        </div>
+    </div>
+</div><!-- End Counts Section -->
+<!-- ======= Testimonials Section ======= -->
+<section id="testimonials" class="testimonials">
+    <div class="container" data-aos="zoom-in">
+
+        <div class="owl-carousel testimonials-carousel">
+
+            <div class="testimonial-item">
+                <h3>Anthony Fenwick-Wilson</h3>
+                <h3>Cross-Flow Energy Company Limited (C-FEC)</h3>
+
+                <h4>Founder &amp; Executive Chairman</h4>
+                <p>
+                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                    "That is what professionalism is all about. Thank both for a really splendid effort."
+                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+            </div>
+
+            <div class="testimonial-item">
+                <h3>Debbie Garside</h3>
+                <h3>GeoLang Ltd</h3>
+                <h4>Founder&amp;Managing Director&amp;CEO</h4>
+                <p>
+                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                    "This is 99.99% perfect!  I am happy to go with this version as unloaded and thank you for your significant contributions.  It is a pleasure working with such a professional.
+                    Thank you once again  for your support."
+
+                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section><!-- End Testimonials Section -->
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $.get('/api/statistics', (data) => {
+                $('#total-customers').text(data.totalCustomers + " Customers");
+                $('#total-projects').text(data.totalProjects + " Projects");
+                $('#total-proposals').text(data.totalProposals + " Proposals");
+
+                $('#statistics').removeClass('d-none');
+                $('#statistics-button').hide();
+            });
+        });
+
+        //$('#statistics-button').on('click', ev => {
+        //    $.get('/api/statistics', (data) => {
+        //        $('#total-customers').text(data.totalCustomers + " Customers");
+        //        $('#total-projects').text(data.totalProjects + " Projects");
+        //        $('#total-proposals').text(data.totalProposals + " Proposals");
+
+        //        $('#statistics').removeClass('d-none');
+        //        $('#statistics-button').hide();
+        //    });
+        //});
+    </script>
+}

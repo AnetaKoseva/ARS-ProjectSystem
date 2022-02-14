@@ -13,7 +13,6 @@
     {
         private readonly ProjectSystemDbContext data;
         private readonly IMapper mapper;
-
         public ProjectService(ProjectSystemDbContext data,
             IMapper mapper)
         {
@@ -88,7 +87,7 @@
 
         public IEnumerable<ProjectProposalsServiceModel> GetProjectProposals()
         => this.data
-                .Proposals.Where(p=>p.ProjectId==null ||p.ProjectId==0)
+                .Proposals.Where(p=>p.ProjectId!=null ||p.ProjectId!=0)
                 .Select(c => new ProjectProposalsServiceModel
                 {
                     Id = c.Id,
@@ -172,5 +171,15 @@
                 .OrderByDescending(p => p.Id)
                 .ProjectTo<ProjectTotalServiceModel>(this.mapper.ConfigurationProvider)
                 .ToList();
+
+        public IEnumerable<ProjectProposal> AllProjects()
+        {
+            var allProjects = this.data.Projects.Select(p=>new ProjectProposal 
+            { 
+             Id=p.Id,
+              Name=p.Name
+            }).ToList();
+            return allProjects;
+        }
     }
 }

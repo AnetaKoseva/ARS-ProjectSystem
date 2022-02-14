@@ -29,6 +29,7 @@
         <div class="form-group">
             <label asp-for="ProposalId">ProposalId</label>
             <select asp-for="ProposalId" class="form-control">
+                <option selected="@Model.ProposalId==null"></option>
                 @foreach (var proposal in Model.Proposals)
                 {
                     <option value="@proposal.Id">@proposal.Name</option>
@@ -61,12 +62,13 @@
             <span asp-validation-for="EndDate" class="small text-danger"></span>
         </div>
 
+        
         <div class="form-group">
-            <label asp-for="@Model.ProposalId">Customer</label>
-            <select asp-for="@Model.ProposalId" class="form-control">
-                @foreach (var proposal in Model.Proposals)
+            <label asp-for="CustomerRegistrationNumber">Customer</label>
+            <select asp-for="CustomerRegistrationNumber" class="form-control">
+                @foreach (var customer in Model.Customers)
                 {
-                    <option value="@proposal.Id">@proposal.Name</option>
+                    <option value="@customer.RegistrationNumber">@customer.Name</option>
                 }
             </select>
         </div>

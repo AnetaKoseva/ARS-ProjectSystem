@@ -7,6 +7,8 @@
     {
         IEnumerable<ProposalCustomersServiceModel> GetProposalCustomers();
 
+        IEnumerable<ProposalProjectServiceModel> GetProposalProjects();
+
         IEnumerable<ProposalServiceModel> All();
 
         IEnumerable<ProposalServiceModel> GetById(string id);

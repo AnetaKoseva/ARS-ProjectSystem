@@ -22,6 +22,8 @@
 
         IEnumerable<string> AllProjectProgramms();
 
+        IEnumerable<ProjectProposal> AllProjects();
+
         IEnumerable<ProjectProgrammsServiceModel> GetProjectProgramms();
 
         IEnumerable<ProjectProposalsServiceModel> GetProjectProposals();

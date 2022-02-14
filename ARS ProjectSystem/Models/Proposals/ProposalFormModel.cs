@@ -83,5 +83,6 @@
         public string Solution { get; init; }
 
         public IEnumerable<ProposalCustomersServiceModel> Customers { get; set; }
+        public IEnumerable<ProposalProjectServiceModel> AllProjects { get; set; }
     }
 }

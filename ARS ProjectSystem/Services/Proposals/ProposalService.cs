@@ -23,6 +23,16 @@
                 })
             .ToList();
 
+        public IEnumerable<ProposalProjectServiceModel> GetProposalProjects()
+        => this.data
+                .Projects
+                .Select(p => new ProposalProjectServiceModel
+                { 
+                     Id=p.Id,
+                     Name=p.Name
+                })
+            .ToList();
+
         public IEnumerable<ProposalServiceModel> All()
         => this.data.Proposals.Select(p => new ProposalServiceModel
         {
@@ -208,5 +218,7 @@
             })
             .ToList();
         }
+
+        
     }
 }

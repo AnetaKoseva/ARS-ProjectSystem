@@ -9,6 +9,8 @@
     using AutoMapper;
 
     using static WebConstants;
+    using ARS_ProjectSystem.Services.Projects;
+
     public class ProposalsController : Controller
     {
         private readonly IProposalService proposals;
@@ -47,8 +49,10 @@
         [Authorize]
         public IActionResult Add()
         {
+            
             return View(new ProposalFormModel
-            {
+            {   
+                AllProjects=this.GetProposalProjects(),
                 Customers = this.GetProposalCustomers()
             });
         }
@@ -79,6 +83,8 @@
 
         private IEnumerable<ProposalCustomersServiceModel> GetProposalCustomers()
             => this.proposals.GetProposalCustomers();
+        private IEnumerable<ProposalProjectServiceModel> GetProposalProjects()
+            => this.proposals.GetProposalProjects();
 
         [Authorize]
         public IActionResult Edit(int id)

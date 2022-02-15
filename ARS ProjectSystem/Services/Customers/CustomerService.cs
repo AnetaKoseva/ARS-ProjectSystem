@@ -122,5 +122,11 @@
                 SearchTerm = searchTerm
             };
         }
+
+        public string GetNameById(string id)
+        {
+            var customer = this.data.Customers.FirstOrDefault(c => c.RegistrationNumber == id);
+            return customer.Name;
+        }
     }
 }

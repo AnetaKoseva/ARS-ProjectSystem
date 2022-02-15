@@ -60,11 +60,15 @@
             return RedirectToAction(nameof(All));
         }
 
+        [HttpPost]
         [Authorize]
+       
         public IActionResult Delete(string id)
         {
+            var customerName = this.customers.GetNameById(id);
             var customerData = this.customers.Delete(id);
 
+            TempData[GlobalMessageKey] = $"Customer {customerName} is deleted succesfully!";
             return RedirectToAction(nameof(All));
         }
     }

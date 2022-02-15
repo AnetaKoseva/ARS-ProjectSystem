@@ -51,9 +51,11 @@
                                     <a asp-controller="Invoices" asp-action="AllCustomerInvoices" asp-route-id="@customer.RegistrationNumber" class="btn btn-primary btn-sm">All Invoices</a>
                                     @if (User.IsAdmin())
                                     {
+                                        <form asp-controller="Customers" asp-action="Delete" asp-route-id="@customer.RegistrationNumber" method="post">
                                         <a asp-controller="Invoices" asp-action="CreateInvoice" asp-route-id="@customer.RegistrationNumber" class="btn btn-primary btn-sm">Add Invoice</a>
-                                        <a asp-controller="Customers" asp-action="Delete" asp-route-id="@customer.RegistrationNumber" class="btn btn-info btn-sm">Delete</a>
-
+                                        
+                                        <button type="submit" class="btn btn-info btn-sm" onclick="return confirm('Are you sure you want to delete user: @customer.Name')">Delete</button>
+                                        </form>
                                     }
                                 }
                             </td>
@@ -69,6 +71,7 @@
         </div>
         </div>
     </section>
+
 @section Scripts{
             <partial name="_ValidationScriptsPartial" />
 <script>

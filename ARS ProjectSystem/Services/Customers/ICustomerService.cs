@@ -10,5 +10,7 @@ namespace ARS_ProjectSystem.Services.Customers
         string Add(AddCustomerFormModel customer);
 
         string Delete(string id);
+
+        string GetNameById(string id);
     }
 }

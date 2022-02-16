@@ -45,7 +45,7 @@
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Add(AddCustomerFormModel customer)
         {
             if (!ModelState.IsValid)
@@ -62,7 +62,7 @@
 
         [HttpPost]
         [Authorize]
-       
+        [Authorize(Roles = "Administrator")]
         public IActionResult Delete(string id)
         {
             var customerName = this.customers.GetNameById(id);

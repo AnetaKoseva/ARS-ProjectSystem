@@ -15,7 +15,10 @@
                     {
                         <a asp-controller="Projects" asp-action="Edit" asp-route-id="@project.Id" class="btn btn-info btn-sm">Edit</a>
                         <a a href="/Projects/AddEmployee?projectId=@project.Id" class="btn btn-primary btn-sm">Add employee</a>
-                    }
+                    <form method="post" asp-controller="Home" asp-action="SendToEmail" asp-route-id="@project.Id">
+                        <button class="btn btn-warning">Send to my email</button>
+                    </form>
+                        }
                 </div>
             </div>
         </div>

@@ -27,5 +27,10 @@
     <Folder Include="Areas\Administration\Data\" />
     <Folder Include="Areas\Administration\Models\" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Sendgrid" Version="9.25.3" />
+    
+  </ItemGroup>
 
 </Project>

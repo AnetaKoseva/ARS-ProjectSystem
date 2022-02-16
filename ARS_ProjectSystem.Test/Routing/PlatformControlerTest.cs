@@ -1,6 +1,6 @@
 ﻿namespace ARS_ProjectSystem.Test.Routing
 {
-    using ARS_ProjectSystem.Controllers;
+    using ARS_ProjectSystem.Areas.Administration.Controllers;
     using MyTested.AspNetCore.Mvc;
     using Xunit;
 

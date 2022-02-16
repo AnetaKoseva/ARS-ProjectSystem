@@ -2,7 +2,7 @@
 {
     using Xunit;
     using MyTested.AspNetCore.Mvc;
-    using ARS_ProjectSystem.Controllers;
+    using ARS_ProjectSystem.Areas.Administration.Controllers;
 
     public class PlatformControllerTest
     {

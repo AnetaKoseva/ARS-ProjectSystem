@@ -89,6 +89,7 @@
             return View();
         }
 
+
         [Authorize(Roles ="Administrator")]
         public  IActionResult Charts()
         {
@@ -107,7 +108,8 @@
         {
             return View();
         }
-        public IActionResult Index1()
+        
+        public IActionResult Privacy()
         {
             return View();
         }

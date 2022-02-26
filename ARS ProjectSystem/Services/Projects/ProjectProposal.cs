@@ -7,5 +7,7 @@
         public string Name { get; set; }
 
         public string ProjectPhoto { get; set; }
+
+        public string CustomerRegistrationNumber { get; set; }
     }
 }

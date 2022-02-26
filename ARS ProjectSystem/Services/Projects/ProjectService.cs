@@ -177,8 +177,9 @@
             var allProjects = this.data.Projects.Select(p=>new ProjectProposal 
             { 
              Id=p.Id,
-              Name=p.Name,
-               ProjectPhoto=p.ProjectPhoto
+             Name=p.Name,
+             ProjectPhoto=p.ProjectPhoto,
+             CustomerRegistrationNumber=p.CustomerRegistrationNumber
             }).ToList();
             return allProjects;
         }

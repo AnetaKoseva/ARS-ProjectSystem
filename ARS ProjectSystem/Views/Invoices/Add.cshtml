@@ -4,7 +4,7 @@
 }
 <link href="~/css/style.css" rel="stylesheet">
 <body>
-    
+
     <div id="invoice" class="invoice-box section-bg" data-aos="fade-up">
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
@@ -74,7 +74,7 @@
                 <td>Total: @Model.Total</td>
             </tr>
         </table>
-        
+
     </div>
 
 </body>
@@ -84,8 +84,10 @@
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
-<script>
-     
+    <script scr="~/js/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+
     $('#printPDF').click(function () {
         var element = document.getElementById('invoice');
         var number = @Model.Number;
@@ -95,7 +97,7 @@
             pagebreak: { avoid: 'tr' },
             jsPDF: {orientation:'landscape',unit:'pt', format:'letter',compressPDF:true}
         }).save()
-            
+
     });
-</script>
+    </script>
 }

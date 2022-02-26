@@ -1,0 +1,16 @@
+{
+  "name": "cdbootstrap",
+  "version": "1.0.0",
+  "main": "js/cdb.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Devwares-Team/contrast-bootstrap-free.git"
+  },
+  "author": "Devwares",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Devwares-Team/contrast-bootstrap-free/issues"
+  },
+  "homepage": "https://github.com/Devwares-Team/contrast-bootstrap-free#readme",
+  "description": "Bootstrap 5 Multipurpose template, UI kit to build your next landing, admin, SAAS, prelaunch, etc project with a clean, well crafted template and UI components"
+}

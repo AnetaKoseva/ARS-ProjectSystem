@@ -9,7 +9,6 @@
     using AutoMapper;
 
     using static WebConstants;
-    using ARS_ProjectSystem.Services.Projects;
 
     public class ProposalsController : Controller
     {

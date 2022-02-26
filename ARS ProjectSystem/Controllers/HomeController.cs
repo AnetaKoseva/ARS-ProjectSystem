@@ -13,12 +13,12 @@
     using SendGrid;
     using SendGrid.Helpers.Mail;
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
+    using static WebConstants;
     public class HomeController : Controller
     {
         private readonly IProjectService projects;
@@ -89,6 +89,35 @@
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Contact(ContactForm contact)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var apiKey = configuration.GetSection("SendGrid").GetSection("ApiKey").Value;
+            var client = new SendGridClient(apiKey);
+
+            var from = new EmailAddress(SentToEmail,"Contact Form");
+            var subject = $"Sending from Contact Page";
+            var to = new EmailAddress(SentToEmail);
+            var html = new StringBuilder();
+            html.AppendLine($"<h1>{contact.Subject}<h1>");
+            html.AppendLine($"<h3>{contact.Name} with email {contact.Email} whants to send you a message from contact page:<h3>");
+            html.AppendLine($"<h3>{contact.Message}<h3>");
+            var htmlContent = html.ToString();
+            var plainTextContent = $"<h1>{contact.Name} sends you a Message:<h1>";
+            
+            var msg = MailHelper.CreateSingleEmail(from, to, subject,plainTextContent, htmlContent);
+
+            await client.SendEmailAsync(msg);
+
+            TempData[GlobalMessageKey] = $"Message is sended succesfully!";
+
+            return RedirectToAction("Index", "Home");
+        }
+
 
         [Authorize(Roles ="Administrator")]
         public  IActionResult Charts()
@@ -108,7 +137,10 @@
         {
             return View();
         }
-        
+        public IActionResult Stepper()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -120,11 +152,12 @@
             
             var apiKey = configuration.GetSection("SendGrid").GetSection("ApiKey").Value;
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("office@ars-consult.eu");
-            var subject = "Sending with SendGrid is Fun";
-            var to = new EmailAddress("ayordanova@ars-consult.eu");
 
             var project = this.projects.AllProjects().FirstOrDefault(p => p.Id == id);
+
+            var from = new EmailAddress(SentToEmail);
+            var subject = $"Sending ProjectInformation {project.Name}";
+            var to = new EmailAddress(project.CustomerRegistrationNumber);
             var html = new StringBuilder();
             html.AppendLine($"<h1>{project.Name}<h1>");
             html.AppendLine($"<h3>{project.ProjectPhoto}<h3>");

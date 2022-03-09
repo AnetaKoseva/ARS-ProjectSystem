@@ -1,4 +1,4 @@
-﻿namespace ARS_ProjectSystem.Areas.User
+﻿namespace ARS_ProjectSystem.Areas.AppUser
 {
     public class UserConstants
     {

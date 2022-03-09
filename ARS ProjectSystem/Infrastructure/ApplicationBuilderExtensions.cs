@@ -11,7 +11,7 @@
     using Microsoft.Extensions.DependencyInjection;
 
     using static ARS_ProjectSystem.Areas.Admin.AdminConstants;
-    using static ARS_ProjectSystem.Areas.User.UserConstants;
+    using static ARS_ProjectSystem.Areas.AppUser.UserConstants;
     public static class ApplicationBuilderExtensions
     {
         public static IApplicationBuilder PrepareDatabase(

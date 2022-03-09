@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using static User.UserConstants;
+    using static AppUser.UserConstants;
 
     [Area(AreaName)]
     [Authorize(Roles = NormalUserRoleName)]

@@ -10,21 +10,29 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using System.Diagnostics.CodeAnalysis;
     using ARS_ProjectSystem.Models;
+    using System.Collections.Generic;
+    using System.Linq;
 
     [ExcludeFromCodeCoverage]
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
+        private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> signInManager;
         private readonly GoogleRecaptchaService _GooleRecaptchaService;
-        public LoginModel(SignInManager<User> signInManager, GoogleRecaptchaService googleRecaptchaService)
+        public LoginModel(SignInManager<User> signInManager,
+             GoogleRecaptchaService googleRecaptchaService,
+            UserManager<User> userManager)
         {
             this.signInManager = signInManager;
             _GooleRecaptchaService = googleRecaptchaService;
+            _userManager = userManager;
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
+
+        public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
         public string ReturnUrl { get; set; }
 
@@ -57,6 +65,8 @@
 
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
+            ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             ReturnUrl = returnUrl;
         }
 
@@ -64,18 +74,24 @@
         {
             returnUrl ??= Url.Content("~/");
 
-            
-            
+            ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
             {
-                var result = await this.signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await this.signInManager
+                    .PasswordSignInAsync(Input.Email,
+                    Input.Password,
+                    Input.RememberMe,
+                    lockoutOnFailure: true);
                 
                 if (result.Succeeded)
                 {
                     return LocalRedirect(returnUrl);
                 }
-                
+                if (result.RequiresTwoFactor)
+                {
+                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                }
                 if (result.IsLockedOut)
                 {
                     return RedirectToPage("./Lockout");

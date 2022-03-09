@@ -2,7 +2,6 @@
   "version": "1.0",
   "defaultProvider": "cdnjs",
   "libraries": [
-
     {
       "library": "mdbootstrap@4.20.0",
       "destination": "wwwroot/lib/mdbootstrap/"
@@ -12,5 +11,10 @@
       "library": "cdbootstrap@1.0.0",
       "destination": "wwwroot/lib/cdbootstrap/"
     }
-  ]
+  ,
+{
+  "library": "qrcodejs@1.0.0",
+  "destination": "wwwroot/lib/qrcodejs/"
+}
+]
 }

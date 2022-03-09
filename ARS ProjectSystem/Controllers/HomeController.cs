@@ -9,6 +9,7 @@
     using Microsoft.Extensions.Caching.Distributed;
     using Microsoft.Extensions.Caching.Memory;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Options;
     using Newtonsoft.Json;
     using SendGrid;
     using SendGrid.Helpers.Mail;
@@ -25,21 +26,23 @@
         private readonly IStatisticsService statistics;
         //private readonly IMemoryCache cache;
         private readonly IDistributedCache cacheService;
-        private readonly IConfiguration configuration;
+        //private readonly IConfiguration configuration;
 
         public HomeController(IStatisticsService statistics,
             IProjectService projects, 
             //IMemoryCache memoryCache
             IDistributedCache cacheService,
-            IConfiguration iConfig
+            IOptions<AuthMessageSenderOptions> optionsAccessor
             )
         {
             this.statistics = statistics;
             this.projects = projects;
             //this.cache = memoryCache;
             this.cacheService = cacheService;
-            this.configuration = iConfig;
+            Options = optionsAccessor.Value;
         }
+
+        public AuthMessageSenderOptions Options { get; } //Set with Secret Manager.
 
         public async Task<IActionResult> Index()
         {
@@ -96,8 +99,8 @@
             {
                 return View();
             }
-            var apiKey = configuration.GetSection("SendGrid").GetSection("ApiKey").Value;
-            var client = new SendGridClient(apiKey);
+
+            var client = new SendGridClient(Options.ApiKey);
 
             var from = new EmailAddress(SentToEmail,"Contact Form");
             var subject = $"Sending from Contact Page";
@@ -112,6 +115,7 @@
             var msg = MailHelper.CreateSingleEmail(from, to, subject,plainTextContent, htmlContent);
 
             await client.SendEmailAsync(msg);
+            
 
             TempData[GlobalMessageKey] = $"Message is sended succesfully!";
 
@@ -124,6 +128,8 @@
         {
                 return View();
         }
+
+        [Authorize]
        
         public IActionResult Service()
         {
@@ -149,9 +155,7 @@
         [HttpPost]
         public async Task<IActionResult>SendToEmail(int id)
         {
-            
-            var apiKey = configuration.GetSection("SendGrid").GetSection("ApiKey").Value;
-            var client = new SendGridClient(apiKey);
+            var client = new SendGridClient(Options.ApiKey);
 
             var project = this.projects.AllProjects().FirstOrDefault(p => p.Id == id);
 
@@ -168,7 +172,8 @@
             
             await client.SendEmailAsync(msg);
             
-           return RedirectToAction("Index", "Home");
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

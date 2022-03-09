@@ -1,5 +1,9 @@
 ﻿namespace ARS_ProjectSystem.Areas.Identity.Pages.Account
 {
+    using Microsoft.AspNetCore.Identity.UI.Services;
+    using Microsoft.AspNetCore.WebUtilities;
+    using System.Text;
+    using System.Text.Encodings.Web;
     using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
@@ -10,6 +14,7 @@
     using System.Diagnostics.CodeAnalysis;
 
     using static Data.DataConstants.User;
+    
 
     [ExcludeFromCodeCoverage]
     [AllowAnonymous]
@@ -17,13 +22,16 @@
     {
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
+        private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<User> userManager,
-            SignInManager<User> signInManager)
+            SignInManager<User> signInManager,
+            IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            _emailSender = emailSender;
         }
 
         [BindProperty]
@@ -73,8 +81,26 @@
 
                 if (result.Succeeded)
                 {
-                    await this.signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    var callbackUrl = Url.Page(
+                        "/Account/ConfirmEmail",
+                        pageHandler: null,
+                        values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
+                        protocol: Request.Scheme);
+
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    if (userManager.Options.SignIn.RequireConfirmedAccount)
+                    {
+                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                    }
+                    else
+                    {
+                        await signInManager.SignInAsync(user, isPersistent: false);
+                        return LocalRedirect(returnUrl);
+                    }
                 }
 
                 foreach (var error in result.Errors)

@@ -1,5 +1,8 @@
 namespace ARS_ProjectSystem
 {
+    using ARS_ProjectSystem.Areas.Identity.Pages.Account;
+    using ARS_ProjectSystem.Controllers;
+    using ARS_ProjectSystem.Controllers.Sms;
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Infrastructure;
@@ -14,6 +17,7 @@ namespace ARS_ProjectSystem
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -38,11 +42,16 @@ namespace ARS_ProjectSystem
 
             services.Configure<ReCAPTCHASettings>(Configuration.GetSection("GooglereCAPTCHA"));
 
+            services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("SendGrid"));
+            services.Configure<SMSoptions>(Configuration.GetSection("Twilio"));
+
             services.AddTransient<GoogleRecaptchaService>();
             
                 services
                 .AddDefaultIdentity<User>(options => 
                 {
+                    options.User.RequireUniqueEmail = true;
+                    options.SignIn.RequireConfirmedAccount = true;
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
@@ -89,6 +98,11 @@ namespace ARS_ProjectSystem
 
             services
                .AddTransient<IInvoiceService, InvoiceService>();
+
+            services
+                .AddTransient<IEmailSender, EmailSender>();
+
+            services.AddTransient<ISmsSender, AuthMessageSender>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

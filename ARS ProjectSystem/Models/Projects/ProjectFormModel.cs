@@ -1,6 +1,7 @@
 ﻿namespace ARS_ProjectSystem.Models.Projects
 {
     using ARS_ProjectSystem.Services.Projects;
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using static Data.DataConstants.Project;
@@ -22,9 +23,9 @@
 
         public string CustomerRegistrationNumber { get; set; }
 
-        public string StartDate { get; init; }
+        public DateTime StartDate { get; init; }
 
-        public string EndDate { get; init; }
+        public DateTime EndDate { get; init; }
 
         [Required]
         public string Status { get; set; }

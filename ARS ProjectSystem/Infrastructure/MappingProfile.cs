@@ -1,10 +1,12 @@
 ﻿namespace ARS_ProjectSystem.Infrastructure
 {
     using ARS_ProjectSystem.Data.Models;
+    using ARS_ProjectSystem.Models.Contracts;
     using ARS_ProjectSystem.Models.Home;
     using ARS_ProjectSystem.Models.Invoices;
     using ARS_ProjectSystem.Models.Projects;
     using ARS_ProjectSystem.Models.Proposals;
+    using ARS_ProjectSystem.Services.Contracts;
     using ARS_ProjectSystem.Services.Invoices;
     using ARS_ProjectSystem.Services.Projects;
     using ARS_ProjectSystem.Services.Proposals;
@@ -25,6 +27,7 @@
 
             this.CreateMap<ProposalServiceModel, ProposalFormModel>();
             this.CreateMap<InvoiceServiceModel, InvoiceFormModel>();
+            this.CreateMap<ContractServiceModel, ContractFormModel>();
         }
     }
 }

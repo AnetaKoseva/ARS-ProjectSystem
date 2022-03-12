@@ -1,0 +1,657 @@
+﻿@model ContractServiceModel
+@{
+    ViewBag.Title = "Details  Contract";
+}
+<div id="contract" class="section-bg" style='margin-right:0in;margin-left:0in;font-family:" Times New Roman",serif;font-weight:bold;'>
+    <p align="center">
+        <strong>Consultancy agreement</strong>
+    </p>
+    <p>
+        <strong>DATE</strong>
+    </p>
+    <p>
+        <em>@Model.CreatedOn.ToLongDateString()</em>
+    </p>
+    <p>
+        <strong></strong>
+    </p>
+    <p>
+        <strong>PARTIES</strong>
+    </p>
+    <p>
+        1. <strong>ARS LIMITED (ARS)</strong>, a company incorporated in Stara
+        Zagora, Bulgaria (registration number <em>203300624</em>) having its
+        registered office at 121 P. Evtimii str, 6000 Stara Zagora, Bulgaria (the "    <strong>Consultant</strong>"); and
+    </p>
+    <p>
+        2. <strong>@Model.Customer.Name</strong>, a company incorporated in Country @Model.Customer.Country
+        (registration number<em> </em><em>@Model.Customer.RegistrationNumber</em>, VAT @Model.Customer.VAT) having its registered
+        office at ,@Model.Customer.Town, @Model.Customer.Address . (the "<strong>Client</strong>").
+    </p>
+    <p>
+        <strong></strong>
+    </p>
+    <p>
+        <strong>AGREEMENT</strong>
+    </p>
+    <p>
+        <strong>1. Definitions</strong>
+    </p>
+    <p>
+        1.1 Except to the extent expressly provided otherwise, in this Agreement:
+    </p>
+    <p>
+        "<strong>Agreement</strong>" means this agreement including any Schedules,
+        and any amendments to this Agreement from time to time;
+    </p>
+    <p>
+        "<strong>Charges</strong>" means the following amounts:
+    </p>
+    <p>
+        (a) the amounts specified in Part 5 of Schedule 1 (Consultancy
+        Particulars);
+    </p>
+    <p>
+        (b) such amounts as may be agreed in writing by the parties from time to
+        time
+    </p>
+    <p>
+        "<strong>Client Materials</strong>" means all works and materials supplied
+        by or on behalf of the Client to the Consultant for modification and
+        incorporation into the Deliverables or for some other use only in
+        connection with the Services;
+    </p>
+    <p>
+        "<strong>Deliverables</strong>" means those <em>deliverables</em> specified
+        in Part 2 of Schedule 1 (Consultancy Particulars) that the Consultant has
+        agreed to deliver to the Client under this Agreement;
+    </p>
+    <p>
+        "<strong>Effective Date</strong>" means the date the last party signs the
+        agreement;
+    </p>
+    <p>
+        "<strong>Intellectual Property Rights</strong>" or "IPR" means all
+        intellectual property rights wherever in the world, whether registrable or
+        unregistrable, registered or unregistered, including any application or
+        right of application for such rights (and these "intellectual property
+        rights" include copyright and related rights, database rights, confidential
+        information, trade secrets, know-how, business names, trade names, trade
+        marks, service marks, passing off rights, unfair competition rights,
+        patents, petty patents, utility models, semi-conductor topography rights
+        and rights in designs);
+    </p>
+    <p>
+        "<strong>Schedule</strong>" means any schedule attached to main body of
+        this Agreement;
+    </p>
+
+    <p>
+        "<strong>Services</strong>" means the consultancy services specified in
+        Part 1 of Schedule 1 (Consultancy Particulars);
+    </p>
+    <p>
+        "<strong>Term</strong>" means the term of this Agreement, commencing in
+        accordance with Clause 3.1 and ending in accordance with Clause 3.2; and
+    </p>
+    <p class="html2pdf__page-break">
+        <strong>2. Term</strong>
+    </p>
+    <p>
+        2.1 This Agreement shall come into force upon the Effective Date.
+    </p>
+    <p>
+        2.2 This Agreement shall continue in force until @Model.DueDate,
+        subject to termination in accordance with Clause 9.
+    </p>
+    <p>
+        <strong>3. Services</strong>
+    </p>
+    <p>
+        3.1 The Consultant shall provide the Services to the Client in accordance
+        with this Agreement.
+    </p>
+    <p>
+        3.2 The Consultant shall provide the Services in accordance with the
+        standards of skill and care reasonably expected from a leading service
+        provider in the Consultant's industry.
+    </p>
+    <p>
+        <strong>4. Deliverables</strong>
+    </p>
+    <p>
+        4.1 The Consultant shall deliver the Deliverables to the Client.
+    </p>
+    <p>
+        4.2 The Client must promptly, following receipt of a written request from
+        the Consultant to do so, provide written feedback to the Consultant
+        concerning the Consultant's proposals, plans, designs and/or preparatory
+        materials relating to the Deliverables and made available to the Client
+        with that written request.
+    </p>
+    <p>
+        4.3 The Consultant shall use its best endeavors to ensure that the
+        Deliverables are delivered to the Client in accordance with the timetable
+        set out in Part 3 of Schedule 1 (Consultancy Particulars).
+    </p>
+    <p>
+        4.4 The Consultant warrants to the Client that:
+    </p>
+    <p>
+        (a) the Deliverables will conform with the requirements of Part 2 of
+        Schedule 1 (Consultancy Particulars) as at the date of delivery of the
+        Deliverables;
+    </p>
+    <p>
+        (b) the use of the Deliverables by the Client in accordance with this
+        Agreement will not:
+    </p>
+    <p>
+        (i) breach the provisions of any law, statute or regulation;
+    </p>
+    <p>
+        (ii) infringe any third party's Intellectual Property Rights; or
+    </p>
+    <p>
+        (iii) give rise to any cause of action against the Client,
+    </p>
+    <p>
+        in each case.
+    </p>
+    <p>
+        <strong>5. Charges</strong>
+    </p>
+    <p>
+        5.1 The Client shall pay the Charges to the Consultant in accordance with
+        this Agreement.
+    </p>
+    <p>
+        5.2 All amounts stated in or in relation to this Agreement are, unless the
+        context requires otherwise, stated inclusive of any applicable value added
+        taxes
+    </p>
+    <p>
+        <strong>6. Payments</strong>
+    </p>
+    <p>
+        6.1 The Consultant shall issue invoices for the Charges to the Client on or
+        after the invoicing dates set out in Part 5 of Schedule 1 (Consultancy
+        Particulars).
+    </p>
+    <p>
+        6.2 The Client must pay the Charges to the Consultant within the period of
+        15 days following the receipt of an invoice issued in accordance with this
+        Clause.
+    </p>
+    <p>
+        6.3 The Client must pay the Charges by debit card, credit card, direct
+        debit, bank transfer or cheque (using such payment details as are notified
+        in the invoice issued by the Consultant to the Client).
+    </p>
+    <p>
+        6.4 If the Client does not pay any amount properly due to the Consultant
+        under this Agreement, the Consultant may:
+    </p>
+    <p>
+        (a) charge the Client interest on the overdue amount at the rate of 8% per
+        annum above the Bank of England base rate (which interest will accrue daily
+        until the date of actual payment and be compounded at the end of each
+        calendar month); or
+    </p>
+    <p>
+        (b) claim interest and statutory compensation from the Client pursuant to
+        the Late Payment of Commercial Debts (Interest) Act 1998.
+    </p>
+    <p>
+        <strong>7. Warranties</strong>
+    </p>
+    <p>
+        7.1 The Consultant warrants to the Client that:
+    </p>
+    <p>
+        (a) the Consultant has the legal right and authority to enter into this
+        Agreement and to perform its obligations under this Agreement;
+    </p>
+    <p>
+        (b) the Consultant will comply with all applicable legal and regulatory
+        requirements applying to the exercise of the Consultant's rights and the
+        fulfilment of the Consultant's obligations under this Agreement; and
+    </p>
+    <p>
+        (c) the Consultant has or has access to all necessary know-how, expertise
+        and experience to perform its obligations under this Agreement.
+    </p>
+    <p>
+        7.2 The Client warrants to the Consultant that it has the legal right and
+        authority to enter into this Agreement and to perform its obligations under
+        this Agreement.
+    </p>
+    <p>
+        7.3 All of the parties' warranties and representations in respect of the
+        subject matter of this Agreement are expressly set out in this Agreement.
+        To the maximum extent permitted by applicable law, no other warranties or
+        representations concerning the subject matter of this Agreement will be
+        implied into this Agreement or any related contract.
+    </p>
+    <p>
+        <strong>8. Limitations and exclusions of liability</strong>
+    </p>
+    <p>
+        8.1 Nothing in this Agreement will:
+    </p>
+    <p>
+        (a) limit or exclude any liability for death or personal injury resulting
+        from negligence;
+    </p>
+    <p>
+        (b) limit or exclude any liability for fraud or fraudulent
+        misrepresentation;
+    </p>
+    <p>
+        (c) limit any liabilities in any way that is not permitted under applicable
+        law; or
+    </p>
+    <p>
+        (d) exclude any liabilities that may not be excluded under applicable law.
+    </p>
+    <p>
+        8.2 The limitations and exclusions of liability set out in this Clause 8
+        and elsewhere in this Agreement:
+    </p>
+    <p>
+        (a) are subject to Clause 8.1; and
+    </p>
+    <p>
+        (b) govern all liabilities arising under this Agreement or relating to the
+        subject matter of this Agreement, including liabilities arising in
+        contract, in tort (including negligence) and for breach of statutory duty,
+        except to the extent expressly provided otherwise in this Agreement.
+    </p>
+    <p>
+        8.3 Neither party shall be liable to the other party in respect of any loss
+        of profits or anticipated savings.
+    </p>
+    <p>
+        8.4 Neither party shall be liable to the other party in respect of any loss
+        of revenue or income.
+    </p>
+    <p>
+        8.5 Neither party shall be liable to the other party in respect of any loss
+        of use or production.
+    </p>
+    <p>
+        8.6 Neither party shall be liable to the other party in respect of any loss
+        of business, contracts or opportunities.
+    </p>
+    <p>
+        8.7 Neither party shall be liable to the other party in respect of any loss
+        or corruption of any data, database or software.
+    </p>
+    <p>
+        8.8 Neither party shall be liable to the other party in respect of any
+        special, indirect or consequential loss or damage.
+    </p>
+    <p>
+        <strong>9. Termination</strong>
+    </p>
+    <p>
+        9.1 The Client may terminate this Agreement by giving to the other party at
+        least 30 days' written notice of termination.
+    </p>
+    <p>
+        9.2 Either party may terminate this Agreement immediately by giving written
+        notice of termination to the other party if the other party commits a
+        material breach of this Agreement.
+    </p>
+    <p>
+        9.3 Either party may terminate this Agreement immediately by giving written
+        notice of termination to the other party if:
+    </p>
+    <p>
+        (a) the other party:
+    </p>
+    <p>
+        (i) is dissolved;
+    </p>
+    <p>
+        (ii) ceases to conduct all (or substantially all) of its business;
+    </p>
+    <p>
+        (iii) is or becomes unable to pay its debts as they fall due;
+    </p>
+    <p>
+        (iv) is or becomes insolvent or is declared insolvent; or
+    </p>
+    <p>
+        (v) convenes a meeting or makes or proposes to make any arrangement or
+        composition with its creditors;
+    </p>
+    <p>
+        (b) an administrator, administrative receiver, liquidator, receiver,
+        trustee, manager or similar is appointed over any of the assets of the
+        other party;
+    </p>
+    <p>
+        (c) an order is made for the winding up of the other party, or the other
+        party passes a resolution for its winding up (other than for the purpose of
+        a solvent company reorganisation where the resulting entity will assume all
+        the obligations of the other party under this Agreement).
+    </p>
+    <p>
+        <strong>10. Effects of termination</strong>
+    </p>
+    <p>
+        10.1 Upon the termination of this Agreement, all of the provisions of this
+        Agreement shall cease to have effect, save that the following provisions of
+        this Agreement shall survive and continue to have effect (in accordance
+        with their express terms or otherwise indefinitely): Clauses 1, 5, 6.2,
+        6.4, 8, 10, 11.2 and 13.
+    </p>
+    <p>
+        10.2 The termination of this Agreement shall not affect the accrued rights
+        of either party.
+    </p>
+    <p>
+        <strong>11. Status of Consultant</strong>
+    </p>
+    <p>
+        11.1 The Consultant is not an employee of the Client, but an independent
+        contractor.
+    </p>
+    <p>
+        11.2 The termination of this Agreement will not constitute unfair
+        dismissal; nor will the Consultant be entitled to any compensation
+        payments, redundancy payments or similar payments upon the termination of
+        this Agreement.
+    </p>
+    <p>
+        <strong>12. Subcontracting</strong>
+    </p>
+    <p>
+        12.1 The Consultant must not subcontract any of its obligations under this
+        Agreement without the prior written consent of the Client, providing that
+        the Client must not unreasonably withhold or delay the giving of such
+        consent.
+    </p>
+    <p>
+        <strong>13. General</strong>
+    </p>
+    <p>
+        13.1 No breach of any provision of this Agreement shall be waived except
+        with the express written consent of the party not in breach.
+    </p>
+    <p>
+        13.2 If any provision of this Agreement is determined by any court or other
+        competent authority to be unlawful and/or unenforceable, the other
+        provisions of this Agreement will continue in effect. If any unlawful
+        and/or unenforceable provision would be lawful or enforceable if part of it
+        were deleted, that part will be deemed to be deleted, and the rest of the
+        provision will continue in effect (unless that would contradict the clear
+        intention of the parties, in which case the entirety of the relevant
+        provision will be deemed to be deleted).
+    </p>
+    <p>
+        13.3 This Agreement may not be varied except by a written document signed
+        by or on behalf of each of the parties.
+    </p>
+    <p>
+        13.4 Neither party may without the prior written consent of the other party
+        assign, transfer, charge, license or otherwise deal in or dispose of any
+        contractual rights or obligations under this Agreement.
+    </p>
+    <p>
+        13.5 This Agreement is made for the benefit of the parties, and is not
+        intended to benefit any third party or be enforceable by any third party.
+        The rights of the parties to terminate, rescind, or agree any amendment,
+        waiver, variation or settlement under or relating to this Agreement are not
+        subject to the consent of any third party.
+    </p>
+    <p>
+        13.6 Subject to Clause 8.1, this Agreement shall constitute the entire
+        agreement between the parties in relation to the subject matter of this
+        Agreement, and shall supersede all previous agreements, arrangements and
+        understandings between the parties in respect of that subject matter.
+    </p>
+    <p>
+        13.7 This Agreement shall be governed by and construed in accordance with
+        Belgium law.
+    </p>
+    <p>
+        13.8 The courts of Belgium shall have exclusive jurisdiction to adjudicate
+        any dispute arising under or in connection with this Agreement.
+    </p>
+    <p>
+        <strong>EXECUTION</strong>
+    </p>
+    <p>
+        The parties have indicated their acceptance of this Agreement by executing
+        it below.
+    </p>
+    <p>
+        SIGNED BY ANETA KOSEVA on @Model.CreatedOn, the Consultant:
+    </p>
+    <p>
+        ........................................
+    </p>
+    <p>
+        SIGNED BY [<em>[individual name]</em> on [date], the Client:
+    </p>
+    <p>
+        ........................................
+        <br clear="all" />
+    </p>
+    <p align="center">
+        <strong>SCHEDULE 1 (CONSULTANCY PARTICULARS)</strong>
+    </p>
+    <p>
+        <strong>1. </strong>
+        <strong>Specification of Services</strong>
+    </p>
+    <p>
+        The Consultant shall provide bid-writing and support in project
+        development, submission and administration services to the Client in
+        relation to the European Commission’s Horizon Europe funding scheme and in
+        particular the EIC ACCELERATOR. The consultant shall:
+    </p>
+    <p>
+        <strong>1.1. </strong>
+        <strong>Scope of service Step 1 application </strong>
+    </p>
+    <p>
+        &diams; Provide the client with a checklist of all information and data collector
+        necessary for Step 1 project development
+    </p>
+    <p>
+        &diams; Produce and send to the client an action plan with timetable for Step 1
+        project submission
+    </p>
+    <p>
+        Review technological and business aspects of the Step 1 proposal and
+        draft business/market input where necessary
+    </p>
+    <p>
+        &diams; Identify weak points of the previously submitted versions, if any, and
+        suggest improvements
+    </p>
+    <p>
+        &diams; Support the adjustment of the Step 1 project budget to meet the Programme
+        requirements
+    </p>
+    <p>
+        &diams; Liaise with 3<sup>rd</sup> parties (additional experts), if any,
+        reviewing the Step 1 proposal and incorporate any suggested modifications
+        immediately after discussion with the client
+    </p>
+    <p>
+        &diams; Liaise with 3<sup>rd</sup> parties (additional experts), if any, creating
+        Step 1 video content
+    </p>
+    <p>
+        &diams; Review and improve the final draft of the Step 1 proposal prior to
+        submission
+    </p>
+    <p>
+        &diams; Respond timely and adequately all enquiries and requests related to the
+        Step 1 project proposal
+    </p>
+    <p>
+        &diams; Perform all consultancy duties in due diligence without an unreasonable
+        delay and refrain from causing directly or indirectly any actual or
+        potential damage to the client;
+    </p>
+    <p>
+        <strong>1.2. </strong>
+        <strong>Scope of service Step 2 application </strong>
+    </p>
+    <p>
+        Should Step 1 application is successfully evaluated, the Consultant will:
+    </p>
+    <p>
+        &diams; Provide the client with a checklist of all information and data
+        collectors necessary for Step 2 project development
+    </p>
+    <p>
+        &diams; Produce and send to the client an action plan with timetable for the Step
+        2 project submission
+    </p>
+    <p>
+        &diams; Review technological and business aspects of the Step 2 proposal and
+        draft business/market input where necessary
+    </p>
+    <p>
+        &diams; Identify weak points of the previously submitted versions, if any, and
+        suggest improvements
+    </p>
+    <p>
+        &diams; Support the adjustment of the Step 2 project budget to meet the Programme
+        requirements
+    </p>
+    <p>
+        &diams; Liaise with 3<sup>rd</sup> parties (additional experts), if any,
+        reviewing the Step 2 proposal and incorporate any suggested modifications
+        immediately after discussion with the client
+    </p>
+    <p>
+        &diams; Liaise with 3<sup>rd</sup> parties (additional experts), if any, creating
+        Step 2 financial projections and incorporate any suggested modifications
+        immediately after discussion with the client
+    </p>
+    <p>
+        &diams; Review and improve the final draft of the Step 2 proposal prior to
+        submission
+    </p>
+    <p>
+        &diams; Respond timely and adequately all enquiries and requests related to the
+        Step 2 project proposal
+    </p>
+    <p>
+        &diams; Perform all consultancy duties in due diligence without an unreasonable
+        delay and refrain from causing directly or indirectly any actual or
+        potential damage to the client;
+    </p>
+    <p>
+        &diams; Should the first project submission is unsuccessful, the Consultant will
+        support project revision and re-submission for any following deadline date
+        of any other similar funding scheme    <strong>at no extra upfront cost</strong> (success fee applies)
+    </p>
+    <p>
+        <strong>Scope of service – Interview </strong>
+    </p>
+    <p>
+        &diams; Support the Client in drafting interview pitch
+    </p>
+    <p>
+        &diams; Provide the Client with a list of questions that panellists often ask
+    </p>
+    <p>
+        &diams; Organise 3 rehearsals and provide feedback for improvement
+    </p>
+    <p>
+        &diams; Organise 1 rehearsal with an EIC panellist
+    </p>
+    <p>
+        <strong>Should the project is funded:</strong>
+    </p>
+    <p>
+        &diams; Pro-actively support the Client during the initial correspondence with
+        the European Commission prior to the signature of the Grant Agreement
+    </p>
+    <p>
+        &diams; Provide administrative support in the first 3 months of the project
+        implementation
+    </p>
+    <p>
+        &diams; Accept to act as a project administrative office throughout project
+        implementation, subject to an additional agreement, if needed
+    </p>
+    <p>
+        <strong>2. Specification of Deliverables</strong>
+    </p>
+    <p>
+        &diams; Project development action plan
+    </p>
+    <p>
+        &diams; Step 1 proposal
+    </p>
+    <p>
+        &diams; Step 2 proposal
+    </p>
+    <p>
+        &diams; Draft pitch text
+    </p>
+    <p>
+        <strong>3. Client Materials</strong>
+    </p>
+    <p>
+        The client materials shall be all materials given to the Consultant for the
+        purpose of high-quality and on-time delivery of the service. The Client
+        shall
+    </p>
+    <p>
+        &diams; Assure timely and adequate responses to requests for information and/or
+        documentation
+    </p>
+    <p>
+        &diams; Provide information to data in whatsoever available datasets on the
+        innovation product/service
+    </p>
+    <p>
+        &diams; Do not refrain from sharing any information that is vital to the project
+        proposal, subject to a Non-disclosure agreement which is to be agreed and
+        signed between the parties
+    </p>
+    <p>
+        <strong>4. Financial provisions</strong>
+    </p>
+    <p>
+        The following payment conditions apply:
+    </p>
+    <p>
+        &diams; The Client shall make an advance payment to the Consultant in the amount
+        of <strong>BGN @Model.AdvancePrice within 5 calendar days</strong>, subject to receipt of
+        a valid invoice from the Consultant, after the commencement of the service
+    </p>
+    <p>
+        &diams; The Client shall make a second payment to the Consultant in the amount of BGN <strong>@Model.Price within 5 calendar days</strong> after successful result
+        of the Step 1 project.
+    </p>
+    <p>
+        &diams; The Client shall make a final payment to the Consultant in the amount of    <strong>BGN</strong> <strong>3,000 within 5 calendar days</strong>, subject
+        to receipt of a valid invoice from the Consultant, after submission and
+        e-signature of the Step 2 project proposal.
+    </p>
+    <p>
+        <strong>Should the proposal is successfully evaluated:</strong>
+    </p>
+    <p>
+        &diams; Upon a positive evaluation of the overall project, the Client shall pay
+        the Consultant a success fee of    <strong>3 % of the total 70% EU contribution</strong>, subject to receipt
+        of a valid invoice from the Consultant
+    </p>
+    <p>
+        &diams; For avoidance of doubt, the invoice will be issued by the Consultant
+        within    <strong>15 days following a successful pre-financing transfer</strong> from
+        the EC confirmed with an official letter and shall be paid within 15 days
+        of receipt by the Client
+    </p>
+</div>

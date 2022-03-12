@@ -65,7 +65,6 @@
             {
                 Name="SysAgria",
                 Budget=2000000,
-                CreatedOn= "01012020",
                 CustomerRegistrationNumber = "99999999",
                 UrlPhoto= "https://www.sysagria.ro/static/media/left_part.a43a83c2.png"
             });

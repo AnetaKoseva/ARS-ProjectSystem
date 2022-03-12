@@ -1,5 +1,6 @@
 ﻿namespace ARS_ProjectSystem.Services.Projects
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using System.Diagnostics.CodeAnalysis;
     using static Data.DataConstants.Project;
@@ -21,9 +22,9 @@
 
         public string ProposalName { get; init; }
 
-        public string StartDate { get; init; }
+        public DateTime StartDate { get; init; }
 
-        public string EndDate { get; init; }
+        public DateTime EndDate { get; init; }
 
         public string Status { get; init; }
 

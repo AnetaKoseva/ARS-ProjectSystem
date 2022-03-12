@@ -45,6 +45,7 @@
         public ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
 
         public ICollection<Employee> Employees { get; set; } = new List<Employee>();
-        
+
+        public ICollection<Contract> Contracts { get; set; } = new List<Contract>();
     }
 }

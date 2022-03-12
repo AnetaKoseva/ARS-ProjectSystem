@@ -1,5 +1,6 @@
 ﻿namespace ARS_ProjectSystem.Data.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using System.Diagnostics.CodeAnalysis;
     using static DataConstants.Invoice;
@@ -12,9 +13,9 @@
         [MaxLength(InvoiceLength)]
         public string Number { get; set; }
 
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
-        public string DueDate { get; set; }
+        public DateTime DueDate { get; set; }
 
         public string Item { get; set; }
 

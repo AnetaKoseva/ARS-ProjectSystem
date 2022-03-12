@@ -21,7 +21,7 @@
 
             data.SaveChanges();
 
-            var invoiceService = new InvoiceService(data,mapper);
+            var invoiceService = new InvoiceService(data);
             var result = invoiceService.All();
             var count = result.Count();
             var programmName = result.Select(p => p.CustomerVAT).ToList();
@@ -47,7 +47,7 @@
 
             data.SaveChanges();
 
-            var invoiceService = new InvoiceService(data, mapper);
+            var invoiceService = new InvoiceService(data);
             var result = invoiceService.AllCustomerInvoices("9999999");
 
             Assert.NotNull(result);

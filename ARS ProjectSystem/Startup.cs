@@ -7,6 +7,7 @@ namespace ARS_ProjectSystem
     using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Infrastructure;
     using ARS_ProjectSystem.Models;
+    using ARS_ProjectSystem.Services.Contracts;
     using ARS_ProjectSystem.Services.Customers;
     using ARS_ProjectSystem.Services.Employees;
     using ARS_ProjectSystem.Services.Invoices;
@@ -51,7 +52,7 @@ namespace ARS_ProjectSystem
                 .AddDefaultIdentity<User>(options => 
                 {
                     options.User.RequireUniqueEmail = true;
-                    options.SignIn.RequireConfirmedAccount = true;
+                    //options.SignIn.RequireConfirmedAccount = true;
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
@@ -97,7 +98,10 @@ namespace ARS_ProjectSystem
                 .AddTransient<IProgrammService, ProgrammService>();
 
             services
-               .AddTransient<IInvoiceService, InvoiceService>();
+                .AddTransient<IInvoiceService, InvoiceService>();
+
+            services
+                .AddTransient<IContractService, ContractService>();
 
             services
                 .AddTransient<IEmailSender, EmailSender>();

@@ -1,5 +1,6 @@
 ﻿namespace ARS_ProjectSystem.Models.Invoices
 {
+    using System;
     using System.Diagnostics.CodeAnalysis;
 
     [ExcludeFromCodeCoverage]
@@ -9,9 +10,9 @@
 
         public string Number { get; set; }
 
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
-        public string DueDate { get; set; }
+        public DateTime DueDate { get; set; }
 
         public string CustomerName { get; set; }
 

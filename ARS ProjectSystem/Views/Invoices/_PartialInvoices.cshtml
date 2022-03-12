@@ -26,14 +26,16 @@
                 <td>@invoice.Item</td>
                 <td>@invoice.Quantity</td>
                 <td>@invoice.Total</td>
-                @if (User.Identity.IsAuthenticated && User.IsAdmin())
-                {
-                    <td>
-
+                
+                <td>
+                    <a asp-controller="Invoices" asp-action="Details" asp-route-id="@invoice.Id" class="btn btn-light btn-sm">Details</a>
+                    @if (User.Identity.IsAuthenticated && User.IsAdmin())
+                    {
                         <a asp-controller="Invoices" asp-action="Edit" asp-route-id="@invoice.Id" class="btn btn-light btn-sm">Edit</a>
                         <a asp-controller="Invoices" asp-action="Delete" asp-route-id="@invoice.Id" class="btn btn-light btn-sm">Delete</a>
-                    </td>
-                }
+                    }
+                </td>
+                
 
             </tr>
             }

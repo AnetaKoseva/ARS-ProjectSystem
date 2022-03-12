@@ -4,14 +4,16 @@ using ARS_ProjectSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ARS_ProjectSystem.Data.Migrations
 {
     [DbContext(typeof(ProjectSystemDbContext))]
-    partial class ProjectSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220310210528_AddContarctsCustomers")]
+    partial class AddContarctsCustomers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,41 +28,15 @@ namespace ARS_ProjectSystem.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("AdvancePrice")
-                        .HasColumnType("float");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CustomerAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerCountry")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerOwnerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerPhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("CustomerRegistrationNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CustomerTown")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerVAT")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
@@ -632,7 +608,9 @@ namespace ARS_ProjectSystem.Data.Migrations
                 {
                     b.HasOne("ARS_ProjectSystem.Data.Models.Customer", "Customer")
                         .WithMany("Contracts")
-                        .HasForeignKey("CustomerRegistrationNumber");
+                        .HasForeignKey("CustomerRegistrationNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Customer");
                 });

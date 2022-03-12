@@ -168,8 +168,6 @@
                 CustomerRegistrationNumber = "99999999",
                 ProjectPhoto = "https://imagga.com/static/images/content-moderation/dashboard.svg",
                 Status = "started",
-                StartDate = "14082021",
-                EndDate = "14082023",
                 ProjectRate = 2.5
             });
 
@@ -181,8 +179,6 @@
                 CustomerRegistrationNumber = "8888888",
                 ProjectPhoto = "https://imagga.com/static/images/content-moderation/dashboard.svg",
                 Status = "finished",
-                StartDate = "14082021",
-                EndDate = "14082023",
                 ProjectRate = 2.5
             });
 
@@ -216,8 +212,6 @@
                 CustomerRegistrationNumber = "99999999",
                 ProjectPhoto = "https://imagga.com/static/images/content-moderation/dashboard.svg",
                 Status = "started",
-                StartDate = "14082021",
-                EndDate = "14082023",
                 ProjectRate = 2.5
             });
 
@@ -229,8 +223,6 @@
                 CustomerRegistrationNumber = "8888888",
                 ProjectPhoto = "https://imagga.com/static/images/content-moderation/dashboard.svg",
                 Status = "finished",
-                StartDate = "14082021",
-                EndDate = "14082023",
                 ProjectRate = 2.5
             });
 
@@ -296,8 +288,6 @@
                  ProposalId=1,
                  ProjectPhoto="https://imagga.com/static/images/content-moderation/dashboard.svg",
                  Status="started",
-                 StartDate="10082020",
-                 EndDate="10082022",
                  ProjectRate=3,
                  ProgrammId=1,
                  CustomerRegistrationNumber="999999"
@@ -324,8 +314,6 @@
                 CustomerRegistrationNumber = "99999999",
                 ProjectPhoto = "https://imagga.com/static/images/content-moderation/dashboard.svg",
                 Status = "started",
-                StartDate = "14082021",
-                EndDate = "14082023",
                 ProjectRate = 2.5
             });
 
@@ -337,8 +325,6 @@
                  ProposalId=1,
                  ProjectPhoto="https://imagga.com/static/images/content-moderation/dashboard.svg",
                  Status="started",
-                 StartDate="14082021",
-                  EndDate="14082023",
                   ProjectRate=2.5,
                   CustomerRegistrationNumber="88888888"
             };

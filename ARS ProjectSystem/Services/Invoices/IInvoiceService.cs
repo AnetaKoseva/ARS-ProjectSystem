@@ -10,14 +10,19 @@
 
          IEnumerable<InvoiceServiceModel> AllCustomerInvoices(string id);
 
-         InvoiceServiceModel Details(int id);
+        InvoiceFormModel Details(int id);
 
          InvoiceFormModel Add(int id);
 
-        int Create(InvoiceFormModel invoice,Customer customer);
+        int Create(InvoiceFormModel invoice,string id);
 
-         bool Edit(InvoiceFormModel invoice);
+        int CreateContractInvoice(int id);
+
+        int CreateAdvanceInvoice(int id);
+
+        bool Edit(InvoiceFormModel invoice);
 
          int Delete(int id);
+
     }
 }

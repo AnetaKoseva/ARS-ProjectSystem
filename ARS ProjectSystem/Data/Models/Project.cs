@@ -1,5 +1,6 @@
 ﻿namespace ARS_ProjectSystem.Data.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -23,9 +24,9 @@
 
         public int ProgrammId { get; set; }
 
-        public string StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public string EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public string Status { get; set; }
 

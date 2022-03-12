@@ -12,11 +12,10 @@
     public class InvoiceService : IInvoiceService
     {
         private readonly ProjectSystemDbContext data;
-        private readonly IMapper mapper;
-        public InvoiceService(ProjectSystemDbContext data, IMapper mapper)
+
+        public InvoiceService(ProjectSystemDbContext data)
         {
             this.data = data;
-            this.mapper = mapper;
         }
         public IEnumerable<InvoiceServiceModel> All()
         => this.data
@@ -47,12 +46,30 @@
                     Total = i.Total
                 })
                 .ToList();
-        public InvoiceServiceModel Details(int id)
-      => this.data
-          .Invoices
-          .Where(p => p.Id == id)
-          .ProjectTo<InvoiceServiceModel>(this.mapper.ConfigurationProvider)
-          .FirstOrDefault();
+        public InvoiceFormModel Details(int id)
+        {
+            var invoice = this.data.Invoices.FirstOrDefault(i => i.Id == id);
+            var model = new InvoiceFormModel
+            {
+                Id = invoice.Id,
+                Number = invoice.Number,
+                Item = invoice.Item,
+                CreatedOn = invoice.CreatedOn,
+                DueDate = invoice.DueDate,
+                CustomerRegistrationNumber = invoice.CustomerRegistrationNumber,
+                CustomerVAT = invoice.CustomerVAT,
+                CustomerAddress = invoice.CustomerAddress,
+                CustomerOwner = invoice.CustomerOwnerName,
+                Quantity = invoice.Quantity,
+                CustomerName = invoice.CustomerName,
+                Country = invoice.CustomerCountry,
+                Town = invoice.CustomerTown,
+                Price = invoice.Price,
+                Total = invoice.Total
+            };
+
+            return model;
+        }
 
 
         public bool Edit(InvoiceFormModel invoice)
@@ -65,7 +82,7 @@
             invoiceData.Quantity = invoice.Quantity;
             invoiceData.CreatedOn = invoice.CreatedOn;
             invoiceData.DueDate = invoice.DueDate;
-            invoiceData.Total= invoice.Price * invoice.Quantity;
+            invoiceData.Total = invoice.Price * invoice.Quantity;
 
             this.data.SaveChanges();
 
@@ -86,16 +103,16 @@
             var invoice = this.data.Invoices.FirstOrDefault(i => i.Id == id);
             var numberId = id.ToString().Length;
             var nullCount = 9 - numberId;
-            string nullString =new string('0', nullCount);
-            string invoiceNumber = $"{nullString}"+$"{id}";
-            string result=numberId==10? id.ToString(): "1" + $"{invoiceNumber}";
+            string nullString = new string('0', nullCount);
+            string invoiceNumber = $"{nullString}" + $"{id}";
+            string result = numberId == 10 ? id.ToString() : "1" + $"{invoiceNumber}";
             invoice.Number = result;
             this.data.SaveChanges();
 
             var model = new InvoiceFormModel
             {
                 Id = invoice.Id,
-                Number =result,
+                Number = result,
                 Item = invoice.Item,
                 CreatedOn = invoice.CreatedOn,
                 DueDate = invoice.DueDate,
@@ -110,12 +127,14 @@
                 Price = invoice.Price,
                 Total = invoice.Total
             };
-            
+
             return model;
         }
 
-        public int Create(InvoiceFormModel invoice, Customer customer)
+        public int Create(InvoiceFormModel invoice, string id)
         {
+            var customer = this.data.Customers.FirstOrDefault(c => c.RegistrationNumber == id);
+
             var invoiceData = new Invoice
             {
                 CreatedOn = invoice.CreatedOn,
@@ -134,6 +153,58 @@
                 Total = invoice.Price * invoice.Quantity
             };
 
+
+            this.data.Invoices.Add(invoiceData);
+            this.data.SaveChanges();
+            return invoiceData.Id;
+        }
+
+        public int CreateAdvanceInvoice(int id)
+        {
+            var contract = this.data.Contracts.FirstOrDefault(c => c.Id == id);
+
+            var invoiceData = new Invoice
+            {
+                CreatedOn = contract.CreatedOn,
+                CustomerRegistrationNumber = contract.CustomerRegistrationNumber,
+                CustomerVAT = contract.CustomerVAT,
+                CustomerAddress = contract.CustomerAddress,
+                CustomerCountry = contract.CustomerCountry,
+                CustomerName = contract.CustomerName,
+                CustomerTown = contract.CustomerTown,
+                CustomerOwnerName = contract.CustomerOwnerName,
+                DueDate = contract.DueDate,
+                Item = contract.Product,
+                Quantity = 1,
+                Price = contract.AdvancePrice,
+                Total = contract.AdvancePrice
+            };
+
+            this.data.Invoices.Add(invoiceData);
+            this.data.SaveChanges();
+            return invoiceData.Id;
+        }
+
+        public int CreateContractInvoice(int id)
+        {
+            var contract = this.data.Contracts.FirstOrDefault(c => c.Id == id);
+
+            var invoiceData = new Invoice
+            {
+                CreatedOn = contract.CreatedOn,
+                CustomerRegistrationNumber = contract.CustomerRegistrationNumber,
+                CustomerVAT = contract.CustomerVAT,
+                CustomerAddress = contract.CustomerAddress,
+                CustomerCountry = contract.CustomerCountry,
+                CustomerName = contract.CustomerName,
+                CustomerTown = contract.CustomerTown,
+                CustomerOwnerName = contract.CustomerOwnerName,
+                DueDate = contract.DueDate,
+                Item = contract.Product,
+                Quantity = 1,
+                Price = contract.Price,
+                Total = contract.Price
+            };
 
             this.data.Invoices.Add(invoiceData);
             this.data.SaveChanges();

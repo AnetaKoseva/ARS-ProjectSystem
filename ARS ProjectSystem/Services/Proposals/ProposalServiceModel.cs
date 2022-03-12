@@ -1,5 +1,6 @@
 ﻿namespace ARS_ProjectSystem.Services.Proposals
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using System.Diagnostics.CodeAnalysis;
 
@@ -14,7 +15,7 @@
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string Name { get; set; }
 
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         [Url]
         [Required]

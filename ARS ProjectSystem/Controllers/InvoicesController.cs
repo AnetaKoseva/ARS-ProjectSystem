@@ -8,19 +8,16 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
-
-    using System.Linq;
-
     using static WebConstants;
     public class InvoicesController : Controller
     {
-        private readonly ProjectSystemDbContext data;
         private readonly IInvoiceService invoices;
         private readonly IMapper mapper;
         private readonly IWebHostEnvironment environment;
-        public InvoicesController(ProjectSystemDbContext data, IInvoiceService invoices, IMapper mapper, IWebHostEnvironment environment)
+        public InvoicesController(IInvoiceService invoices,
+            IMapper mapper, 
+            IWebHostEnvironment environment)
         {
-            this.data = data;
             this.invoices = invoices;
             this.mapper = mapper;
             this.environment = environment;
@@ -41,6 +38,13 @@
             return View(invoiceData);
         }
 
+        public IActionResult Details(int id)
+        {
+            var invoiceData = this.invoices.Details(id);
+
+            return View(invoiceData);
+        }
+
         [Authorize]
         public IActionResult CreateInvoice() => View();
 
@@ -49,18 +53,33 @@
         [ValidateAntiForgeryToken]
         public IActionResult CreateInvoice(InvoiceFormModel invoice,string id)
         {
-            var userId = this.User.GetId();
-            var userNumber = this.data.Users.Where(x => x.Number == id);
-            
-            var customer = this.data.Customers.FirstOrDefault(c => c.RegistrationNumber == id);
-            
-                if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View();
             }
-            var invoiceid = this.invoices.Create(invoice,customer);
+            var invoiceid = this.invoices.Create(invoice,id);
 
             return RedirectToAction("Add", "Invoices",new {id=invoiceid }, $"{this.environment.WebRootPath}/images");
+        }
+        public IActionResult CreateContractInvoice( int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var invoiceid = this.invoices.CreateContractInvoice(id);
+
+            return RedirectToAction("Add", "Invoices", new { id = invoiceid }, $"{this.environment.WebRootPath}/images");
+        }
+        public IActionResult CreateAdvanceInvoice(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var invoiceid = this.invoices.CreateAdvanceInvoice(id);
+
+            return RedirectToAction("Add", "Invoices", new { id = invoiceid }, $"{this.environment.WebRootPath}/images");
         }
 
         [Authorize]

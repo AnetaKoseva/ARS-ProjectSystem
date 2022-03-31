@@ -1,5 +1,6 @@
 ﻿namespace ARS_ProjectSystem.Controllers
 {
+    using ARS_ProjectSystem.EmailSender;
     using ARS_ProjectSystem.Models.Home;
     using ARS_ProjectSystem.Services.Projects;
     using ARS_ProjectSystem.Services.Statistics;
@@ -11,12 +12,8 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Options;
     using Newtonsoft.Json;
-    using SendGrid;
-    using SendGrid.Helpers.Mail;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using static WebConstants;
@@ -24,6 +21,7 @@
     {
         private readonly IProjectService projects;
         private readonly IStatisticsService statistics;
+        private readonly IContactEmailSender emailSender;
         //private readonly IMemoryCache cache;
         private readonly IDistributedCache cacheService;
         //private readonly IConfiguration configuration;
@@ -32,6 +30,7 @@
             IProjectService projects, 
             //IMemoryCache memoryCache
             IDistributedCache cacheService,
+            IContactEmailSender emailSender,
             IOptions<AuthMessageSenderOptions> optionsAccessor
             )
         {
@@ -40,6 +39,7 @@
             //this.cache = memoryCache;
             this.cacheService = cacheService;
             Options = optionsAccessor.Value;
+            this.emailSender = emailSender;
         }
 
         public AuthMessageSenderOptions Options { get; } //Set with Secret Manager.
@@ -93,86 +93,58 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Contact(ContactForm contact)
+        public  IActionResult Contact(ContactForm contact)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
-
-            var client = new SendGridClient(Options.ApiKey);
-
-            var from = new EmailAddress(SentToEmail,"Contact Form");
-            var subject = $"Sending from Contact Page";
-            var to = new EmailAddress(SentToEmail);
-            var html = new StringBuilder();
-            html.AppendLine($"<h1>{contact.Subject}<h1>");
-            html.AppendLine($"<h3>{contact.Name} with email {contact.Email} whants to send you a message from contact page:<h3>");
-            html.AppendLine($"<h3>{contact.Message}<h3>");
-            var htmlContent = html.ToString();
-            var plainTextContent = $"<h1>{contact.Name} sends you a Message:<h1>";
             
-            var msg = MailHelper.CreateSingleEmail(from, to, subject,plainTextContent, htmlContent);
-
-            await client.SendEmailAsync(msg);
+            emailSender.SendEmail(contact, Options.ApiKey);
             
-
             TempData[GlobalMessageKey] = $"Message is sended succesfully!";
 
             return RedirectToAction("Index", "Home");
         }
 
-
         [Authorize(Roles ="Administrator")]
         public  IActionResult Charts()
         {
-                return View();
+            return View();
         }
 
-        [Authorize]
        
         public IActionResult Service()
         {
             return View();
         }
+
         public IActionResult Team()
         {
             return View();
         }
+
         public IActionResult Testimonials()
         {
             return View();
         }
+
         public IActionResult Stepper()
         {
             return View();
         }
+
         public IActionResult Privacy()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult>SendToEmail(int id)
+        public IActionResult SendToEmail(int id)
         {
-            var client = new SendGridClient(Options.ApiKey);
+            emailSender.SendToEmail(id, Options.ApiKey);
 
-            var project = this.projects.AllProjects().FirstOrDefault(p => p.Id == id);
-
-            var from = new EmailAddress(SentToEmail);
-            var subject = $"Sending ProjectInformation {project.Name}";
-            var to = new EmailAddress(project.CustomerRegistrationNumber);
-            var html = new StringBuilder();
-            html.AppendLine($"<h1>{project.Name}<h1>");
-            html.AppendLine($"<h3>{project.ProjectPhoto}<h3>");
-
-            var plainTextContent = $"<h1>{project.Name}<h1>";
-            var htmlContent = html.ToString();
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-            
-            await client.SendEmailAsync(msg);
-            
-
+            TempData[GlobalMessageKey] = $"Project is sended succesfully!";
             return RedirectToAction("Index", "Home");
         }
     }

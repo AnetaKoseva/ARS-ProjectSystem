@@ -4,17 +4,58 @@
     using ARS_ProjectSystem.Models.Customers;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    
 
     using static WebConstants;
     using ARS_ProjectSystem.Infrastructure;
+    using Azure.Storage.Blobs;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class CustomersController:Controller
     {
         private readonly ICustomerService customers;
+        private readonly BlobServiceClient blobService;
 
-        public CustomersController(ICustomerService customers)
+        public CustomersController(ICustomerService customers,
+            BlobServiceClient blobService)
         {
             this.customers = customers;
+            this.blobService = blobService;
+        }
+
+        public IActionResult AllLogos()
+        {
+            var container = this.blobService.GetBlobContainerClient("logos");
+
+            var names = container.GetBlobs().Select(x => x.Name).ToList();
+            
+            this.ViewBag.Names = names;
+
+            return View();
+        }
+
+        public FileStreamResult GetImage(string name)
+        {
+            var container = this.blobService.GetBlobContainerClient("logos");
+
+            var blob = container.GetBlobClient(name);
+
+            var image = blob.Download();
+
+            return File(image.Value.Content, image.Value.ContentType);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadImage(FileInputModel fileModel)
+        {
+            var stream = fileModel.FormFile.OpenReadStream();
+            
+            var container = this.blobService.GetBlobContainerClient("logos");
+
+            await container.UploadBlobAsync("test", stream);
+
+            return Ok();
         }
 
         [Authorize]
@@ -40,8 +81,6 @@
 
                 return View(query);
             }
-
-            
         }
 
         [HttpPost]

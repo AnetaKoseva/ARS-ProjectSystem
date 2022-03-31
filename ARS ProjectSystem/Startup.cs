@@ -2,11 +2,10 @@ namespace ARS_ProjectSystem
 {
     using ARS_ProjectSystem.Areas.Identity.Pages.Account;
     using ARS_ProjectSystem.Controllers;
-    using ARS_ProjectSystem.Controllers.Sms;
+    using ARS_ProjectSystem.Sms;
     using ARS_ProjectSystem.Data;
     using ARS_ProjectSystem.Data.Models;
     using ARS_ProjectSystem.Infrastructure;
-    using ARS_ProjectSystem.Models;
     using ARS_ProjectSystem.Services.Contracts;
     using ARS_ProjectSystem.Services.Customers;
     using ARS_ProjectSystem.Services.Employees;
@@ -24,6 +23,9 @@ namespace ARS_ProjectSystem
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using ARS_ProjectSystem.EmailSender;
+    using ARS_ProjectSystem.Recaptcha;
+    using Azure.Storage.Blobs;
 
     public class Startup
     {
@@ -44,7 +46,10 @@ namespace ARS_ProjectSystem
             services.Configure<ReCAPTCHASettings>(Configuration.GetSection("GooglereCAPTCHA"));
 
             services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("SendGrid"));
+
             services.Configure<SMSoptions>(Configuration.GetSection("Twilio"));
+
+            services.AddSingleton(x => new BlobServiceClient(this.Configuration.GetValue<string>("StorageAzure")));
 
             services.AddTransient<GoogleRecaptchaService>();
             
@@ -104,9 +109,14 @@ namespace ARS_ProjectSystem
                 .AddTransient<IContractService, ContractService>();
 
             services
-                .AddTransient<IEmailSender, EmailSender>();
+                .AddTransient<IEmailSender, EmailsSender>();
 
-            services.AddTransient<ISmsSender, AuthMessageSender>();
+            services
+                .AddTransient<IContactEmailSender, ContactEmailSender>();
+
+            services
+                .AddTransient<ISmsSender, AuthMessageSender>();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

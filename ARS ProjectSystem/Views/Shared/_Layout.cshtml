@@ -42,8 +42,9 @@
                 <ul>
                     @if (!User.Identity.IsAuthenticated)
                     {
-                        <li><a href="/Home/Team" class="nav-link text-dark">Team</a></li>
+                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Team">Team</a></li>
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Service">Services</a></li>
+                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="AllLogos">Working With</a></li>
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Testimonials">Testimonials</a></li>
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
@@ -93,7 +94,6 @@
     <script src="~/vendor/jquery/jquery.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/vendor/jquery.easing/jquery.easing.min.js"></script>
-    <script src="~/vendor/php-email-form/validate.js"></script>
     <script src="~/vendor/waypoints/jquery.waypoints.min.js"></script>
     <script src="~/vendor/counterup/counterup.min.js"></script>
     <script src="~/vendor/owl.carousel/owl.carousel.min.js"></script>

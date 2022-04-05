@@ -4,12 +4,12 @@
 }
 <div class="container section-bg">
     <div class="container-fluid p-0 ">
-        <div class="row flex-1 match-to-row center">
+        <div class="row flex-1 match-to-row">
             @foreach (var name in this.ViewBag.Names)
             {
 
-                <div>
-                    <img style="margin: 20px 20px 20px " height="55" src="@Url.Action("GetImage","Customers",new{name=name})" />
+                <div class="mx-auto">
+                    <img style="margin: 20px 20px 20px " height="45" src="@Url.Action("GetImage","Customers",new{name=name})" />
                 </div>
 
             }

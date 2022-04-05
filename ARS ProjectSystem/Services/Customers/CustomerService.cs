@@ -90,6 +90,26 @@
             return customer.RegistrationNumber;
         }
 
+        public bool Edit(AddCustomerFormModel customer)
+        {
+            var customerData = this.data.Customers.Find(customer.RegistrationNumber);
+
+            customerData.Name = customer.Name;
+            customerData.RegistrationNumber = customerData.RegistrationNumber;
+            customerData.VAT = customerData.VAT;
+            customerData.OwnerName = customerData.OwnerName;
+            customerData.Country = customerData.Country;
+            customerData.Address = customerData.Address;
+            customerData.Url = customerData.Url;
+            customerData.Email = customerData.Email;
+            customerData.PhoneNumber = customerData.PhoneNumber;
+            customerData.Town = customerData.Town;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
+
         public CustomerQueryServiceModel GetById(string searchTerm, string id)
         {
             var user = this.data.Users.FirstOrDefault(x => x.Id == id);
@@ -121,6 +141,24 @@
                 Customers = customers,
                 SearchTerm = searchTerm
             };
+        }
+
+        public AddCustomerFormModel GetCustomerById(string id)
+        {
+            var customerData = this.data.Customers.FirstOrDefault(c => c.RegistrationNumber == id);
+            var customer = new AddCustomerFormModel { 
+                Name=customerData.Name,
+                RegistrationNumber=customerData.RegistrationNumber,
+                VAT=customerData.VAT,
+                OwnerName=customerData.OwnerName,
+                Country=customerData.Country,
+                Address=customerData.Address,
+                Url=customerData.Url,
+                Email=customerData.Email,
+                PhoneNumber=customerData.PhoneNumber,
+                Town=customerData.Town                 
+            };
+            return customer;
         }
 
         public string GetNameById(string id)

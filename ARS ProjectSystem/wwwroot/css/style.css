@@ -1985,3 +1985,6 @@ body {
     background-color: yellow;
     border: 1px solid black;
 }
+#logoutbutton {
+    padding: 10px 20px;
+}

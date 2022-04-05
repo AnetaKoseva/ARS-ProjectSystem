@@ -110,5 +110,29 @@
             TempData[GlobalMessageKey] = $"Customer {customerName} is deleted succesfully!";
             return RedirectToAction(nameof(All));
         }
+
+        [Authorize(Roles = "Administrator")]
+        public IActionResult Edit(string id)
+        {
+            var customer = this.customers.GetCustomerById(id);
+
+            return View(customer);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public IActionResult Edit(AddCustomerFormModel customer)
+        {
+            var customerToEdit = this.customers.Edit(customer);
+
+            if (!customerToEdit || !User.IsAdmin())
+            {
+                return BadRequest();
+            }
+
+            TempData[GlobalMessageKey] = $"You customer's data {customer.Name} is edited!";
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }
